@@ -1,0 +1,1514 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Measure/Cooking/Volume.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Measure_Cooking_Volume">\Zend_Measure_Cooking_Volume</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Measure
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Volume.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Measure_Cooking_Volume" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Measure_Cooking_Volume<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Measure\Zend\Measure\Cooking\Volume</small><p class="short-description">Class for handling cooking volume conversions</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Measure_Cooking_Volume::STANDARD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STANDARD</span>
+                = 'CUBIC_METER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CAN_2POINT5" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CAN_2POINT5</span>
+                = 'CAN_2POINT5'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CAN_10" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CAN_10</span>
+                = 'CAN_10'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BARREL_WINE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_WINE</span>
+                = 'BARREL_WINE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BARREL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL</span>
+                = 'BARREL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BARREL_US_DRY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_DRY</span>
+                = 'BARREL_US_DRY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BARREL_US_FEDERAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_FEDERAL</span>
+                = 'BARREL_US_FEDERAL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BARREL_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US</span>
+                = 'BARREL_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BUCKET" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BUCKET</span>
+                = 'BUCKET'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BUCKET_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BUCKET_US</span>
+                = 'BUCKET_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BUSHEL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BUSHEL</span>
+                = 'BUSHEL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::BUSHEL_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BUSHEL_US</span>
+                = 'BUSHEL_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CENTILITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTILITER</span>
+                = 'CENTILITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::COFFEE_SPOON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">COFFEE_SPOON</span>
+                = 'COFFEE_SPOON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_CENTIMETER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_CENTIMETER</span>
+                = 'CUBIC_CENTIMETER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_DECIMETER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DECIMETER</span>
+                = 'CUBIC_DECIMETER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_FOOT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_FOOT</span>
+                = 'CUBIC_FOOT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_INCH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_INCH</span>
+                = 'CUBIC_INCH'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_METER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_METER</span>
+                = 'CUBIC_METER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_MICROMETER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MICROMETER</span>
+                = 'CUBIC_MICROMETER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUBIC_MILLIMETER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILLIMETER</span>
+                = 'CUBIC_MILLIMETER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUP_CANADA" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUP_CANADA</span>
+                = 'CUP_CANADA'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUP" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUP</span>
+                = 'CUP'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::CUP_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUP_US</span>
+                = 'CUP_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DASH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DASH</span>
+                = 'DASH'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DECILITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECILITER</span>
+                = 'DECILITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DEKALITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKALITER</span>
+                = 'DEKALITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DEMI" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEMI</span>
+                = 'DEMI'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DRAM" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DRAM</span>
+                = 'DRAM'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::DROP" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DROP</span>
+                = 'DROP'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::FIFTH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FIFTH</span>
+                = 'FIFTH'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::GALLON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON</span>
+                = 'GALLON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::GALLON_US_DRY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US_DRY</span>
+                = 'GALLON_US_DRY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::GALLON_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US</span>
+                = 'GALLON_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::GILL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GILL</span>
+                = 'GILL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::GILL_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GILL_US</span>
+                = 'GILL_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::HECTOLITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOLITER</span>
+                = 'HECTOLITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::HOGSHEAD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HOGSHEAD</span>
+                = 'HOGSHEAD'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::HOGSHEAD_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HOGSHEAD_US</span>
+                = 'HOGSHEAD_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::JIGGER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">JIGGER</span>
+                = 'JIGGER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::KILOLITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOLITER</span>
+                = 'KILOLITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::LITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LITER</span>
+                = 'LITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MEASURE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MEASURE</span>
+                = 'MEASURE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MEGALITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MEGALITER</span>
+                = 'MEGALITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MICROLITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MICROLITER</span>
+                = 'MICROLITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MILLILITER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLILITER</span>
+                = 'MILLILITER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MINIM" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINIM</span>
+                = 'MINIM'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::MINIM_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINIM_US</span>
+                = 'MINIM_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::OUNCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE</span>
+                = 'OUNCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::OUNCE_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_US</span>
+                = 'OUNCE_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PECK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PECK</span>
+                = 'PECK'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PECK_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PECK_US</span>
+                = 'PECK_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PINCH" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PINCH</span>
+                = 'PINCH'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PINT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PINT</span>
+                = 'PINT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PINT_US_DRY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PINT_US_DRY</span>
+                = 'PINT_US_DRY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PINT_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PINT_US</span>
+                = 'PINT_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PIPE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PIPE</span>
+                = 'PIPE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PIPE_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PIPE_US</span>
+                = 'PIPE_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::PONY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PONY</span>
+                = 'PONY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::QUART_GERMANY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">QUART_GERMANY</span>
+                = 'QUART_GERMANY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::QUART_ANCIENT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">QUART_ANCIENT</span>
+                = 'QUART_ANCIENT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::QUART" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">QUART</span>
+                = 'QUART'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::QUART_US_DRY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">QUART_US_DRY</span>
+                = 'QUART_US_DRY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::QUART_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">QUART_US</span>
+                = 'QUART_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::SHOT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">SHOT</span>
+                = 'SHOT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TABLESPOON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TABLESPOON</span>
+                = 'TABLESPOON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TABLESPOON_UK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TABLESPOON_UK</span>
+                = 'TABLESPOON_UK'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TABLESPOON_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TABLESPOON_US</span>
+                = 'TABLESPOON_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TEASPOON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TEASPOON</span>
+                = 'TEASPOON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TEASPOON_UK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TEASPOON_UK</span>
+                = 'TEASPOON_UK'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::TEASPOON_US" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TEASPOON_US</span>
+                = 'TEASPOON_US'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Measure_Cooking_Volume::$_locale" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_locale</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Locale identifier</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::$_type" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_type</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Original type for this unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::$_units" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_units</span>= 'array(
+        'CAN_2POINT5'       =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '16', '' =&gt; '3.5'), '2.5th can'),
+        'CAN_10'            =&gt; array(array('' =&gt; '0.0037854118', '*' =&gt; '0.75'),          '10th can'),
+        'BARREL_WINE'       =&gt; array('0.143201835',   'bbl'),
+        'BARREL'            =&gt; array('0.16365924',    'bbl'),
+        'BARREL_US_DRY'     =&gt; array(array('' =&gt; '26.7098656608', '/' =&gt; '231'), 'bbl'),
+        'BARREL_US_FEDERAL' =&gt; array('0.1173477658',  'bbl'),
+        'BARREL_US'         =&gt; array('0.1192404717',  'bbl'),
+        'BUCKET'            =&gt; array('0.01818436',    'bucket'),
+        'BUCKET_US'         =&gt; array('0.018927059',   'bucket'),
+        'BUSHEL'            =&gt; array('0.03636872',    'bu'),
+        'BUSHEL_US'         =&gt; array('0.03523907',    'bu'),
+        'CENTILITER'        =&gt; array('0.00001',       'cl'),
+        'COFFEE_SPOON'      =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '1536'), 'coffee spoon'),
+        'CUBIC_CENTIMETER'  =&gt; array('0.000001',      'cm³'),
+        'CUBIC_DECIMETER'   =&gt; array('0.001',         'dm³'),
+        'CUBIC_FOOT'        =&gt; array(array('' =&gt; '6.54119159', '/' =&gt; '231'),   'ft³'),
+        'CUBIC_INCH'        =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '231'), 'in³'),
+        'CUBIC_METER'       =&gt; array('1',             'm³'),
+        'CUBIC_MICROMETER'  =&gt; array('1.0e-18',       'µm³'),
+        'CUBIC_MILLIMETER'  =&gt; array('1.0e-9',        'mm³'),
+        'CUP_CANADA'        =&gt; array('0.0002273045',  'c'),
+        'CUP'               =&gt; array('0.00025',       'c'),
+        'CUP_US'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '16'),   'c'),
+        'DASH'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '6144'), 'ds'),
+        'DECILITER'         =&gt; array('0.0001',        'dl'),
+        'DEKALITER'         =&gt; array('0.001',         'dal'),
+        'DEMI'              =&gt; array('0.00025',       'demi'),
+        'DRAM'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '1024'),  'dr'),
+        'DROP'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '73728'), 'ggt'),
+        'FIFTH'             =&gt; array('0.00075708236', 'fifth'),
+        'GALLON'            =&gt; array('0.00454609',    'gal'),
+        'GALLON_US_DRY'     =&gt; array('0.0044048838',  'gal'),
+        'GALLON_US'         =&gt; array('0.0037854118',  'gal'),
+        'GILL'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '32'),   'gi'),
+        'GILL_US'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '32'), 'gi'),
+        'HECTOLITER'        =&gt; array('0.1',           'hl'),
+        'HOGSHEAD'          =&gt; array('0.28640367',    'hhd'),
+        'HOGSHEAD_US'       =&gt; array('0.2384809434',  'hhd'),
+        'JIGGER'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128', '*' =&gt; '1.5'), 'jigger'),
+        'KILOLITER'         =&gt; array('1',             'kl'),
+        'LITER'             =&gt; array('0.001',         'l'),
+        'MEASURE'           =&gt; array('0.0077',        'measure'),
+        'MEGALITER'         =&gt; array('1000',          'Ml'),
+        'MICROLITER'        =&gt; array('1.0e-9',        'µl'),
+        'MILLILITER'        =&gt; array('0.000001',      'ml'),
+        'MINIM'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '76800'),  'min'),
+        'MINIM_US'          =&gt; array(array('' =&gt; '0.0037854118','/' =&gt; '61440'), 'min'),
+        'OUNCE'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '160'),    'oz'),
+        'OUNCE_US'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'),  'oz'),
+        'PECK'              =&gt; array('0.00909218',    'pk'),
+        'PECK_US'           =&gt; array('0.0088097676',  'pk'),
+        'PINCH'             =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '12288'), 'pinch'),
+        'PINT'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '8'),       'pt'),
+        'PINT_US_DRY'       =&gt; array(array('' =&gt; '0.0044048838', '/' =&gt; '8'),     'pt'),
+        'PINT_US'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '8'),     'pt'),
+        'PIPE'              =&gt; array('0.49097772',    'pipe'),
+        'PIPE_US'           =&gt; array('0.4769618868',  'pipe'),
+        'PONY'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'), 'pony'),
+        'QUART_GERMANY'     =&gt; array('0.00114504',    'qt'),
+        'QUART_ANCIENT'     =&gt; array('0.00108',       'qt'),
+        'QUART'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '4'),     'qt'),
+        'QUART_US_DRY'      =&gt; array(array('' =&gt; '0.0044048838', '/' =&gt; '4'),   'qt'),
+        'QUART_US'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '4'),   'qt'),
+        'SHOT'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'), 'shot'),
+        'TABLESPOON'        =&gt; array('0.000015',      'tbsp'),
+        'TABLESPOON_UK'     =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '320'),   'tbsp'),
+        'TABLESPOON_US'     =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '256'), 'tbsp'),
+        'TEASPOON'          =&gt; array('0.000005',      'tsp'),
+        'TEASPOON_UK'       =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '1280'),  'tsp'),
+        'TEASPOON_US'       =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '768'), 'tsp'),
+        'STANDARD'          =&gt; 'CUBIC_METER'
+    )'
+                </code><div class="description">
+<p class="short-description">Calculations for all cooking volume units</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'CAN_2POINT5'       =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '16', '' =&gt; '3.5'), '2.5th can'),
+        'CAN_10'            =&gt; array(array('' =&gt; '0.0037854118', '*' =&gt; '0.75'),          '10th can'),
+        'BARREL_WINE'       =&gt; array('0.143201835',   'bbl'),
+        'BARREL'            =&gt; array('0.16365924',    'bbl'),
+        'BARREL_US_DRY'     =&gt; array(array('' =&gt; '26.7098656608', '/' =&gt; '231'), 'bbl'),
+        'BARREL_US_FEDERAL' =&gt; array('0.1173477658',  'bbl'),
+        'BARREL_US'         =&gt; array('0.1192404717',  'bbl'),
+        'BUCKET'            =&gt; array('0.01818436',    'bucket'),
+        'BUCKET_US'         =&gt; array('0.018927059',   'bucket'),
+        'BUSHEL'            =&gt; array('0.03636872',    'bu'),
+        'BUSHEL_US'         =&gt; array('0.03523907',    'bu'),
+        'CENTILITER'        =&gt; array('0.00001',       'cl'),
+        'COFFEE_SPOON'      =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '1536'), 'coffee spoon'),
+        'CUBIC_CENTIMETER'  =&gt; array('0.000001',      'cm³'),
+        'CUBIC_DECIMETER'   =&gt; array('0.001',         'dm³'),
+        'CUBIC_FOOT'        =&gt; array(array('' =&gt; '6.54119159', '/' =&gt; '231'),   'ft³'),
+        'CUBIC_INCH'        =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '231'), 'in³'),
+        'CUBIC_METER'       =&gt; array('1',             'm³'),
+        'CUBIC_MICROMETER'  =&gt; array('1.0e-18',       'µm³'),
+        'CUBIC_MILLIMETER'  =&gt; array('1.0e-9',        'mm³'),
+        'CUP_CANADA'        =&gt; array('0.0002273045',  'c'),
+        'CUP'               =&gt; array('0.00025',       'c'),
+        'CUP_US'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '16'),   'c'),
+        'DASH'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '6144'), 'ds'),
+        'DECILITER'         =&gt; array('0.0001',        'dl'),
+        'DEKALITER'         =&gt; array('0.001',         'dal'),
+        'DEMI'              =&gt; array('0.00025',       'demi'),
+        'DRAM'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '1024'),  'dr'),
+        'DROP'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '73728'), 'ggt'),
+        'FIFTH'             =&gt; array('0.00075708236', 'fifth'),
+        'GALLON'            =&gt; array('0.00454609',    'gal'),
+        'GALLON_US_DRY'     =&gt; array('0.0044048838',  'gal'),
+        'GALLON_US'         =&gt; array('0.0037854118',  'gal'),
+        'GILL'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '32'),   'gi'),
+        'GILL_US'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '32'), 'gi'),
+        'HECTOLITER'        =&gt; array('0.1',           'hl'),
+        'HOGSHEAD'          =&gt; array('0.28640367',    'hhd'),
+        'HOGSHEAD_US'       =&gt; array('0.2384809434',  'hhd'),
+        'JIGGER'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128', '*' =&gt; '1.5'), 'jigger'),
+        'KILOLITER'         =&gt; array('1',             'kl'),
+        'LITER'             =&gt; array('0.001',         'l'),
+        'MEASURE'           =&gt; array('0.0077',        'measure'),
+        'MEGALITER'         =&gt; array('1000',          'Ml'),
+        'MICROLITER'        =&gt; array('1.0e-9',        'µl'),
+        'MILLILITER'        =&gt; array('0.000001',      'ml'),
+        'MINIM'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '76800'),  'min'),
+        'MINIM_US'          =&gt; array(array('' =&gt; '0.0037854118','/' =&gt; '61440'), 'min'),
+        'OUNCE'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '160'),    'oz'),
+        'OUNCE_US'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'),  'oz'),
+        'PECK'              =&gt; array('0.00909218',    'pk'),
+        'PECK_US'           =&gt; array('0.0088097676',  'pk'),
+        'PINCH'             =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '12288'), 'pinch'),
+        'PINT'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '8'),       'pt'),
+        'PINT_US_DRY'       =&gt; array(array('' =&gt; '0.0044048838', '/' =&gt; '8'),     'pt'),
+        'PINT_US'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '8'),     'pt'),
+        'PIPE'              =&gt; array('0.49097772',    'pipe'),
+        'PIPE_US'           =&gt; array('0.4769618868',  'pipe'),
+        'PONY'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'), 'pony'),
+        'QUART_GERMANY'     =&gt; array('0.00114504',    'qt'),
+        'QUART_ANCIENT'     =&gt; array('0.00108',       'qt'),
+        'QUART'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '4'),     'qt'),
+        'QUART_US_DRY'      =&gt; array(array('' =&gt; '0.0044048838', '/' =&gt; '4'),   'qt'),
+        'QUART_US'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '4'),   'qt'),
+        'SHOT'              =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'), 'shot'),
+        'TABLESPOON'        =&gt; array('0.000015',      'tbsp'),
+        'TABLESPOON_UK'     =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '320'),   'tbsp'),
+        'TABLESPOON_US'     =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '256'), 'tbsp'),
+        'TEASPOON'          =&gt; array('0.000005',      'tsp'),
+        'TEASPOON_UK'       =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '1280'),  'tsp'),
+        'TEASPOON_US'       =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '768'), 'tsp'),
+        'STANDARD'          =&gt; 'CUBIC_METER'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Plain value in standard unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Measure_Cooking_Volume::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          mixed $value, int $type
+              =
+              null, <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Zend_Measure_Abstract is an abstract class for the different measurement types</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__construct()">\Zend_Measure_Abstract::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>OPTIONAL a measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td><a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a></td>
+<td><em><p>OPTIONAL a Zend_Locale Type</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__toString()">\Zend_Measure_Abstract::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::add()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">add</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adds an unit to another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::add()">\Zend_Measure_Abstract::add()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::compare()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compare</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compares two units</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::compare()">\Zend_Measure_Abstract::compare()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::convertTo()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">convertTo</span><span class="nb-faded-text">(
+          string $type, integer $round
+              =
+              2, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Alias function for setType returning the converted unit</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::convertTo()">\Zend_Measure_Abstract::convertTo()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Constant Type</p></em></td>
+</tr>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to a given precision</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::equals()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">equals</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compare if the value and type is equal</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::equals()">\Zend_Measure_Abstract::equals()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object to compare</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::getConversionList()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConversionList</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the conversion list</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getConversionList()">\Zend_Measure_Abstract::getConversionList()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::getLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocale</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the actual set locale</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getLocale()">\Zend_Measure_Abstract::getLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \type</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the original type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getType()">\Zend_Measure_Abstract::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\type</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::getValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          integer | string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the internal value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getValue()">\Zend_Measure_Abstract::getValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to an given precision, Default is -1 which returns without rounding</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for number representation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer | string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::setLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null, boolean $check
+              =
+              false
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets a new locale for the value representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setLocale()">\Zend_Measure_Abstract::setLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) New locale to set</p>
+</em></td>
+</tr>
+<tr>
+<th>$check</th>
+<td>boolean</td>
+<td><em><p>False, check but don't set; True, set the new locale</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::setType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setType</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new type, and convert the value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setType()">\Zend_Measure_Abstract::setType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>New type to set</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::setValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setValue</span><span class="nb-faded-text">(
+          integer | string $value, string $type
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setValue()">\Zend_Measure_Abstract::setValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>integer | string</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>OPTIONAL A measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>OPTIONAL Locale for parsing numbers</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::sub()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">sub</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Substracts an unit from another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::sub()">\Zend_Measure_Abstract::sub()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Cooking_Volume::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::toString()">\Zend_Measure_Abstract::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Runds the value to an given exception</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

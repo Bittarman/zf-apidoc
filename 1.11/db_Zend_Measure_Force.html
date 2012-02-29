@@ -1,0 +1,1226 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Measure/Force.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Measure_Force">\Zend_Measure_Force</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Measure
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Force.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Measure_Force" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Measure_Force<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Measure\Zend\Measure\Force</small><p class="short-description">Class for handling force conversions</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Measure_Force::STANDARD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STANDARD</span>
+                = 'NEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::ATTONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ATTONEWTON</span>
+                = 'ATTONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::CENTINEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTINEWTON</span>
+                = 'CENTINEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::DECIGRAM_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECIGRAM_FORCE</span>
+                = 'DECIGRAM_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::DECINEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECINEWTON</span>
+                = 'DECINEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::DEKAGRAM_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKAGRAM_FORCE</span>
+                = 'DEKAGRAM_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::DEKANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKANEWTON</span>
+                = 'DEKANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::DYNE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DYNE</span>
+                = 'DYNE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::EXANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EXANEWTON</span>
+                = 'EXANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::FEMTONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FEMTONEWTON</span>
+                = 'FEMTONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::GIGANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GIGANEWTON</span>
+                = 'GIGANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::GRAM_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GRAM_FORCE</span>
+                = 'GRAM_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::HECTONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTONEWTON</span>
+                = 'HECTONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::JOULE_PER_METER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">JOULE_PER_METER</span>
+                = 'JOULE_PER_METER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::KILOGRAM_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOGRAM_FORCE</span>
+                = 'KILOGRAM_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::KILONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILONEWTON</span>
+                = 'KILONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::KILOPOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOPOND</span>
+                = 'KILOPOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::KIP" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KIP</span>
+                = 'KIP'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::MEGANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MEGANEWTON</span>
+                = 'MEGANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::MEGAPOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MEGAPOND</span>
+                = 'MEGAPOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::MICRONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MICRONEWTON</span>
+                = 'MICRONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::MILLINEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLINEWTON</span>
+                = 'MILLINEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::NANONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NANONEWTON</span>
+                = 'NANONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::NEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NEWTON</span>
+                = 'NEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::OUNCE_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_FORCE</span>
+                = 'OUNCE_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::PETANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETANEWTON</span>
+                = 'PETANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::PICONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PICONEWTON</span>
+                = 'PICONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::POND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">POND</span>
+                = 'POND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::POUND_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">POUND_FORCE</span>
+                = 'POUND_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::POUNDAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">POUNDAL</span>
+                = 'POUNDAL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::STHENE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STHENE</span>
+                = 'STHENE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::TERANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TERANEWTON</span>
+                = 'TERANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::TON_FORCE_LONG" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TON_FORCE_LONG</span>
+                = 'TON_FORCE_LONG'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::TON_FORCE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TON_FORCE</span>
+                = 'TON_FORCE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::TON_FORCE_SHORT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TON_FORCE_SHORT</span>
+                = 'TON_FORCE_SHORT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::YOCTONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">YOCTONEWTON</span>
+                = 'YOCTONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::YOTTANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">YOTTANEWTON</span>
+                = 'YOTTANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::ZEPTONEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ZEPTONEWTON</span>
+                = 'ZEPTONEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::ZETTANEWTON" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ZETTANEWTON</span>
+                = 'ZETTANEWTON'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Measure_Force::$_locale" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_locale</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Locale identifier</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::$_type" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_type</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Original type for this unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::$_units" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_units</span>= 'array(
+        'ATTONEWTON'      =&gt; array('1.0e-18',     'aN'),
+        'CENTINEWTON'     =&gt; array('0.01',        'cN'),
+        'DECIGRAM_FORCE'  =&gt; array('0.000980665', 'dgf'),
+        'DECINEWTON'      =&gt; array('0.1',         'dN'),
+        'DEKAGRAM_FORCE'  =&gt; array('0.0980665',   'dagf'),
+        'DEKANEWTON'      =&gt; array('10',          'daN'),
+        'DYNE'            =&gt; array('0.00001',     'dyn'),
+        'EXANEWTON'       =&gt; array('1.0e+18',     'EN'),
+        'FEMTONEWTON'     =&gt; array('1.0e-15',     'fN'),
+        'GIGANEWTON'      =&gt; array('1.0e+9',      'GN'),
+        'GRAM_FORCE'      =&gt; array('0.00980665',  'gf'),
+        'HECTONEWTON'     =&gt; array('100',         'hN'),
+        'JOULE_PER_METER' =&gt; array('1',           'J/m'),
+        'KILOGRAM_FORCE'  =&gt; array('9.80665',     'kgf'),
+        'KILONEWTON'      =&gt; array('1000',        'kN'),
+        'KILOPOND'        =&gt; array('9.80665',     'kp'),
+        'KIP'             =&gt; array('4448.2216',   'kip'),
+        'MEGANEWTON'      =&gt; array('1000000',     'Mp'),
+        'MEGAPOND'        =&gt; array('9806.65',     'MN'),
+        'MICRONEWTON'     =&gt; array('0.000001',    'µN'),
+        'MILLINEWTON'     =&gt; array('0.001',       'mN'),
+        'NANONEWTON'      =&gt; array('0.000000001', 'nN'),
+        'NEWTON'          =&gt; array('1',           'N'),
+        'OUNCE_FORCE'     =&gt; array('0.27801385',  'ozf'),
+        'PETANEWTON'      =&gt; array('1.0e+15',     'PN'),
+        'PICONEWTON'      =&gt; array('1.0e-12',     'pN'),
+        'POND'            =&gt; array('0.00980665',  'pond'),
+        'POUND_FORCE'     =&gt; array('4.4482216',   'lbf'),
+        'POUNDAL'         =&gt; array('0.13825495',  'pdl'),
+        'STHENE'          =&gt; array('1000',        'sn'),
+        'TERANEWTON'      =&gt; array('1.0e+12',     'TN'),
+        'TON_FORCE_LONG'  =&gt; array('9964.016384', 'tnf'),
+        'TON_FORCE'       =&gt; array('9806.65',     'tnf'),
+        'TON_FORCE_SHORT' =&gt; array('8896.4432',   'tnf'),
+        'YOCTONEWTON'     =&gt; array('1.0e-24',     'yN'),
+        'YOTTANEWTON'     =&gt; array('1.0e+24',     'YN'),
+        'ZEPTONEWTON'     =&gt; array('1.0e-21',     'zN'),
+        'ZETTANEWTON'     =&gt; array('1.0e+21',     'ZN'),
+        'STANDARD'        =&gt; 'NEWTON'
+    )'
+                </code><div class="description">
+<p class="short-description">Calculations for all force units</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'ATTONEWTON'      =&gt; array('1.0e-18',     'aN'),
+        'CENTINEWTON'     =&gt; array('0.01',        'cN'),
+        'DECIGRAM_FORCE'  =&gt; array('0.000980665', 'dgf'),
+        'DECINEWTON'      =&gt; array('0.1',         'dN'),
+        'DEKAGRAM_FORCE'  =&gt; array('0.0980665',   'dagf'),
+        'DEKANEWTON'      =&gt; array('10',          'daN'),
+        'DYNE'            =&gt; array('0.00001',     'dyn'),
+        'EXANEWTON'       =&gt; array('1.0e+18',     'EN'),
+        'FEMTONEWTON'     =&gt; array('1.0e-15',     'fN'),
+        'GIGANEWTON'      =&gt; array('1.0e+9',      'GN'),
+        'GRAM_FORCE'      =&gt; array('0.00980665',  'gf'),
+        'HECTONEWTON'     =&gt; array('100',         'hN'),
+        'JOULE_PER_METER' =&gt; array('1',           'J/m'),
+        'KILOGRAM_FORCE'  =&gt; array('9.80665',     'kgf'),
+        'KILONEWTON'      =&gt; array('1000',        'kN'),
+        'KILOPOND'        =&gt; array('9.80665',     'kp'),
+        'KIP'             =&gt; array('4448.2216',   'kip'),
+        'MEGANEWTON'      =&gt; array('1000000',     'Mp'),
+        'MEGAPOND'        =&gt; array('9806.65',     'MN'),
+        'MICRONEWTON'     =&gt; array('0.000001',    'µN'),
+        'MILLINEWTON'     =&gt; array('0.001',       'mN'),
+        'NANONEWTON'      =&gt; array('0.000000001', 'nN'),
+        'NEWTON'          =&gt; array('1',           'N'),
+        'OUNCE_FORCE'     =&gt; array('0.27801385',  'ozf'),
+        'PETANEWTON'      =&gt; array('1.0e+15',     'PN'),
+        'PICONEWTON'      =&gt; array('1.0e-12',     'pN'),
+        'POND'            =&gt; array('0.00980665',  'pond'),
+        'POUND_FORCE'     =&gt; array('4.4482216',   'lbf'),
+        'POUNDAL'         =&gt; array('0.13825495',  'pdl'),
+        'STHENE'          =&gt; array('1000',        'sn'),
+        'TERANEWTON'      =&gt; array('1.0e+12',     'TN'),
+        'TON_FORCE_LONG'  =&gt; array('9964.016384', 'tnf'),
+        'TON_FORCE'       =&gt; array('9806.65',     'tnf'),
+        'TON_FORCE_SHORT' =&gt; array('8896.4432',   'tnf'),
+        'YOCTONEWTON'     =&gt; array('1.0e-24',     'yN'),
+        'YOTTANEWTON'     =&gt; array('1.0e+24',     'YN'),
+        'ZEPTONEWTON'     =&gt; array('1.0e-21',     'zN'),
+        'ZETTANEWTON'     =&gt; array('1.0e+21',     'ZN'),
+        'STANDARD'        =&gt; 'NEWTON'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Plain value in standard unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Measure_Force::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          mixed $value, int $type
+              =
+              null, <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Zend_Measure_Abstract is an abstract class for the different measurement types</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__construct()">\Zend_Measure_Abstract::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>OPTIONAL a measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td><a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a></td>
+<td><em><p>OPTIONAL a Zend_Locale Type</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__toString()">\Zend_Measure_Abstract::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::add()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">add</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adds an unit to another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::add()">\Zend_Measure_Abstract::add()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::compare()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compare</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compares two units</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::compare()">\Zend_Measure_Abstract::compare()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::convertTo()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">convertTo</span><span class="nb-faded-text">(
+          string $type, integer $round
+              =
+              2, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Alias function for setType returning the converted unit</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::convertTo()">\Zend_Measure_Abstract::convertTo()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Constant Type</p></em></td>
+</tr>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to a given precision</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::equals()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">equals</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compare if the value and type is equal</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::equals()">\Zend_Measure_Abstract::equals()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object to compare</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::getConversionList()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConversionList</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the conversion list</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getConversionList()">\Zend_Measure_Abstract::getConversionList()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::getLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocale</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the actual set locale</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getLocale()">\Zend_Measure_Abstract::getLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \type</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the original type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getType()">\Zend_Measure_Abstract::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\type</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::getValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          integer | string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the internal value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getValue()">\Zend_Measure_Abstract::getValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to an given precision, Default is -1 which returns without rounding</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for number representation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer | string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::setLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null, boolean $check
+              =
+              false
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets a new locale for the value representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setLocale()">\Zend_Measure_Abstract::setLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) New locale to set</p>
+</em></td>
+</tr>
+<tr>
+<th>$check</th>
+<td>boolean</td>
+<td><em><p>False, check but don't set; True, set the new locale</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::setType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setType</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new type, and convert the value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setType()">\Zend_Measure_Abstract::setType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>New type to set</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::setValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setValue</span><span class="nb-faded-text">(
+          integer | string $value, string $type
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setValue()">\Zend_Measure_Abstract::setValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>integer | string</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>OPTIONAL A measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>OPTIONAL Locale for parsing numbers</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::sub()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">sub</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Substracts an unit from another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::sub()">\Zend_Measure_Abstract::sub()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Force::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::toString()">\Zend_Measure_Abstract::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Runds the value to an given exception</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

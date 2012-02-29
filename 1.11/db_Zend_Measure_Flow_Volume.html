@@ -1,0 +1,2468 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Measure/Flow/Volume.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Measure_Flow_Volume">\Zend_Measure_Flow_Volume</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Measure
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Volume.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Measure_Flow_Volume" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Measure_Flow_Volume<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Measure\Zend\Measure\Flow\Volume</small><p class="short-description">Class for handling flow volume conversions</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Measure_Flow_Volume::STANDARD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STANDARD</span>
+                = 'CUBIC_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_PER_DAY</span>
+                = 'ACRE_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_PER_HOUR</span>
+                = 'ACRE_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_PER_MINUTE</span>
+                = 'ACRE_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_PER_SECOND</span>
+                = 'ACRE_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_SURVEY_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_SURVEY_PER_DAY</span>
+                = 'ACRE_FOOT_SURVEY_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_SURVEY_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_SURVEY_PER_HOUR</span>
+                = 'ACRE_FOOT_SURVEY_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_SURVEY_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_SURVEY_PER_MINUTE</span>
+                = 'ACRE_FOOT_SURVEY_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_FOOT_SURVEY_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_FOOT_SURVEY_PER_SECOND</span>
+                = 'ACRE_FOOT_SURVEY_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_PER_DAY</span>
+                = 'ACRE_INCH_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_PER_HOUR</span>
+                = 'ACRE_INCH_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_PER_MINUTE</span>
+                = 'ACRE_INCH_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_PER_SECOND</span>
+                = 'ACRE_INCH_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_SURVEY_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_SURVEY_PER_DAY</span>
+                = 'ACRE_INCH_SURVEY_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_SURVEY_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_SURVEY_PER_HOUR</span>
+                = 'ACRE_INCH_SURVEY_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_SURVEY_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_SURVEY_PER_MINUTE</span>
+                = 'ACRE_INCH_SURVEY_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::ACRE_INCH_SURVEY_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACRE_INCH_SURVEY_PER_SECOND</span>
+                = 'ACRE_INCH_SURVEY_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PETROLEUM_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PETROLEUM_PER_DAY</span>
+                = 'BARREL_PETROLEUM_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PETROLEUM_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PETROLEUM_PER_HOUR</span>
+                = 'BARREL_PETROLEUM_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PETROLEUM_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PETROLEUM_PER_MINUTE</span>
+                = 'BARREL_PETROLEUM_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PETROLEUM_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PETROLEUM_PER_SECOND</span>
+                = 'BARREL_PETROLEUM_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PER_DAY</span>
+                = 'BARREL_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PER_HOUR</span>
+                = 'BARREL_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PER_MINUTE</span>
+                = 'BARREL_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_PER_SECOND</span>
+                = 'BARREL_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_US_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_PER_DAY</span>
+                = 'BARREL_US_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_US_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_PER_HOUR</span>
+                = 'BARREL_US_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_US_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_PER_MINUTE</span>
+                = 'BARREL_US_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_US_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_US_PER_SECOND</span>
+                = 'BARREL_US_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_WINE_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_WINE_PER_DAY</span>
+                = 'BARREL_WINE_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_WINE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_WINE_PER_HOUR</span>
+                = 'BARREL_WINE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_WINE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_WINE_PER_MINUTE</span>
+                = 'BARREL_WINE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_WINE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_WINE_PER_SECOND</span>
+                = 'BARREL_WINE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_BEER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_BEER_PER_DAY</span>
+                = 'BARREL_BEER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_BEER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_BEER_PER_HOUR</span>
+                = 'BARREL_BEER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_BEER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_BEER_PER_MINUTE</span>
+                = 'BARREL_BEER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BARREL_BEER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BARREL_BEER_PER_SECOND</span>
+                = 'BARREL_BEER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BILLION_CUBIC_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BILLION_CUBIC_FOOT_PER_DAY</span>
+                = 'BILLION_CUBIC_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BILLION_CUBIC_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BILLION_CUBIC_FOOT_PER_HOUR</span>
+                = 'BILLION_CUBIC_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BILLION_CUBIC_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BILLION_CUBIC_FOOT_PER_MINUTE</span>
+                = 'BILLION_CUBIC_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::BILLION_CUBIC_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BILLION_CUBIC_FOOT_PER_SECOND</span>
+                = 'BILLION_CUBIC_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CENTILITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTILITER_PER_DAY</span>
+                = 'CENTILITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CENTILITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTILITER_PER_HOUR</span>
+                = 'CENTILITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CENTILITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTILITER_PER_MINUTE</span>
+                = 'CENTILITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CENTILITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTILITER_PER_SECOND</span>
+                = 'CENTILITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBEM_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBEM_PER_DAY</span>
+                = 'CUBEM_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBEM_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBEM_PER_HOUR</span>
+                = 'CUBEM_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBEM_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBEM_PER_MINUTE</span>
+                = 'CUBEM_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBEM_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBEM_PER_SECOND</span>
+                = 'CUBEM_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_CENTIMETER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_CENTIMETER_PER_DAY</span>
+                = 'CUBIC_CENTIMETER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_CENTIMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_CENTIMETER_PER_HOUR</span>
+                = 'CUBIC_CENTIMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_CENTIMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_CENTIMETER_PER_MINUTE</span>
+                = 'CUBIC_CENTIMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_CENTIMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_CENTIMETER_PER_SECOND</span>
+                = 'CUBIC_CENTIMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DECIMETER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DECIMETER_PER_DAY</span>
+                = 'CUBIC_DECIMETER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DECIMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DECIMETER_PER_HOUR</span>
+                = 'CUBIC_DECIMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DECIMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DECIMETER_PER_MINUTE</span>
+                = 'CUBIC_DECIMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DECIMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DECIMETER_PER_SECOND</span>
+                = 'CUBIC_DECIMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DEKAMETER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DEKAMETER_PER_DAY</span>
+                = 'CUBIC_DEKAMETER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DEKAMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DEKAMETER_PER_HOUR</span>
+                = 'CUBIC_DEKAMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DEKAMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DEKAMETER_PER_MINUTE</span>
+                = 'CUBIC_DEKAMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_DEKAMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_DEKAMETER_PER_SECOND</span>
+                = 'CUBIC_DEKAMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_FOOT_PER_DAY</span>
+                = 'CUBIC_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_FOOT_PER_HOUR</span>
+                = 'CUBIC_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_FOOT_PER_MINUTE</span>
+                = 'CUBIC_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_FOOT_PER_SECOND</span>
+                = 'CUBIC_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_INCH_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_INCH_PER_DAY</span>
+                = 'CUBIC_INCH_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_INCH_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_INCH_PER_HOUR</span>
+                = 'CUBIC_INCH_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_INCH_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_INCH_PER_MINUTE</span>
+                = 'CUBIC_INCH_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_INCH_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_INCH_PER_SECOND</span>
+                = 'CUBIC_INCH_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_KILOMETER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_KILOMETER_PER_DAY</span>
+                = 'CUBIC_KILOMETER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_KILOMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_KILOMETER_PER_HOUR</span>
+                = 'CUBIC_KILOMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_KILOMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_KILOMETER_PER_MINUTE</span>
+                = 'CUBIC_KILOMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_KILOMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_KILOMETER_PER_SECOND</span>
+                = 'CUBIC_KILOMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_METER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_METER_PER_DAY</span>
+                = 'CUBIC_METER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_METER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_METER_PER_HOUR</span>
+                = 'CUBIC_METER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_METER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_METER_PER_MINUTE</span>
+                = 'CUBIC_METER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_METER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_METER_PER_SECOND</span>
+                = 'CUBIC_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILE_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILE_PER_DAY</span>
+                = 'CUBIC_MILE_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILE_PER_HOUR</span>
+                = 'CUBIC_MILE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILE_PER_MINUTE</span>
+                = 'CUBIC_MILE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILE_PER_SECOND</span>
+                = 'CUBIC_MILE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILLIMETER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILLIMETER_PER_DAY</span>
+                = 'CUBIC_MILLIMETER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILLIMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILLIMETER_PER_HOUR</span>
+                = 'CUBIC_MILLIMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILLIMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILLIMETER_PER_MINUTE</span>
+                = 'CUBIC_MILLIMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_MILLIMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_MILLIMETER_PER_SECOND</span>
+                = 'CUBIC_MILLIMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_YARD_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_YARD_PER_DAY</span>
+                = 'CUBIC_YARD_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_YARD_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_YARD_PER_HOUR</span>
+                = 'CUBIC_YARD_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_YARD_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_YARD_PER_MINUTE</span>
+                = 'CUBIC_YARD_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUBIC_YARD_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUBIC_YARD_PER_SECOND</span>
+                = 'CUBIC_YARD_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::CUSEC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CUSEC</span>
+                = 'CUSEC'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DECILITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECILITER_PER_DAY</span>
+                = 'DECILITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DECILITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECILITER_PER_HOUR</span>
+                = 'DECILITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DECILITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECILITER_PER_MINUTE</span>
+                = 'DECILITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DECILITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECILITER_PER_SECOND</span>
+                = 'DECILITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DEKALITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKALITER_PER_DAY</span>
+                = 'DEKALITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DEKALITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKALITER_PER_HOUR</span>
+                = 'DEKALITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DEKALITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKALITER_PER_MINUTE</span>
+                = 'DEKALITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::DEKALITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKALITER_PER_SECOND</span>
+                = 'DEKALITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_PER_DAY</span>
+                = 'GALLON_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_PER_HOUR</span>
+                = 'GALLON_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_PER_MINUTE</span>
+                = 'GALLON_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_PER_SECOND</span>
+                = 'GALLON_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_US_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US_PER_DAY</span>
+                = 'GALLON_US_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_US_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US_PER_HOUR</span>
+                = 'GALLON_US_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_US_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US_PER_MINUTE</span>
+                = 'GALLON_US_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::GALLON_US_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GALLON_US_PER_SECOND</span>
+                = 'GALLON_US_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTARE_METER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTARE_METER_PER_DAY</span>
+                = 'HECTARE_METER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTARE_METER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTARE_METER_PER_HOUR</span>
+                = 'HECTARE_METER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTARE_METER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTARE_METER_PER_MINUTE</span>
+                = 'HECTARE_METER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTARE_METER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTARE_METER_PER_SECOND</span>
+                = 'HECTARE_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTOLITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOLITER_PER_DAY</span>
+                = 'HECTOLITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTOLITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOLITER_PER_HOUR</span>
+                = 'HECTOLITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTOLITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOLITER_PER_MINUTE</span>
+                = 'HECTOLITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::HECTOLITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOLITER_PER_SECOND</span>
+                = 'HECTOLITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::KILOLITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOLITER_PER_DAY</span>
+                = 'KILOLITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::KILOLITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOLITER_PER_HOUR</span>
+                = 'KILOLITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::KILOLITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOLITER_PER_MINUTE</span>
+                = 'KILOLITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::KILOLITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOLITER_PER_SECOND</span>
+                = 'KILOLITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LAMBDA_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LAMBDA_PER_DAY</span>
+                = 'LAMBDA_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LAMBDA_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LAMBDA_PER_HOUR</span>
+                = 'LAMBDA_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LAMBDA_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LAMBDA_PER_MINUTE</span>
+                = 'LAMBDA_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LAMBDA_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LAMBDA_PER_SECOND</span>
+                = 'LAMBDA_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LITER_PER_DAY</span>
+                = 'LITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LITER_PER_HOUR</span>
+                = 'LITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LITER_PER_MINUTE</span>
+                = 'LITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::LITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LITER_PER_SECOND</span>
+                = 'LITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLILITER_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLILITER_PER_DAY</span>
+                = 'MILLILITER_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLILITER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLILITER_PER_HOUR</span>
+                = 'MILLILITER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLILITER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLILITER_PER_MINUTE</span>
+                = 'MILLILITER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLILITER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLILITER_PER_SECOND</span>
+                = 'MILLILITER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_ACRE_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_ACRE_FOOT_PER_DAY</span>
+                = 'MILLION_ACRE_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_ACRE_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_ACRE_FOOT_PER_HOUR</span>
+                = 'MILLION_ACRE_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_ACRE_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_ACRE_FOOT_PER_MINUTE</span>
+                = 'MILLION_ACRE_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_ACRE_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_ACRE_FOOT_PER_SECOND</span>
+                = 'MILLION_ACRE_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_CUBIC_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_CUBIC_FOOT_PER_DAY</span>
+                = 'MILLION_CUBIC_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_CUBIC_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_CUBIC_FOOT_PER_HOUR</span>
+                = 'MILLION_CUBIC_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_CUBIC_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_CUBIC_FOOT_PER_MINUTE</span>
+                = 'MILLION_CUBIC_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_CUBIC_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_CUBIC_FOOT_PER_SECOND</span>
+                = 'MILLION_CUBIC_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_PER_DAY</span>
+                = 'MILLION_GALLON_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_PER_HOUR</span>
+                = 'MILLION_GALLON_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_PER_MINUTE</span>
+                = 'MILLION_GALLON_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_PER_SECOND</span>
+                = 'MILLION_GALLON_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_US_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_US_PER_DAY</span>
+                = 'MILLION_GALLON_US_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_US_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_US_PER_HOUR</span>
+                = 'MILLION_GALLON_US_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_US_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_US_PER_MINUTE</span>
+                = 'MILLION_GALLON_US_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MILLION_GALLON_US_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_GALLON_US_PER_SECOND</span>
+                = 'MILLION_GALLON_US_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_AZ" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_AZ</span>
+                = 'MINERS_INCH_AZ'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_CA" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_CA</span>
+                = 'MINERS_INCH_CA'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_OR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_OR</span>
+                = 'MINERS_INCH_OR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_CO" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_CO</span>
+                = 'MINERS_INCH_CO'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_ID" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_ID</span>
+                = 'MINERS_INCH_ID'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_WA" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_WA</span>
+                = 'MINERS_INCH_WA'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::MINERS_INCH_NM" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MINERS_INCH_NM</span>
+                = 'MINERS_INCH_NM'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_PER_DAY</span>
+                = 'OUNCE_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_PER_HOUR</span>
+                = 'OUNCE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_PER_MINUTE</span>
+                = 'OUNCE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_PER_SECOND</span>
+                = 'OUNCE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_US_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_US_PER_DAY</span>
+                = 'OUNCE_US_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_US_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_US_PER_HOUR</span>
+                = 'OUNCE_US_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_US_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_US_PER_MINUTE</span>
+                = 'OUNCE_US_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::OUNCE_US_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">OUNCE_US_PER_SECOND</span>
+                = 'OUNCE_US_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::PETROGRAD_STANDARD_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETROGRAD_STANDARD_PER_DAY</span>
+                = 'PETROGRAD_STANDARD_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::PETROGRAD_STANDARD_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETROGRAD_STANDARD_PER_HOUR</span>
+                = 'PETROGRAD_STANDARD_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::PETROGRAD_STANDARD_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETROGRAD_STANDARD_PER_MINUTE</span>
+                = 'PETROGRAD_STANDARD_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::PETROGRAD_STANDARD_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETROGRAD_STANDARD_PER_SECOND</span>
+                = 'PETROGRAD_STANDARD_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::STERE_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STERE_PER_DAY</span>
+                = 'STERE_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::STERE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STERE_PER_HOUR</span>
+                = 'STERE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::STERE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STERE_PER_MINUTE</span>
+                = 'STERE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::STERE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STERE_PER_SECOND</span>
+                = 'STERE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::THOUSAND_CUBIC_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">THOUSAND_CUBIC_FOOT_PER_DAY</span>
+                = 'THOUSAND_CUBIC_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::THOUSAND_CUBIC_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">THOUSAND_CUBIC_FOOT_PER_HOUR</span>
+                = 'THOUSAND_CUBIC_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::THOUSAND_CUBIC_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">THOUSAND_CUBIC_FOOT_PER_MINUTE</span>
+                = 'THOUSAND_CUBIC_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::THOUSAND_CUBIC_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">THOUSAND_CUBIC_FOOT_PER_SECOND</span>
+                = 'THOUSAND_CUBIC_FOOT_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::TRILLION_CUBIC_FOOT_PER_DAY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRILLION_CUBIC_FOOT_PER_DAY</span>
+                = 'TRILLION_CUBIC_FOOT_PER_DAY'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::TRILLION_CUBIC_FOOT_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRILLION_CUBIC_FOOT_PER_HOUR</span>
+                = 'TRILLION_CUBIC_FOOT_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::TRILLION_CUBIC_FOOT_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRILLION_CUBIC_FOOT_PER_MINUTE</span>
+                = 'TRILLION_CUBIC_FOOT_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::TRILLION_CUBIC_FOOT_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRILLION_CUBIC_FOOT_PER_SECOND</span>
+                = 'TRILLION_CUBIC_FOOT_PER_'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Measure_Flow_Volume::$_locale" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_locale</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Locale identifier</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::$_type" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_type</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Original type for this unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::$_units" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_units</span>= 'array(
+        'ACRE_FOOT_PER_DAY'           =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '86400'),      'ac ft/day'),
+        'ACRE_FOOT_PER_HOUR'          =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '3600'),       'ac ft/h'),
+        'ACRE_FOOT_PER_MINUTE'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '60'),         'ac ft/m'),
+        'ACRE_FOOT_PER_SECOND'        =&gt; array('1233.48184',                                 'ac ft/s'),
+        'ACRE_FOOT_SURVEY_PER_DAY'    =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '86400'),      'ac ft/day'),
+        'ACRE_FOOT_SURVEY_PER_HOUR'   =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '3600'),       'ac ft/h'),
+        'ACRE_FOOT_SURVEY_PER_MINUTE' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '60'),         'ac ft/m'),
+        'ACRE_FOOT_SURVEY_PER_SECOND' =&gt; array('1233.48924',                                 'ac ft/s'),
+        'ACRE_INCH_PER_DAY'           =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '1036800'),    'ac in/day'),
+        'ACRE_INCH_PER_HOUR'          =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '43200'),      'ac in/h'),
+        'ACRE_INCH_PER_MINUTE'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '720'),        'ac in/m'),
+        'ACRE_INCH_PER_SECOND'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '12'),         'ac in/s'),
+        'ACRE_INCH_SURVEY_PER_DAY'    =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '1036800'),    'ac in/day'),
+        'ACRE_INCH_SURVEY_PER_HOUR'   =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '43200'),      'ac in/h'),
+        'ACRE_INCH_SURVEY_PER_MINUTE' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '720'),        'ac in /m'),
+        'ACRE_INCH_SURVEY_PER_SECOND' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '12'),         'ac in/s'),
+        'BARREL_PETROLEUM_PER_DAY'    =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_PETROLEUM_PER_HOUR'   =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_PETROLEUM_PER_MINUTE' =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_PETROLEUM_PER_SECOND' =&gt; array('0.1589872956',                               'bbl/s'),
+        'BARREL_PER_DAY'              =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '86400'),      'bbl/day'),
+        'BARREL_PER_HOUR'             =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '3600'),       'bbl/h'),
+        'BARREL_PER_MINUTE'           =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '60'),         'bbl/m'),
+        'BARREL_PER_SECOND'           =&gt; array('0.16365924',                                 'bbl/s'),
+        'BARREL_US_PER_DAY'           =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_US_PER_HOUR'          =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_US_PER_MINUTE'        =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_US_PER_SECOND'        =&gt; array('0.1192404717',                               'bbl/s'),
+        'BARREL_WINE_PER_DAY'         =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_WINE_PER_HOUR'        =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_WINE_PER_MINUTE'      =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_WINE_PER_SECOND'      =&gt; array('0.1173477658',                               'bbl/s'),
+        'BARREL_BEER_PER_DAY'         =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_BEER_PER_HOUR'        =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_BEER_PER_MINUTE'      =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_BEER_PER_SECOND'      =&gt; array('0.1173477658',                               'bbl/s'),
+        'BILLION_CUBIC_FOOT_PER_DAY'  =&gt; array(array('' =&gt; '28316847', '/' =&gt; '86400'),        'bn ft³/day'),
+        'BILLION_CUBIC_FOOT_PER_HOUR' =&gt; array(array('' =&gt; '28316847', '/' =&gt; '3600'),         'bn ft³/h'),
+        'BILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316847', '/' =&gt; '60'),         'bn ft³/m'),
+        'BILLION_CUBIC_FOOT_PER_SECOND' =&gt; array('28316847',                                 'bn ft³/s'),
+        'CENTILITER_PER_DAY'          =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '86400'),         'cl/day'),
+        'CENTILITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '3600'),          'cl/h'),
+        'CENTILITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '60'),            'cl/m'),
+        'CENTILITER_PER_SECOND'       =&gt; array('0.00001',                                    'cl/s'),
+        'CUBEM_PER_DAY'               =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '86400'),      'cubem/day'),
+        'CUBEM_PER_HOUR'              =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '3600'),       'cubem/h'),
+        'CUBEM_PER_MINUTE'            =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '60'),         'cubem/m'),
+        'CUBEM_PER_SECOND'            =&gt; array('4168181830',                                 'cubem/s'),
+        'CUBIC_CENTIMETER_PER_DAY'    =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '86400'),        'cm³/day'),
+        'CUBIC_CENTIMETER_PER_HOUR'   =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '3600'),         'cm³/h'),
+        'CUBIC_CENTIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '60'),           'cm³/m'),
+        'CUBIC_CENTIMETER_PER_SECOND' =&gt; array('0.000001',                                   'cm³/s'),
+        'CUBIC_DECIMETER_PER_DAY'     =&gt; array(array('' =&gt; '0.001', '/' =&gt; '86400'),           'dm³/day'),
+        'CUBIC_DECIMETER_PER_HOUR'    =&gt; array(array('' =&gt; '0.001', '/' =&gt; '3600'),            'dm³/h'),
+        'CUBIC_DECIMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '0.001', '/' =&gt; '60'),              'dm³/m'),
+        'CUBIC_DECIMETER_PER_SECOND'  =&gt; array('0.001',                                      'dm³/s'),
+        'CUBIC_DEKAMETER_PER_DAY'     =&gt; array(array('' =&gt; '1000', '/' =&gt; '86400'),            'dam³/day'),
+        'CUBIC_DEKAMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1000', '/' =&gt; '3600'),             'dam³/h'),
+        'CUBIC_DEKAMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1000', '/' =&gt; '60'),               'dam³/m'),
+        'CUBIC_DEKAMETER_PER_SECOND'  =&gt; array('1000',                                       'dam³/s'),
+        'CUBIC_FOOT_PER_DAY'          =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '86400'),     'ft³/day'),
+        'CUBIC_FOOT_PER_HOUR'         =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '3600'),      'ft³/h'),
+        'CUBIC_FOOT_PER_MINUTE'       =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '60'),        'ft³/m'),
+        'CUBIC_FOOT_PER_SECOND'       =&gt; array('0.028316847',                                'ft³/s'),
+        'CUBIC_INCH_PER_DAY'          =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '149299200'), 'in³/day'),
+        'CUBIC_INCH_PER_HOUR'         =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '6220800'),   'in³/h'),
+        'CUBIC_INCH_PER_MINUTE'       =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '103680'),    'in³/m'),
+        'CUBIC_INCH_PER_SECOND'       =&gt; array('0.028316847',                                'in³/s'),
+        'CUBIC_KILOMETER_PER_DAY'     =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '86400'),      'km³/day'),
+        'CUBIC_KILOMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '3600'),       'km³/h'),
+        'CUBIC_KILOMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '60'),         'km³/m'),
+        'CUBIC_KILOMETER_PER_SECOND'  =&gt; array('1000000000',                                 'km³/s'),
+        'CUBIC_METER_PER_DAY'         =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'm³/day'),
+        'CUBIC_METER_PER_HOUR'        =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'm³/h'),
+        'CUBIC_METER_PER_MINUTE'      =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'm³/m'),
+        'CUBIC_METER_PER_SECOND'      =&gt; array('1',                                          'm³/s'),
+        'CUBIC_MILE_PER_DAY'          =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '86400'),      'mi³/day'),
+        'CUBIC_MILE_PER_HOUR'         =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '3600'),       'mi³/h'),
+        'CUBIC_MILE_PER_MINUTE'       =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '60'),         'mi³/m'),
+        'CUBIC_MILE_PER_SECOND'       =&gt; array('4168181830',                                 'mi³/s'),
+        'CUBIC_MILLIMETER_PER_DAY'    =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '86400'),     'mm³/day'),
+        'CUBIC_MILLIMETER_PER_HOUR'   =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '3600'),      'mm³/h'),
+        'CUBIC_MILLIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '60'),        'mm³/m'),
+        'CUBIC_MILLIMETER_PER_SECOND' =&gt; array('0.000000001',                                'mm³/s'),
+        'CUBIC_YARD_PER_DAY'          =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '86400'),     'yd³/day'),
+        'CUBIC_YARD_PER_HOUR'         =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '3600'),      'yd³/h'),
+        'CUBIC_YARD_PER_MINUTE'       =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '60'),        'yd³/m'),
+        'CUBIC_YARD_PER_SECOND'       =&gt; array('0.764554869',                                'yd³/s'),
+        'CUSEC'                       =&gt; array('0.028316847',                                'cusec'),
+        'DECILITER_PER_DAY'           =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '86400'),          'dl/day'),
+        'DECILITER_PER_HOUR'          =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '3600'),           'dl/h'),
+        'DECILITER_PER_MINUTE'        =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '60'),             'dl/m'),
+        'DECILITER_PER_SECOND'        =&gt; array('0.0001',                                     'dl/s'),
+        'DEKALITER_PER_DAY'           =&gt; array(array('' =&gt; '0.01', '/' =&gt; '86400'),            'dal/day'),
+        'DEKALITER_PER_HOUR'          =&gt; array(array('' =&gt; '0.01', '/' =&gt; '3600'),             'dal/h'),
+        'DEKALITER_PER_MINUTE'        =&gt; array(array('' =&gt; '0.01', '/' =&gt; '60'),               'dal/m'),
+        'DEKALITER_PER_SECOND'        =&gt; array('0.01',                                       'dal/s'),
+        'GALLON_PER_DAY'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '86400'),      'gal/day'),
+        'GALLON_PER_HOUR'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '3600'),       'gal/h'),
+        'GALLON_PER_MINUTE'           =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '60'),         'gal/m'),
+        'GALLON_PER_SECOND'           =&gt; array('0.00454609',                                 'gal/s'),
+        'GALLON_US_PER_DAY'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '86400'),    'gal/day'),
+        'GALLON_US_PER_HOUR'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '3600'),     'gal/h'),
+        'GALLON_US_PER_MINUTE'        =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '60'),       'gal/m'),
+        'GALLON_US_PER_SECOND'        =&gt; array('0.0037854118',                               'gal/s'),
+        'HECTARE_METER_PER_DAY'       =&gt; array(array('' =&gt; '10000', '/' =&gt; '86400'),           'ha m/day'),
+        'HECTARE_METER_PER_HOUR'      =&gt; array(array('' =&gt; '10000', '/' =&gt; '3600'),            'ha m/h'),
+        'HECTARE_METER_PER_MINUTE'    =&gt; array(array('' =&gt; '10000', '/' =&gt; '60'),              'ha m/m'),
+        'HECTARE_METER_PER_SECOND'    =&gt; array('10000',                                      'ha m/s'),
+        'HECTOLITER_PER_DAY'          =&gt; array(array('' =&gt; '0.1', '/' =&gt; '86400'),             'hl/day'),
+        'HECTOLITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.1', '/' =&gt; '3600'),              'hl/h'),
+        'HECTOLITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.1', '/' =&gt; '60'),                'hl/m'),
+        'HECTOLITER_PER_SECOND'       =&gt; array('0.1',                                        'hl/s'),
+        'KILOLITER_PER_DAY'           =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'kl/day'),
+        'KILOLITER_PER_HOUR'          =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'kl/h'),
+        'KILOLITER_PER_MINUTE'        =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'kl/m'),
+        'KILOLITER_PER_SECOND'        =&gt; array('1',                                          'kl/s'),
+        'LAMBDA_PER_DAY'              =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '86400'),     'λ/day'),
+        'LAMBDA_PER_HOUR'             =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '3600'),      'λ/h'),
+        'LAMBDA_PER_MINUTE'           =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '60'),        'λ/m'),
+        'LAMBDA_PER_SECOND'           =&gt; array('0.000000001',                                'λ/s'),
+        'LITER_PER_DAY'               =&gt; array(array('' =&gt; '0.001', '/' =&gt; '86400'),           'l/day'),
+        'LITER_PER_HOUR'              =&gt; array(array('' =&gt; '0.001', '/' =&gt; '3600'),            'l/h'),
+        'LITER_PER_MINUTE'            =&gt; array(array('' =&gt; '0.001', '/' =&gt; '60'),              'l/m'),
+        'LITER_PER_SECOND'            =&gt; array('0.001',                                      'l/s'),
+        'MILLILITER_PER_DAY'          =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '86400'),        'ml/day'),
+        'MILLILITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '3600'),         'ml/h'),
+        'MILLILITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '60'),           'ml/m'),
+        'MILLILITER_PER_SECOND'       =&gt; array('0.000001',                                   'ml/s'),
+        'MILLION_ACRE_FOOT_PER_DAY'   =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '86400'),      'million ac ft/day'),
+        'MILLION_ACRE_FOOT_PER_HOUR'  =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '3600'),       'million ac ft/h'),
+        'MILLION_ACRE_FOOT_PER_MINUTE'  =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '60'),       'million ac ft/m'),
+        'MILLION_ACRE_FOOT_PER_SECOND'  =&gt; array('1233481840',                               'million ac ft/s'),
+        'MILLION_CUBIC_FOOT_PER_DAY'    =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '86400'),     'million ft³/day'),
+        'MILLION_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '3600'),      'million ft³/h'),
+        'MILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '60'),        'million ft³/m'),
+        'MILLION_CUBIC_FOOT_PER_SECOND' =&gt; array('28316.847',                                'million ft³/s'),
+        'MILLION_GALLON_PER_DAY'      =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '86400'),         'million gal/day'),
+        'MILLION_GALLON_PER_HOUR'     =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '3600'),          'million gal/h'),
+        'MILLION_GALLON_PER_MINUTE'   =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '60'),            'million gal/m'),
+        'MILLION_GALLON_PER_SECOND'   =&gt; array('4546.09',                                    'million gal/s'),
+        'MILLION_GALLON_US_PER_DAY'   =&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '86400'),       'million gal/day'),
+        'MILLION_GALLON_US_PER_HOUR'  =&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '3600'),        'million gal/h'),
+        'MILLION_GALLON_US_PER_MINUTE'=&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '60'),          'million gal/m'),
+        'MILLION_GALLON_US_PER_SECOND'=&gt; array('3785.4118',                                  'million gal/s'),
+        'MINERS_INCH_AZ'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_CA'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_OR'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_CO'              =&gt; array(array('' =&gt; '0.0442450734375', '/' =&gt; '60'),    "miner's inch"),
+        'MINERS_INCH_ID'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_WA'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_NM'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'OUNCE_PER_DAY'               =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '13824000'),   'oz/day'),
+        'OUNCE_PER_HOUR'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '576000'),     'oz/h'),
+        'OUNCE_PER_MINUTE'            =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '9600'),       'oz/m'),
+        'OUNCE_PER_SECOND'            =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '160'),        'oz/s'),
+        'OUNCE_US_PER_DAY'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '11059200'), 'oz/day'),
+        'OUNCE_US_PER_HOUR'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '460800'),   'oz/h'),
+        'OUNCE_US_PER_MINUTE'         =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '7680'),     'oz/m'),
+        'OUNCE_US_PER_SECOND'         =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'),      'oz/s'),
+        'PETROGRAD_STANDARD_PER_DAY'  =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '86400'),     'petrograd standard/day'),
+        'PETROGRAD_STANDARD_PER_HOUR' =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '3600'),      'petrograd standard/h'),
+        'PETROGRAD_STANDARD_PER_MINUTE' =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '60'),      'petrograd standard/m'),
+        'PETROGRAD_STANDARD_PER_SECOND' =&gt; array('4.672279755',                              'petrograd standard/s'),
+        'STERE_PER_DAY'               =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'st/day'),
+        'STERE_PER_HOUR'              =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'st/h'),
+        'STERE_PER_MINUTE'            =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'st/m'),
+        'STERE_PER_SECOND'            =&gt; array('1',                                          'st/s'),
+        'THOUSAND_CUBIC_FOOT_PER_DAY' =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '86400'),       'thousand ft³/day'),
+        'THOUSAND_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '3600'),     'thousand ft³/h'),
+        'THOUSAND_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '60'),       'thousand ft³/m'),
+        'THOUSAND_CUBIC_FOOT_PER_SECOND' =&gt; array('28.316847',                               'thousand ft³/s'),
+        'TRILLION_CUBIC_FOOT_PER_DAY'    =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '86400'),  'trillion ft³/day'),
+        'TRILLION_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '3600'),   'trillion ft³/h'),
+        'TRILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '60'),     'trillion ft³/m'),
+        'TRILLION_CUBIC_FOOT_PER_'       =&gt; array('28316847000',                             'trillion ft³/s'),
+        'STANDARD'                    =&gt; 'CUBIC_METER_PER_SECOND'
+    )'
+                </code><div class="description">
+<p class="short-description">Calculations for all flow volume units</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'ACRE_FOOT_PER_DAY'           =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '86400'),      'ac ft/day'),
+        'ACRE_FOOT_PER_HOUR'          =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '3600'),       'ac ft/h'),
+        'ACRE_FOOT_PER_MINUTE'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '60'),         'ac ft/m'),
+        'ACRE_FOOT_PER_SECOND'        =&gt; array('1233.48184',                                 'ac ft/s'),
+        'ACRE_FOOT_SURVEY_PER_DAY'    =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '86400'),      'ac ft/day'),
+        'ACRE_FOOT_SURVEY_PER_HOUR'   =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '3600'),       'ac ft/h'),
+        'ACRE_FOOT_SURVEY_PER_MINUTE' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '60'),         'ac ft/m'),
+        'ACRE_FOOT_SURVEY_PER_SECOND' =&gt; array('1233.48924',                                 'ac ft/s'),
+        'ACRE_INCH_PER_DAY'           =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '1036800'),    'ac in/day'),
+        'ACRE_INCH_PER_HOUR'          =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '43200'),      'ac in/h'),
+        'ACRE_INCH_PER_MINUTE'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '720'),        'ac in/m'),
+        'ACRE_INCH_PER_SECOND'        =&gt; array(array('' =&gt; '1233.48184', '/' =&gt; '12'),         'ac in/s'),
+        'ACRE_INCH_SURVEY_PER_DAY'    =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '1036800'),    'ac in/day'),
+        'ACRE_INCH_SURVEY_PER_HOUR'   =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '43200'),      'ac in/h'),
+        'ACRE_INCH_SURVEY_PER_MINUTE' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '720'),        'ac in /m'),
+        'ACRE_INCH_SURVEY_PER_SECOND' =&gt; array(array('' =&gt; '1233.48924', '/' =&gt; '12'),         'ac in/s'),
+        'BARREL_PETROLEUM_PER_DAY'    =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_PETROLEUM_PER_HOUR'   =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_PETROLEUM_PER_MINUTE' =&gt; array(array('' =&gt; '0.1589872956', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_PETROLEUM_PER_SECOND' =&gt; array('0.1589872956',                               'bbl/s'),
+        'BARREL_PER_DAY'              =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '86400'),      'bbl/day'),
+        'BARREL_PER_HOUR'             =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '3600'),       'bbl/h'),
+        'BARREL_PER_MINUTE'           =&gt; array(array('' =&gt; '0.16365924', '/' =&gt; '60'),         'bbl/m'),
+        'BARREL_PER_SECOND'           =&gt; array('0.16365924',                                 'bbl/s'),
+        'BARREL_US_PER_DAY'           =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_US_PER_HOUR'          =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_US_PER_MINUTE'        =&gt; array(array('' =&gt; '0.1192404717', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_US_PER_SECOND'        =&gt; array('0.1192404717',                               'bbl/s'),
+        'BARREL_WINE_PER_DAY'         =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_WINE_PER_HOUR'        =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_WINE_PER_MINUTE'      =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_WINE_PER_SECOND'      =&gt; array('0.1173477658',                               'bbl/s'),
+        'BARREL_BEER_PER_DAY'         =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '86400'),    'bbl/day'),
+        'BARREL_BEER_PER_HOUR'        =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '3600'),     'bbl/h'),
+        'BARREL_BEER_PER_MINUTE'      =&gt; array(array('' =&gt; '0.1173477658', '/' =&gt; '60'),       'bbl/m'),
+        'BARREL_BEER_PER_SECOND'      =&gt; array('0.1173477658',                               'bbl/s'),
+        'BILLION_CUBIC_FOOT_PER_DAY'  =&gt; array(array('' =&gt; '28316847', '/' =&gt; '86400'),        'bn ft³/day'),
+        'BILLION_CUBIC_FOOT_PER_HOUR' =&gt; array(array('' =&gt; '28316847', '/' =&gt; '3600'),         'bn ft³/h'),
+        'BILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316847', '/' =&gt; '60'),         'bn ft³/m'),
+        'BILLION_CUBIC_FOOT_PER_SECOND' =&gt; array('28316847',                                 'bn ft³/s'),
+        'CENTILITER_PER_DAY'          =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '86400'),         'cl/day'),
+        'CENTILITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '3600'),          'cl/h'),
+        'CENTILITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.00001', '/' =&gt; '60'),            'cl/m'),
+        'CENTILITER_PER_SECOND'       =&gt; array('0.00001',                                    'cl/s'),
+        'CUBEM_PER_DAY'               =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '86400'),      'cubem/day'),
+        'CUBEM_PER_HOUR'              =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '3600'),       'cubem/h'),
+        'CUBEM_PER_MINUTE'            =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '60'),         'cubem/m'),
+        'CUBEM_PER_SECOND'            =&gt; array('4168181830',                                 'cubem/s'),
+        'CUBIC_CENTIMETER_PER_DAY'    =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '86400'),        'cm³/day'),
+        'CUBIC_CENTIMETER_PER_HOUR'   =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '3600'),         'cm³/h'),
+        'CUBIC_CENTIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '60'),           'cm³/m'),
+        'CUBIC_CENTIMETER_PER_SECOND' =&gt; array('0.000001',                                   'cm³/s'),
+        'CUBIC_DECIMETER_PER_DAY'     =&gt; array(array('' =&gt; '0.001', '/' =&gt; '86400'),           'dm³/day'),
+        'CUBIC_DECIMETER_PER_HOUR'    =&gt; array(array('' =&gt; '0.001', '/' =&gt; '3600'),            'dm³/h'),
+        'CUBIC_DECIMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '0.001', '/' =&gt; '60'),              'dm³/m'),
+        'CUBIC_DECIMETER_PER_SECOND'  =&gt; array('0.001',                                      'dm³/s'),
+        'CUBIC_DEKAMETER_PER_DAY'     =&gt; array(array('' =&gt; '1000', '/' =&gt; '86400'),            'dam³/day'),
+        'CUBIC_DEKAMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1000', '/' =&gt; '3600'),             'dam³/h'),
+        'CUBIC_DEKAMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1000', '/' =&gt; '60'),               'dam³/m'),
+        'CUBIC_DEKAMETER_PER_SECOND'  =&gt; array('1000',                                       'dam³/s'),
+        'CUBIC_FOOT_PER_DAY'          =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '86400'),     'ft³/day'),
+        'CUBIC_FOOT_PER_HOUR'         =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '3600'),      'ft³/h'),
+        'CUBIC_FOOT_PER_MINUTE'       =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '60'),        'ft³/m'),
+        'CUBIC_FOOT_PER_SECOND'       =&gt; array('0.028316847',                                'ft³/s'),
+        'CUBIC_INCH_PER_DAY'          =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '149299200'), 'in³/day'),
+        'CUBIC_INCH_PER_HOUR'         =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '6220800'),   'in³/h'),
+        'CUBIC_INCH_PER_MINUTE'       =&gt; array(array('' =&gt; '0.028316847', '/' =&gt; '103680'),    'in³/m'),
+        'CUBIC_INCH_PER_SECOND'       =&gt; array('0.028316847',                                'in³/s'),
+        'CUBIC_KILOMETER_PER_DAY'     =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '86400'),      'km³/day'),
+        'CUBIC_KILOMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '3600'),       'km³/h'),
+        'CUBIC_KILOMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1000000000', '/' =&gt; '60'),         'km³/m'),
+        'CUBIC_KILOMETER_PER_SECOND'  =&gt; array('1000000000',                                 'km³/s'),
+        'CUBIC_METER_PER_DAY'         =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'm³/day'),
+        'CUBIC_METER_PER_HOUR'        =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'm³/h'),
+        'CUBIC_METER_PER_MINUTE'      =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'm³/m'),
+        'CUBIC_METER_PER_SECOND'      =&gt; array('1',                                          'm³/s'),
+        'CUBIC_MILE_PER_DAY'          =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '86400'),      'mi³/day'),
+        'CUBIC_MILE_PER_HOUR'         =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '3600'),       'mi³/h'),
+        'CUBIC_MILE_PER_MINUTE'       =&gt; array(array('' =&gt; '4168181830', '/' =&gt; '60'),         'mi³/m'),
+        'CUBIC_MILE_PER_SECOND'       =&gt; array('4168181830',                                 'mi³/s'),
+        'CUBIC_MILLIMETER_PER_DAY'    =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '86400'),     'mm³/day'),
+        'CUBIC_MILLIMETER_PER_HOUR'   =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '3600'),      'mm³/h'),
+        'CUBIC_MILLIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '60'),        'mm³/m'),
+        'CUBIC_MILLIMETER_PER_SECOND' =&gt; array('0.000000001',                                'mm³/s'),
+        'CUBIC_YARD_PER_DAY'          =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '86400'),     'yd³/day'),
+        'CUBIC_YARD_PER_HOUR'         =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '3600'),      'yd³/h'),
+        'CUBIC_YARD_PER_MINUTE'       =&gt; array(array('' =&gt; '0.764554869', '/' =&gt; '60'),        'yd³/m'),
+        'CUBIC_YARD_PER_SECOND'       =&gt; array('0.764554869',                                'yd³/s'),
+        'CUSEC'                       =&gt; array('0.028316847',                                'cusec'),
+        'DECILITER_PER_DAY'           =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '86400'),          'dl/day'),
+        'DECILITER_PER_HOUR'          =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '3600'),           'dl/h'),
+        'DECILITER_PER_MINUTE'        =&gt; array(array('' =&gt; '0.0001', '/' =&gt; '60'),             'dl/m'),
+        'DECILITER_PER_SECOND'        =&gt; array('0.0001',                                     'dl/s'),
+        'DEKALITER_PER_DAY'           =&gt; array(array('' =&gt; '0.01', '/' =&gt; '86400'),            'dal/day'),
+        'DEKALITER_PER_HOUR'          =&gt; array(array('' =&gt; '0.01', '/' =&gt; '3600'),             'dal/h'),
+        'DEKALITER_PER_MINUTE'        =&gt; array(array('' =&gt; '0.01', '/' =&gt; '60'),               'dal/m'),
+        'DEKALITER_PER_SECOND'        =&gt; array('0.01',                                       'dal/s'),
+        'GALLON_PER_DAY'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '86400'),      'gal/day'),
+        'GALLON_PER_HOUR'             =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '3600'),       'gal/h'),
+        'GALLON_PER_MINUTE'           =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '60'),         'gal/m'),
+        'GALLON_PER_SECOND'           =&gt; array('0.00454609',                                 'gal/s'),
+        'GALLON_US_PER_DAY'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '86400'),    'gal/day'),
+        'GALLON_US_PER_HOUR'          =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '3600'),     'gal/h'),
+        'GALLON_US_PER_MINUTE'        =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '60'),       'gal/m'),
+        'GALLON_US_PER_SECOND'        =&gt; array('0.0037854118',                               'gal/s'),
+        'HECTARE_METER_PER_DAY'       =&gt; array(array('' =&gt; '10000', '/' =&gt; '86400'),           'ha m/day'),
+        'HECTARE_METER_PER_HOUR'      =&gt; array(array('' =&gt; '10000', '/' =&gt; '3600'),            'ha m/h'),
+        'HECTARE_METER_PER_MINUTE'    =&gt; array(array('' =&gt; '10000', '/' =&gt; '60'),              'ha m/m'),
+        'HECTARE_METER_PER_SECOND'    =&gt; array('10000',                                      'ha m/s'),
+        'HECTOLITER_PER_DAY'          =&gt; array(array('' =&gt; '0.1', '/' =&gt; '86400'),             'hl/day'),
+        'HECTOLITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.1', '/' =&gt; '3600'),              'hl/h'),
+        'HECTOLITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.1', '/' =&gt; '60'),                'hl/m'),
+        'HECTOLITER_PER_SECOND'       =&gt; array('0.1',                                        'hl/s'),
+        'KILOLITER_PER_DAY'           =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'kl/day'),
+        'KILOLITER_PER_HOUR'          =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'kl/h'),
+        'KILOLITER_PER_MINUTE'        =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'kl/m'),
+        'KILOLITER_PER_SECOND'        =&gt; array('1',                                          'kl/s'),
+        'LAMBDA_PER_DAY'              =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '86400'),     'λ/day'),
+        'LAMBDA_PER_HOUR'             =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '3600'),      'λ/h'),
+        'LAMBDA_PER_MINUTE'           =&gt; array(array('' =&gt; '0.000000001', '/' =&gt; '60'),        'λ/m'),
+        'LAMBDA_PER_SECOND'           =&gt; array('0.000000001',                                'λ/s'),
+        'LITER_PER_DAY'               =&gt; array(array('' =&gt; '0.001', '/' =&gt; '86400'),           'l/day'),
+        'LITER_PER_HOUR'              =&gt; array(array('' =&gt; '0.001', '/' =&gt; '3600'),            'l/h'),
+        'LITER_PER_MINUTE'            =&gt; array(array('' =&gt; '0.001', '/' =&gt; '60'),              'l/m'),
+        'LITER_PER_SECOND'            =&gt; array('0.001',                                      'l/s'),
+        'MILLILITER_PER_DAY'          =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '86400'),        'ml/day'),
+        'MILLILITER_PER_HOUR'         =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '3600'),         'ml/h'),
+        'MILLILITER_PER_MINUTE'       =&gt; array(array('' =&gt; '0.000001', '/' =&gt; '60'),           'ml/m'),
+        'MILLILITER_PER_SECOND'       =&gt; array('0.000001',                                   'ml/s'),
+        'MILLION_ACRE_FOOT_PER_DAY'   =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '86400'),      'million ac ft/day'),
+        'MILLION_ACRE_FOOT_PER_HOUR'  =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '3600'),       'million ac ft/h'),
+        'MILLION_ACRE_FOOT_PER_MINUTE'  =&gt; array(array('' =&gt; '1233481840', '/' =&gt; '60'),       'million ac ft/m'),
+        'MILLION_ACRE_FOOT_PER_SECOND'  =&gt; array('1233481840',                               'million ac ft/s'),
+        'MILLION_CUBIC_FOOT_PER_DAY'    =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '86400'),     'million ft³/day'),
+        'MILLION_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '3600'),      'million ft³/h'),
+        'MILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316.847', '/' =&gt; '60'),        'million ft³/m'),
+        'MILLION_CUBIC_FOOT_PER_SECOND' =&gt; array('28316.847',                                'million ft³/s'),
+        'MILLION_GALLON_PER_DAY'      =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '86400'),         'million gal/day'),
+        'MILLION_GALLON_PER_HOUR'     =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '3600'),          'million gal/h'),
+        'MILLION_GALLON_PER_MINUTE'   =&gt; array(array('' =&gt; '4546.09', '/' =&gt; '60'),            'million gal/m'),
+        'MILLION_GALLON_PER_SECOND'   =&gt; array('4546.09',                                    'million gal/s'),
+        'MILLION_GALLON_US_PER_DAY'   =&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '86400'),       'million gal/day'),
+        'MILLION_GALLON_US_PER_HOUR'  =&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '3600'),        'million gal/h'),
+        'MILLION_GALLON_US_PER_MINUTE'=&gt; array(array('' =&gt; '3785.4118', '/' =&gt; '60'),          'million gal/m'),
+        'MILLION_GALLON_US_PER_SECOND'=&gt; array('3785.4118',                                  'million gal/s'),
+        'MINERS_INCH_AZ'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_CA'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_OR'              =&gt; array(array('' =&gt; '0.0424752705', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_CO'              =&gt; array(array('' =&gt; '0.0442450734375', '/' =&gt; '60'),    "miner's inch"),
+        'MINERS_INCH_ID'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_WA'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'MINERS_INCH_NM'              =&gt; array(array('' =&gt; '0.0340687062', '/' =&gt; '60'),       "miner's inch"),
+        'OUNCE_PER_DAY'               =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '13824000'),   'oz/day'),
+        'OUNCE_PER_HOUR'              =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '576000'),     'oz/h'),
+        'OUNCE_PER_MINUTE'            =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '9600'),       'oz/m'),
+        'OUNCE_PER_SECOND'            =&gt; array(array('' =&gt; '0.00454609', '/' =&gt; '160'),        'oz/s'),
+        'OUNCE_US_PER_DAY'            =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '11059200'), 'oz/day'),
+        'OUNCE_US_PER_HOUR'           =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '460800'),   'oz/h'),
+        'OUNCE_US_PER_MINUTE'         =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '7680'),     'oz/m'),
+        'OUNCE_US_PER_SECOND'         =&gt; array(array('' =&gt; '0.0037854118', '/' =&gt; '128'),      'oz/s'),
+        'PETROGRAD_STANDARD_PER_DAY'  =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '86400'),     'petrograd standard/day'),
+        'PETROGRAD_STANDARD_PER_HOUR' =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '3600'),      'petrograd standard/h'),
+        'PETROGRAD_STANDARD_PER_MINUTE' =&gt; array(array('' =&gt; '4.672279755', '/' =&gt; '60'),      'petrograd standard/m'),
+        'PETROGRAD_STANDARD_PER_SECOND' =&gt; array('4.672279755',                              'petrograd standard/s'),
+        'STERE_PER_DAY'               =&gt; array(array('' =&gt; '1', '/' =&gt; '86400'),               'st/day'),
+        'STERE_PER_HOUR'              =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'),                'st/h'),
+        'STERE_PER_MINUTE'            =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),                  'st/m'),
+        'STERE_PER_SECOND'            =&gt; array('1',                                          'st/s'),
+        'THOUSAND_CUBIC_FOOT_PER_DAY' =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '86400'),       'thousand ft³/day'),
+        'THOUSAND_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '3600'),     'thousand ft³/h'),
+        'THOUSAND_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28.316847', '/' =&gt; '60'),       'thousand ft³/m'),
+        'THOUSAND_CUBIC_FOOT_PER_SECOND' =&gt; array('28.316847',                               'thousand ft³/s'),
+        'TRILLION_CUBIC_FOOT_PER_DAY'    =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '86400'),  'trillion ft³/day'),
+        'TRILLION_CUBIC_FOOT_PER_HOUR'   =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '3600'),   'trillion ft³/h'),
+        'TRILLION_CUBIC_FOOT_PER_MINUTE' =&gt; array(array('' =&gt; '28316847000', '/' =&gt; '60'),     'trillion ft³/m'),
+        'TRILLION_CUBIC_FOOT_PER_'       =&gt; array('28316847000',                             'trillion ft³/s'),
+        'STANDARD'                    =&gt; 'CUBIC_METER_PER_SECOND'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Plain value in standard unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Measure_Flow_Volume::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          mixed $value, int $type
+              =
+              null, <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Zend_Measure_Abstract is an abstract class for the different measurement types</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__construct()">\Zend_Measure_Abstract::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>OPTIONAL a measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td><a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a></td>
+<td><em><p>OPTIONAL a Zend_Locale Type</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__toString()">\Zend_Measure_Abstract::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::add()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">add</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adds an unit to another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::add()">\Zend_Measure_Abstract::add()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::compare()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compare</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compares two units</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::compare()">\Zend_Measure_Abstract::compare()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::convertTo()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">convertTo</span><span class="nb-faded-text">(
+          string $type, integer $round
+              =
+              2, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Alias function for setType returning the converted unit</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::convertTo()">\Zend_Measure_Abstract::convertTo()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Constant Type</p></em></td>
+</tr>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to a given precision</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::equals()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">equals</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compare if the value and type is equal</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::equals()">\Zend_Measure_Abstract::equals()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object to compare</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::getConversionList()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConversionList</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the conversion list</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getConversionList()">\Zend_Measure_Abstract::getConversionList()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::getLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocale</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the actual set locale</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getLocale()">\Zend_Measure_Abstract::getLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \type</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the original type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getType()">\Zend_Measure_Abstract::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\type</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::getValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          integer | string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the internal value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getValue()">\Zend_Measure_Abstract::getValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to an given precision, Default is -1 which returns without rounding</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for number representation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer | string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::setLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null, boolean $check
+              =
+              false
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets a new locale for the value representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setLocale()">\Zend_Measure_Abstract::setLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) New locale to set</p>
+</em></td>
+</tr>
+<tr>
+<th>$check</th>
+<td>boolean</td>
+<td><em><p>False, check but don't set; True, set the new locale</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::setType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setType</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new type, and convert the value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setType()">\Zend_Measure_Abstract::setType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>New type to set</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::setValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setValue</span><span class="nb-faded-text">(
+          integer | string $value, string $type
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setValue()">\Zend_Measure_Abstract::setValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>integer | string</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>OPTIONAL A measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>OPTIONAL Locale for parsing numbers</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::sub()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">sub</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Substracts an unit from another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::sub()">\Zend_Measure_Abstract::sub()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Flow_Volume::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::toString()">\Zend_Measure_Abstract::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Runds the value to an given exception</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

@@ -1,0 +1,1775 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/View/Helper/InlineScript.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_View_Helper_InlineScript">\Zend_View_Helper_InlineScript</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_View
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Helper
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: InlineScript.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_View_Helper_InlineScript" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_View_Helper_InlineScript<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\View\Helper</small><p class="short-description">Helper for setting and retrieving script elements for inclusion in HTML body
+section</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a>
+            &lt;
+            <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone" style="color: gray; font-size: 0.8em
+                ">\Zend_View_Helper_Placeholder_Container_Standalone</a>
+            &lt;
+            <a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract" style="color: gray; font-size: 0.8em
+                ">\Zend_View_Helper_Abstract</a>
+            &lt;
+            <a href="db_Zend_View_Helper_Interface.html#%5CZend_View_Helper_Interface" style="color: gray; font-size: 0.8em
+                ">\Zend_View_Helper_Interface</a>
+</dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt>Uses</dt>
+<dd>\Zend_View_Helper_Head_Script
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_View_Helper_InlineScript::FILE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FILE</span>
+                = 'FILE'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::FILE">\Zend_View_Helper_HeadScript::FILE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::FILE">\Zend_View_Helper_HeadScript::FILE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::SCRIPT" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">SCRIPT</span>
+                = 'SCRIPT'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::SCRIPT">\Zend_View_Helper_HeadScript::SCRIPT</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::SCRIPT">\Zend_View_Helper_HeadScript::SCRIPT</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_View_Helper_InlineScript::$_arbitraryAttributes" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$_arbitraryAttributes</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Are arbitrary attributes allowed?</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_arbitraryAttributes">\Zend_View_Helper_HeadScript::$$_arbitraryAttributes</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_arbitraryAttributes">\Zend_View_Helper_HeadScript::$$_arbitraryAttributes</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_autoEscape" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\book
+                 <span class="highlight">$_autoEscape</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Flag wheter to automatically escape output, must also be
+enforced in the child class if __toString/toString is overriden</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_autoEscape">\Zend_View_Helper_Placeholder_Container_Standalone::$$_autoEscape</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_autoEscape">\Zend_View_Helper_HeadScript::$$_autoEscape</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\book</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_autoEscape">\Zend_View_Helper_Placeholder_Container_Standalone::$$_autoEscape</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_autoEscape">\Zend_View_Helper_HeadScript::$$_autoEscape</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_captureLock" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_captureLock</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureLock">\Zend_View_Helper_HeadScript::$$_captureLock</a></small>
+</div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureLock">\Zend_View_Helper_HeadScript::$$_captureLock</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_captureScriptAttrs" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_captureScriptAttrs</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureScriptAttrs">\Zend_View_Helper_HeadScript::$$_captureScriptAttrs</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureScriptAttrs">\Zend_View_Helper_HeadScript::$$_captureScriptAttrs</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_captureScriptType" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_captureScriptType</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureScriptType">\Zend_View_Helper_HeadScript::$$_captureScriptType</a></small>
+</div>
+<div class="code-tabs">
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureScriptType">\Zend_View_Helper_HeadScript::$$_captureScriptType</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_captureType" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_captureType</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureType">\Zend_View_Helper_HeadScript::$$_captureType</a></small>
+</div>
+<div class="code-tabs">
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_captureType">\Zend_View_Helper_HeadScript::$$_captureType</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_container" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_View_Helper_Placeholder_Container_Abstract
+                 <span class="highlight">$_container</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_container">\Zend_View_Helper_Placeholder_Container_Standalone::$$_container</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_container">\Zend_View_Helper_HeadScript::$$_container</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_View_Helper_Placeholder_Container_Abstract.html#%5CZend_View_Helper_Placeholder_Container_Abstract">\Zend_View_Helper_Placeholder_Container_Abstract</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_container">\Zend_View_Helper_Placeholder_Container_Standalone::$$_container</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_container">\Zend_View_Helper_HeadScript::$$_container</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_optionalAttributes" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_optionalAttributes</span>= 'array(
+        'charset', 'defer', 'language', 'src'
+    )'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Optional allowed attributes for script tag</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_optionalAttributes">\Zend_View_Helper_HeadScript::$$_optionalAttributes</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'charset', 'defer', 'language', 'src'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_optionalAttributes">\Zend_View_Helper_HeadScript::$$_optionalAttributes</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_regKey" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_regKey</span>= ''Zend_View_Helper_InlineScript''
+                </code><div class="description">
+<p class="short-description">Registry key for placeholder</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'Zend_View_Helper_InlineScript'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_registry" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_View_Helper_Placeholder_Registry
+                 <span class="highlight">$_registry</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_registry">\Zend_View_Helper_Placeholder_Container_Standalone::$$_registry</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_registry">\Zend_View_Helper_HeadScript::$$_registry</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_View_Helper_Placeholder_Registry.html#%5CZend_View_Helper_Placeholder_Registry">\Zend_View_Helper_Placeholder_Registry</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24_registry">\Zend_View_Helper_Placeholder_Container_Standalone::$$_registry</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_registry">\Zend_View_Helper_HeadScript::$$_registry</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$_requiredAttributes" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_requiredAttributes</span>= 'array('type')'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Required attributes for script tag</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_requiredAttributes">\Zend_View_Helper_HeadScript::$$_requiredAttributes</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array('type')</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24_requiredAttributes">\Zend_View_Helper_HeadScript::$$_requiredAttributes</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$useCdata" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">bool
+                 <span class="highlight">$useCdata</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Whether or not to format scripts using CDATA; used only if doctype
+helper is not accessible</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24useCdata">\Zend_View_Helper_HeadScript::$$useCdata</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24useCdata">\Zend_View_Helper_HeadScript::$$useCdata</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::$view" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">\Zend_View_Interface
+                 <span class="highlight">$view</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">View object</p><small>Inherited from:
+                        <a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract::%24%24view">\Zend_View_Helper_Abstract::$$view</a><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24view">\Zend_View_Helper_Placeholder_Container_Standalone::$$view</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24view">\Zend_View_Helper_HeadScript::$$view</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_View_Interface.html#%5CZend_View_Interface">\Zend_View_Interface</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract::%24%24view">\Zend_View_Helper_Abstract::$$view</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::%24%24view">\Zend_View_Helper_Placeholder_Container_Standalone::$$view</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::%24%24view">\Zend_View_Helper_HeadScript::$$view</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_View_Helper_InlineScript::__call()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $method, array $args
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overload method access</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__call()">\Zend_View_Helper_HeadScript::__call()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Allows the following method calls:
+- appendFile($src, $type = 'text/javascript', $attrs = array())
+- offsetSetFile($index, $src, $type = 'text/javascript', $attrs = array())
+- prependFile($src, $type = 'text/javascript', $attrs = array())
+- setFile($src, $type = 'text/javascript', $attrs = array())
+- appendScript($script, $type = 'text/javascript', $attrs = array())
+- offsetSetScript($index, $src, $type = 'text/javascript', $attrs = array())
+- prependScript($script, $type = 'text/javascript', $attrs = array())
+- setScript($script, $type = 'text/javascript', $attrs = array())</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$method</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$args</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Exception.html#%5CZend_View_Exception">\Zend_View_Exception</a></td>
+<td><em>if too few arguments or invalid method</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Constructor</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__construct()">\Zend_View_Helper_HeadScript::__construct()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>Set separator to PHP_EOL.</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__get()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__get</span><span class="nb-faded-text">(
+          string $key
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overloading: retrieve property</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::__get()">\Zend_View_Helper_Placeholder_Container_Standalone::__get()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__get()">\Zend_View_Helper_HeadScript::__get()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__isset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__isset</span><span class="nb-faded-text">(
+          string $key
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overloading: check if property is set</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::__isset()">\Zend_View_Helper_Placeholder_Container_Standalone::__isset()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__isset()">\Zend_View_Helper_HeadScript::__isset()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__set()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__set</span><span class="nb-faded-text">(
+          string $key, mixed $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overloading: set property value</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::__set()">\Zend_View_Helper_Placeholder_Container_Standalone::__set()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__set()">\Zend_View_Helper_HeadScript::__set()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Cast to string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::__toString()">\Zend_View_Helper_Placeholder_Container_Standalone::__toString()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__toString()">\Zend_View_Helper_HeadScript::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::__unset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__unset</span><span class="nb-faded-text">(
+          string $key
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overloading: unset property</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::__unset()">\Zend_View_Helper_Placeholder_Container_Standalone::__unset()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::__unset()">\Zend_View_Helper_HeadScript::__unset()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::_escape()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_escape</span><span class="nb-faded-text">(
+          string $string
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Escape a string</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::_escape()">\Zend_View_Helper_Placeholder_Container_Standalone::_escape()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::_escape()">\Zend_View_Helper_HeadScript::_escape()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::_isDuplicate()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_isDuplicate</span><span class="nb-faded-text">(
+          string $file
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the file specified a duplicate?</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::_isDuplicate()">\Zend_View_Helper_HeadScript::_isDuplicate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$file</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::_isValid()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_isValid</span><span class="nb-faded-text">(
+          mixed $value
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Is the script provided valid?</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::_isValid()">\Zend_View_Helper_HeadScript::_isValid()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::append()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">append</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Override append</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::append()">\Zend_View_Helper_HeadScript::append()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::arbitraryAttributesAllowed()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">arbitraryAttributesAllowed</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Are arbitrary attributes allowed?</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::arbitraryAttributesAllowed()">\Zend_View_Helper_HeadScript::arbitraryAttributesAllowed()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::captureEnd()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">captureEnd</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">End capture action and store</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::captureEnd()">\Zend_View_Helper_HeadScript::captureEnd()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::captureStart()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">captureStart</span><span class="nb-faded-text">(
+          mixed $captureType
+              =
+              Zend_View_Helper_Placeholder_Container_Abstract::APPEND,  $type
+              =
+              'text/javascript',  $attrs
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Start capture action</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::captureStart()">\Zend_View_Helper_HeadScript::captureStart()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$captureType</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$attrs</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::count()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">count</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Countable</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::count()">\Zend_View_Helper_Placeholder_Container_Standalone::count()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::count()">\Zend_View_Helper_HeadScript::count()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::createData()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createData</span><span class="nb-faded-text">(
+          string $type, array $attributes, string $content
+              =
+              null
+          )
+        </span>
+        :
+          <a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create data item containing all necessary components of script</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::createData()">\Zend_View_Helper_HeadScript::createData()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$attributes</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$content</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::direct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">direct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Strategy pattern: currently unutilized</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract::direct()">\Zend_View_Helper_Abstract::direct()</a><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::direct()">\Zend_View_Helper_Placeholder_Container_Standalone::direct()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::direct()">\Zend_View_Helper_HeadScript::direct()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::getAutoEscape()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAutoEscape</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return whether autoEscaping is enabled or disabled</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::getAutoEscape()">\Zend_View_Helper_Placeholder_Container_Standalone::getAutoEscape()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::getAutoEscape()">\Zend_View_Helper_HeadScript::getAutoEscape()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>return bool</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::getContainer()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContainer</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Placeholder_Container_Abstract.html#%5CZend_View_Helper_Placeholder_Container_Abstract">\Zend_View_Helper_Placeholder_Container_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve placeholder container</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::getContainer()">\Zend_View_Helper_Placeholder_Container_Standalone::getContainer()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::getContainer()">\Zend_View_Helper_HeadScript::getContainer()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Placeholder_Container_Abstract.html#%5CZend_View_Helper_Placeholder_Container_Abstract">\Zend_View_Helper_Placeholder_Container_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::getIterator()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getIterator</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \Iterator</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">IteratorAggregate: get Iterator</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::getIterator()">\Zend_View_Helper_Placeholder_Container_Standalone::getIterator()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::getIterator()">\Zend_View_Helper_HeadScript::getIterator()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Iterator</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::getRegistry()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getRegistry</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Placeholder_Registry.html#%5CZend_View_Helper_Placeholder_Registry">\Zend_View_Helper_Placeholder_Registry</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve registry</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::getRegistry()">\Zend_View_Helper_Placeholder_Container_Standalone::getRegistry()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::getRegistry()">\Zend_View_Helper_HeadScript::getRegistry()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Placeholder_Registry.html#%5CZend_View_Helper_Placeholder_Registry">\Zend_View_Helper_Placeholder_Registry</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::headScript()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">headScript</span><span class="nb-faded-text">(
+          string $mode
+              =
+              Zend_View_Helper_HeadScript::FILE, string $spec
+              =
+              null, string $placement
+              =
+              'APPEND', array $attrs
+              =
+              array(), string $type
+              =
+              'text/javascript'
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return headScript object</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::headScript()">\Zend_View_Helper_HeadScript::headScript()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns headScript helper object; optionally, allows specifying a script
+or script file to include.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$mode</th>
+<td>string</td>
+<td><em><p>Script or file</p></em></td>
+</tr>
+<tr>
+<th>$spec</th>
+<td>string</td>
+<td><em><p>Script/url</p>
+</em></td>
+</tr>
+<tr>
+<th>$placement</th>
+<td>string</td>
+<td><em><p>Append, prepend, or set</p></em></td>
+</tr>
+<tr>
+<th>$attrs</th>
+<td>array</td>
+<td><em><p>Array of script attributes</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Script type and/or array of script attributes</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::inlineScript()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">inlineScript</span><span class="nb-faded-text">(
+          string $mode
+              =
+              Zend_View_Helper_HeadScript::FILE, string $spec
+              =
+              null, string $placement
+              =
+              'APPEND', array $attrs
+              =
+              array(), string $type
+              =
+              'text/javascript'
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_InlineScript.html#%5CZend_View_Helper_InlineScript">\Zend_View_Helper_InlineScript</a></code><div class="description"><p class="short_description">Return InlineScript object</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns InlineScript helper object; optionally, allows specifying a
+script or script file to include.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$mode</th>
+<td>string</td>
+<td><em><p>Script or file</p></em></td>
+</tr>
+<tr>
+<th>$spec</th>
+<td>string</td>
+<td><em><p>Script/url</p>
+</em></td>
+</tr>
+<tr>
+<th>$placement</th>
+<td>string</td>
+<td><em><p>Append, prepend, or set</p></em></td>
+</tr>
+<tr>
+<th>$attrs</th>
+<td>array</td>
+<td><em><p>Array of script attributes</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Script type and/or array of script attributes</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_InlineScript.html#%5CZend_View_Helper_InlineScript">\Zend_View_Helper_InlineScript</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::itemToString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">itemToString</span><span class="nb-faded-text">(
+           $item, string | int $indent,  $escapeStart,  $escapeEnd
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create script HTML</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::itemToString()">\Zend_View_Helper_HeadScript::itemToString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$item</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$indent</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$escapeStart</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$escapeEnd</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::offsetExists()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">offsetExists</span><span class="nb-faded-text">(
+          string | int $offset
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">ArrayAccess: offsetExists</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::offsetExists()">\Zend_View_Helper_Placeholder_Container_Standalone::offsetExists()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::offsetExists()">\Zend_View_Helper_HeadScript::offsetExists()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$offset</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::offsetGet()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">offsetGet</span><span class="nb-faded-text">(
+          string | int $offset
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">ArrayAccess: offsetGet</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::offsetGet()">\Zend_View_Helper_Placeholder_Container_Standalone::offsetGet()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::offsetGet()">\Zend_View_Helper_HeadScript::offsetGet()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$offset</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::offsetSet()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">offsetSet</span><span class="nb-faded-text">(
+          string | int $index, mixed $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Override offsetSet</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::offsetSet()">\Zend_View_Helper_HeadScript::offsetSet()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$index</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::offsetUnset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">offsetUnset</span><span class="nb-faded-text">(
+          string | int $offset
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">ArrayAccess: offsetUnset</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::offsetUnset()">\Zend_View_Helper_Placeholder_Container_Standalone::offsetUnset()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::offsetUnset()">\Zend_View_Helper_HeadScript::offsetUnset()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$offset</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::prepend()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">prepend</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Override prepend</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::prepend()">\Zend_View_Helper_HeadScript::prepend()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::set()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">set</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Override set</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::set()">\Zend_View_Helper_HeadScript::set()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::setAllowArbitraryAttributes()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAllowArbitraryAttributes</span><span class="nb-faded-text">(
+          bool $flag
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set flag indicating if arbitrary attributes are allowed</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::setAllowArbitraryAttributes()">\Zend_View_Helper_HeadScript::setAllowArbitraryAttributes()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$flag</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript">\Zend_View_Helper_HeadScript</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::setAutoEscape()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAutoEscape</span><span class="nb-faded-text">(
+          bool $autoEscape
+              =
+              true
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set whether or not auto escaping should be used</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::setAutoEscape()">\Zend_View_Helper_Placeholder_Container_Standalone::setAutoEscape()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::setAutoEscape()">\Zend_View_Helper_HeadScript::setAutoEscape()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$autoEscape</th>
+<td>bool</td>
+<td><em><p>whether or not to auto escape output</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::setContainer()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContainer</span><span class="nb-faded-text">(
+          <a href="db_Zend_View_Helper_Placeholder_Container_Abstract.html#%5CZend_View_Helper_Placeholder_Container_Abstract">\Zend_View_Helper_Placeholder_Container_Abstract</a> $container
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set container on which to operate</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::setContainer()">\Zend_View_Helper_Placeholder_Container_Standalone::setContainer()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::setContainer()">\Zend_View_Helper_HeadScript::setContainer()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$container</th>
+<td><a href="db_Zend_View_Helper_Placeholder_Container_Abstract.html#%5CZend_View_Helper_Placeholder_Container_Abstract">\Zend_View_Helper_Placeholder_Container_Abstract</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::setRegistry()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setRegistry</span><span class="nb-faded-text">(
+          <a href="db_Zend_View_Helper_Placeholder_Registry.html#%5CZend_View_Helper_Placeholder_Registry">\Zend_View_Helper_Placeholder_Registry</a> $registry
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set registry object</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::setRegistry()">\Zend_View_Helper_Placeholder_Container_Standalone::setRegistry()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::setRegistry()">\Zend_View_Helper_HeadScript::setRegistry()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$registry</th>
+<td><a href="db_Zend_View_Helper_Placeholder_Registry.html#%5CZend_View_Helper_Placeholder_Registry">\Zend_View_Helper_Placeholder_Registry</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone">\Zend_View_Helper_Placeholder_Container_Standalone</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::setView()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setView</span><span class="nb-faded-text">(
+          <a href="db_Zend_View_Interface.html#%5CZend_View_Interface">\Zend_View_Interface</a> $view
+          )
+        </span>
+        :
+          <a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract">\Zend_View_Helper_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the View object</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract::setView()">\Zend_View_Helper_Abstract::setView()</a><a href="db_Zend_View_Helper_Placeholder_Container_Standalone.html#%5CZend_View_Helper_Placeholder_Container_Standalone::setView()">\Zend_View_Helper_Placeholder_Container_Standalone::setView()</a><a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::setView()">\Zend_View_Helper_HeadScript::setView()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$view</th>
+<td><a href="db_Zend_View_Interface.html#%5CZend_View_Interface">\Zend_View_Interface</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_View_Helper_Abstract.html#%5CZend_View_Helper_Abstract">\Zend_View_Helper_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_View_Helper_InlineScript::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          string | int $indent
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_View_Helper_HeadScript.html#%5CZend_View_Helper_HeadScript::toString()">\Zend_View_Helper_HeadScript::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$indent</th>
+<td>string | int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

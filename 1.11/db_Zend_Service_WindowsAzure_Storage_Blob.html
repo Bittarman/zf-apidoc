@@ -1,0 +1,4043 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Service/WindowsAzure/Storage/Blob.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://todo">name_todo</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Service_WindowsAzure
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Storage
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Blob.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Service_WindowsAzure_Storage_Blob" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Service_WindowsAzure_Storage_Blob<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Service\WindowsAzure\Storage</small><p class="short-description"></p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage">\Zend_Service_WindowsAzure_Storage</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::ACL_PRIVATE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACL_PRIVATE</span>
+                = null</code><div class="description"><p class="short-description">ACL - Private access</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::ACL_PUBLIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACL_PUBLIC</span>
+                = 'container'</code><div class="description"><p class="short-description">ACL - Public access (read all blobs)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Deprecated</dt>
+<dd>Use ACL_PUBLIC_CONTAINER or ACL_PUBLIC_BLOB instead.
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::ACL_PUBLIC_BLOB" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACL_PUBLIC_BLOB</span>
+                = 'blob'</code><div class="description"><p class="short-description">ACL - Blob Public access (read all blobs)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::ACL_PUBLIC_CONTAINER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ACL_PUBLIC_CONTAINER</span>
+                = 'container'</code><div class="description"><p class="short-description">ACL - Container Public access (enumerate and read all blobs)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::LEASE_ACQUIRE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LEASE_ACQUIRE</span>
+                = 'acquire'</code><div class="description"><p class="short-description">Blob lease constants</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::LEASE_RENEW" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LEASE_RENEW</span>
+                = 'renew'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::LEASE_RELEASE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LEASE_RELEASE</span>
+                = 'release'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::LEASE_BREAK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">LEASE_BREAK</span>
+                = 'break'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::MAX_BLOB_SIZE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAX_BLOB_SIZE</span>
+                = 67108864</code><div class="description"><p class="short-description">Maximal blob size (in bytes)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::MAX_BLOB_TRANSFER_SIZE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MAX_BLOB_TRANSFER_SIZE</span>
+                = 4194304</code><div class="description"><p class="short-description">Maximal blob transfer size (in bytes)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::BLOBTYPE_BLOCK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BLOBTYPE_BLOCK</span>
+                = 'BlockBlob'</code><div class="description"><p class="short-description">Blob types</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::BLOBTYPE_PAGE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BLOBTYPE_PAGE</span>
+                = 'PageBlob'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::PAGE_WRITE_UPDATE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PAGE_WRITE_UPDATE</span>
+                = 'update'</code><div class="description"><p class="short-description">Put page write options</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::PAGE_WRITE_CLEAR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PAGE_WRITE_CLEAR</span>
+                = 'clear'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_DEV_BLOB" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_DEV_BLOB</span>
+                = "127.0.0.1:10000"</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Development storage URLS</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_BLOB">\Zend_Service_WindowsAzure_Storage::URL_DEV_BLOB</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_BLOB">\Zend_Service_WindowsAzure_Storage::URL_DEV_BLOB</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_DEV_QUEUE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_DEV_QUEUE</span>
+                = "127.0.0.1:10001"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_QUEUE">\Zend_Service_WindowsAzure_Storage::URL_DEV_QUEUE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_QUEUE">\Zend_Service_WindowsAzure_Storage::URL_DEV_QUEUE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_DEV_TABLE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_DEV_TABLE</span>
+                = "127.0.0.1:10002"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_TABLE">\Zend_Service_WindowsAzure_Storage::URL_DEV_TABLE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_DEV_TABLE">\Zend_Service_WindowsAzure_Storage::URL_DEV_TABLE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_CLOUD_BLOB" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_CLOUD_BLOB</span>
+                = "blob.core.windows.net"</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Live storage URLS</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_BLOB">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_BLOB</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_BLOB">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_BLOB</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_CLOUD_QUEUE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_CLOUD_QUEUE</span>
+                = "queue.core.windows.net"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_QUEUE">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_QUEUE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_QUEUE">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_QUEUE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::URL_CLOUD_TABLE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">URL_CLOUD_TABLE</span>
+                = "table.core.windows.net"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_TABLE">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_TABLE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::URL_CLOUD_TABLE">\Zend_Service_WindowsAzure_Storage::URL_CLOUD_TABLE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_UNKNOWN" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_UNKNOWN</span>
+                = "unknown"</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Resource types</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN">\Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN">\Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_CONTAINER" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_CONTAINER</span>
+                = "c"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_CONTAINER">\Zend_Service_WindowsAzure_Storage::RESOURCE_CONTAINER</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_CONTAINER">\Zend_Service_WindowsAzure_Storage::RESOURCE_CONTAINER</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_BLOB" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_BLOB</span>
+                = "b"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_BLOB">\Zend_Service_WindowsAzure_Storage::RESOURCE_BLOB</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_BLOB">\Zend_Service_WindowsAzure_Storage::RESOURCE_BLOB</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_TABLE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_TABLE</span>
+                = "t"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_TABLE">\Zend_Service_WindowsAzure_Storage::RESOURCE_TABLE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_TABLE">\Zend_Service_WindowsAzure_Storage::RESOURCE_TABLE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_ENTITY" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_ENTITY</span>
+                = "e"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_ENTITY">\Zend_Service_WindowsAzure_Storage::RESOURCE_ENTITY</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_ENTITY">\Zend_Service_WindowsAzure_Storage::RESOURCE_ENTITY</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::RESOURCE_QUEUE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RESOURCE_QUEUE</span>
+                = "q"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_QUEUE">\Zend_Service_WindowsAzure_Storage::RESOURCE_QUEUE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::RESOURCE_QUEUE">\Zend_Service_WindowsAzure_Storage::RESOURCE_QUEUE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::PREFIX_PROPERTIES" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PREFIX_PROPERTIES</span>
+                = "x-ms-prop-"</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">HTTP header prefixes</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_PROPERTIES">\Zend_Service_WindowsAzure_Storage::PREFIX_PROPERTIES</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_PROPERTIES">\Zend_Service_WindowsAzure_Storage::PREFIX_PROPERTIES</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::PREFIX_METADATA" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PREFIX_METADATA</span>
+                = "x-ms-meta-"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_METADATA">\Zend_Service_WindowsAzure_Storage::PREFIX_METADATA</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_METADATA">\Zend_Service_WindowsAzure_Storage::PREFIX_METADATA</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::PREFIX_STORAGE_HEADER" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PREFIX_STORAGE_HEADER</span>
+                = "x-ms-"</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_STORAGE_HEADER">\Zend_Service_WindowsAzure_Storage::PREFIX_STORAGE_HEADER</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::PREFIX_STORAGE_HEADER">\Zend_Service_WindowsAzure_Storage::PREFIX_STORAGE_HEADER</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_accountKey" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_accountKey</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Account key for Windows Azure</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_accountKey">\Zend_Service_WindowsAzure_Storage::$$_accountKey</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_accountKey">\Zend_Service_WindowsAzure_Storage::$$_accountKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_accountName" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_accountName</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Account name for Windows Azure</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_accountName">\Zend_Service_WindowsAzure_Storage::$$_accountName</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_accountName">\Zend_Service_WindowsAzure_Storage::$$_accountName</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_apiVersion" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_apiVersion</span>= ''2009-09-19''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current API version</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_apiVersion">\Zend_Service_WindowsAzure_Storage::$$_apiVersion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'2009-09-19'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_apiVersion">\Zend_Service_WindowsAzure_Storage::$$_apiVersion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_credentials" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract
+                 <span class="highlight">$_credentials</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_credentials">\Zend_Service_WindowsAzure_Storage::$$_credentials</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Service_WindowsAzure_Credentials_CredentialsAbstract.html#%5CZend_Service_WindowsAzure_Credentials_CredentialsAbstract">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_credentials">\Zend_Service_WindowsAzure_Storage::$$_credentials</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_host" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_host</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Storage host name</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_host">\Zend_Service_WindowsAzure_Storage::$$_host</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_host">\Zend_Service_WindowsAzure_Storage::$$_host</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_httpClientChannel" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Http_Client
+                 <span class="highlight">$_httpClientChannel</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Zend_Http_Client channel used for communication with REST services</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_httpClientChannel">\Zend_Service_WindowsAzure_Storage::$$_httpClientChannel</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_httpClientChannel">\Zend_Service_WindowsAzure_Storage::$$_httpClientChannel</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_proxyCredentials" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_proxyCredentials</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Proxy credentials</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyCredentials">\Zend_Service_WindowsAzure_Storage::$$_proxyCredentials</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyCredentials">\Zend_Service_WindowsAzure_Storage::$$_proxyCredentials</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_proxyPort" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">int
+                 <span class="highlight">$_proxyPort</span>= '80'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Proxy port</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyPort">\Zend_Service_WindowsAzure_Storage::$$_proxyPort</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>80</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>int</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyPort">\Zend_Service_WindowsAzure_Storage::$$_proxyPort</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_proxyUrl" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_proxyUrl</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Proxy url</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyUrl">\Zend_Service_WindowsAzure_Storage::$$_proxyUrl</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_proxyUrl">\Zend_Service_WindowsAzure_Storage::$$_proxyUrl</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_retryPolicy" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
+                 <span class="highlight">$_retryPolicy</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract instance</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_retryPolicy">\Zend_Service_WindowsAzure_Storage::$$_retryPolicy</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract.html#%5CZend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_retryPolicy">\Zend_Service_WindowsAzure_Storage::$$_retryPolicy</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_sharedAccessSignatureCredentials" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Service_WindowsAzure_Credentials_SharedAccessSignature
+                 <span class="highlight">$_sharedAccessSignatureCredentials</span>= 'null'
+                </code><div class="description">
+<p class="short-description">SharedAccessSignature credentials</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Service_WindowsAzure_Credentials_SharedAccessSignature.html#%5CZend_Service_WindowsAzure_Credentials_SharedAccessSignature">\Zend_Service_WindowsAzure_Credentials_SharedAccessSignature</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_usePathStyleUri" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_usePathStyleUri</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Use path-style URI's</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_usePathStyleUri">\Zend_Service_WindowsAzure_Storage::$$_usePathStyleUri</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_usePathStyleUri">\Zend_Service_WindowsAzure_Storage::$$_usePathStyleUri</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_useProxy" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_useProxy</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Use proxy?</p><small>Inherited from:
+                        <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_useProxy">\Zend_Service_WindowsAzure_Storage::$$_useProxy</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::%24%24_useProxy">\Zend_Service_WindowsAzure_Storage::$$_useProxy</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::$_wrapperClients" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_wrapperClients</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Stream wrapper clients</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string $host
+              =
+              Zend_Service_WindowsAzure_Storage::URL_DEV_BLOB, string $accountName
+              =
+              Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::DEVSTORE_ACCOUNT, string $accountKey
+              =
+              Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::DEVSTORE_KEY, boolean $usePathStyleUri
+              =
+              false, <a href="db_Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract.html#%5CZend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract</a> $retryPolicy
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Creates a new Zend_Service_WindowsAzure_Storage_Blob instance</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$host</th>
+<td>string</td>
+<td><em><p>Storage host name</p></em></td>
+</tr>
+<tr>
+<th>$accountName</th>
+<td>string</td>
+<td><em><p>Account name for Windows Azure</p></em></td>
+</tr>
+<tr>
+<th>$accountKey</th>
+<td>string</td>
+<td><em><p>Account key for Windows Azure</p></em></td>
+</tr>
+<tr>
+<th>$usePathStyleUri</th>
+<td>boolean</td>
+<td><em><p>Use path-style URI's</p>
+</em></td>
+</tr>
+<tr>
+<th>$retryPolicy</th>
+<td><a href="db_Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract.html#%5CZend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract</a></td>
+<td><em><p>Retry policy to use when making requests</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_generateBlockId()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_generateBlockId</span><span class="nb-faded-text">(
+          int $part
+              =
+              0
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Generate block id</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$part</th>
+<td>int</td>
+<td><em><p>Block number</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Windows Azure Blob Storage block number</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_generateMetadataHeaders()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_generateMetadataHeaders</span><span class="nb-faded-text">(
+          array $metadata
+              =
+              array()
+          )
+        </span>
+        :
+          \HTTP</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Generate metadata headers</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::_generateMetadataHeaders()">\Zend_Service_WindowsAzure_Storage::_generateMetadataHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\HTTP</td>
+<td>headers containing metadata</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_getErrorMessage()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getErrorMessage</span><span class="nb-faded-text">(
+          <a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a> $response, string $alternativeError
+              =
+              'Unknown error.'
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get error message from Zend_Http_Response</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$response</th>
+<td><a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a></td>
+<td><em><p>Repsonse</p></em></td>
+</tr>
+<tr>
+<th>$alternativeError</th>
+<td>string</td>
+<td><em><p>Alternative error message</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_parseMetadataElement()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_parseMetadataElement</span><span class="nb-faded-text">(
+           $element
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Parse metadata XML</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::_parseMetadataElement()">\Zend_Service_WindowsAzure_Storage::_parseMetadataElement()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$element</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_parseMetadataHeaders()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_parseMetadataHeaders</span><span class="nb-faded-text">(
+          array $headers
+              =
+              array()
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Parse metadata headers</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::_parseMetadataHeaders()">\Zend_Service_WindowsAzure_Storage::_parseMetadataHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$headers</th>
+<td>array</td>
+<td><em><p>HTTP headers containing metadata</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_parseResponse()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_parseResponse</span><span class="nb-faded-text">(
+          <a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a> $response
+              =
+              null
+          )
+        </span>
+        :
+          object</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Parse result from Zend_Http_Response</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::_parseResponse()">\Zend_Service_WindowsAzure_Storage::_parseResponse()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$response</th>
+<td><a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a></td>
+<td><em><p>Response from HTTP call</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::_performRequest()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_performRequest</span><span class="nb-faded-text">(
+          string $path
+              =
+              '/', string $queryString
+              =
+              '', string $httpVerb
+              =
+              Zend_Http_Client::GET, array $headers
+              =
+              array(), boolean $forTableStorage
+              =
+              false, mixed $rawData
+              =
+              null, string $resourceType
+              =
+              Zend_Service_WindowsAzure_Storage::RESOURCE_UNKNOWN, string $requiredPermission
+              =
+              Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::PERMISSION_READ
+          )
+        </span>
+        :
+          <a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Perform request using Zend_Http_Client channel</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::_performRequest()">\Zend_Service_WindowsAzure_Storage::_performRequest()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$path</th>
+<td>string</td>
+<td><em><p>Path</p></em></td>
+</tr>
+<tr>
+<th>$queryString</th>
+<td>string</td>
+<td><em><p>Query string</p></em></td>
+</tr>
+<tr>
+<th>$httpVerb</th>
+<td>string</td>
+<td><em><p>HTTP verb the request will use</p></em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>array</td>
+<td><em><p>x-ms headers to add</p>
+</em></td>
+</tr>
+<tr>
+<th>$forTableStorage</th>
+<td>boolean</td>
+<td><em><p>Is the request for table storage?</p>
+</em></td>
+</tr>
+<tr>
+<th>$rawData</th>
+<td>mixed</td>
+<td><em><p>Optional RAW HTTP data to be sent over the wire</p></em></td>
+</tr>
+<tr>
+<th>$resourceType</th>
+<td>string</td>
+<td><em><p>Resource type</p></em></td>
+</tr>
+<tr>
+<th>$requiredPermission</th>
+<td>string</td>
+<td><em><p>Required permission</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Http_Response.html#%5CZend_Http_Response">\Zend_Http_Response</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::blobExists()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">blobExists</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check if a blob exists</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::containerExists()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">containerExists</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              ''
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Check if a container exists</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::copyBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">copyBlob</span><span class="nb-faded-text">(
+          string $sourceContainerName
+              =
+              '', string $sourceBlobName
+              =
+              '', string $destinationContainerName
+              =
+              '', string $destinationBlobName
+              =
+              '', array $metadata
+              =
+              array(), string $sourceSnapshotId
+              =
+              null, string $destinationLeaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Copy blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$sourceContainerName</th>
+<td>string</td>
+<td><em><p>Source container name</p></em></td>
+</tr>
+<tr>
+<th>$sourceBlobName</th>
+<td>string</td>
+<td><em><p>Source blob name</p></em></td>
+</tr>
+<tr>
+<th>$destinationContainerName</th>
+<td>string</td>
+<td><em><p>Destination container name</p></em></td>
+</tr>
+<tr>
+<th>$destinationBlobName</th>
+<td>string</td>
+<td><em><p>Destination blob name</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$sourceSnapshotId</th>
+<td>string</td>
+<td><em><p>Source snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$destinationLeaseId</th>
+<td>string</td>
+<td><em><p>Destination lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd894037.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Partial blob properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::createContainer()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createContainer</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', array $metadata
+              =
+              array()
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Create container</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Container properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::createPageBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createPageBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', int $size
+              =
+              0, array $metadata
+              =
+              array(), string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Create page blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$size</th>
+<td>int</td>
+<td><em><p>Size of the page blob in bytes</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Partial blob properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::createQueryStringFromArray()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createQueryStringFromArray</span><span class="nb-faded-text">(
+          array $queryString
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Builds a query string from an array of elements</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::createQueryStringFromArray()">\Zend_Service_WindowsAzure_Storage::createQueryStringFromArray()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$queryString</th>
+<td>array</td>
+<td><em><p>Array of elements</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Assembled query string</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::createResourceName()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">createResourceName</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              ''
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Create resource name</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::deleteBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">deleteBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Delete blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::deleteContainer()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">deleteContainer</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Delete container</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::generateSharedAccessUrl()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generateSharedAccessUrl</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $resource
+              =
+              'b', string $permissions
+              =
+              'r', string $start
+              =
+              '', string $expiry
+              =
+              '', string $identifier
+              =
+              ''
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Generate shared access URL</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$resource</th>
+<td>string</td>
+<td><em><p>Signed resource - container (c) - blob (b)</p>
+</em></td>
+</tr>
+<tr>
+<th>$permissions</th>
+<td>string</td>
+<td><em><p>Signed permissions - read (r), write (w), delete (d) and list (l)</p>
+</em></td>
+</tr>
+<tr>
+<th>$start</th>
+<td>string</td>
+<td><em><p>The time at which the Shared Access Signature becomes valid.</p></em></td>
+</tr>
+<tr>
+<th>$expiry</th>
+<td>string</td>
+<td><em><p>The time at which the Shared Access Signature becomes invalid.</p></em></td>
+</tr>
+<tr>
+<th>$identifier</th>
+<td>string</td>
+<td><em><p>Signed identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getAccountName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAccountName</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the Windows Azure account name</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::getAccountName()">\Zend_Service_WindowsAzure_Storage::getAccountName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBaseUrl()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBaseUrl</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get base URL for creating requests</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::getBaseUrl()">\Zend_Service_WindowsAzure_Storage::getBaseUrl()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $localFileName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Get blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$localFileName</th>
+<td>string</td>
+<td><em><p>Local file name to store downloaded blob</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlobData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlobData</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          mixed</code><div class="description"><p class="short_description">Get blob data</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td>Blob contents</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlobInstance()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlobInstance</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_BlobInstance.html#%5CZend_Service_WindowsAzure_Storage_BlobInstance">\Zend_Service_WindowsAzure_Storage_BlobInstance</a></code><div class="description"><p class="short_description">Get blob instance</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_BlobInstance.html#%5CZend_Service_WindowsAzure_Storage_BlobInstance">\Zend_Service_WindowsAzure_Storage_BlobInstance</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlobMetadata()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlobMetadata</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get blob metadata</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Key/value pairs of meta data</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlobProperties()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlobProperties</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_BlobInstance.html#%5CZend_Service_WindowsAzure_Storage_BlobInstance">\Zend_Service_WindowsAzure_Storage_BlobInstance</a></code><div class="description"><p class="short_description">Get blob properties</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_BlobInstance.html#%5CZend_Service_WindowsAzure_Storage_BlobInstance">\Zend_Service_WindowsAzure_Storage_BlobInstance</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getBlockList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBlockList</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $snapshotId
+              =
+              null, string $leaseId
+              =
+              null, integer $type
+              =
+              0
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get block list</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$snapshotId</th>
+<td>string</td>
+<td><em><p>Snapshot identifier</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>integer</td>
+<td><em><p>Type of block list to retrieve. 0 = all, 1 = committed, 2 = uncommitted</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getContainer()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContainer</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              ''
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_BlobContainer.html#%5CZend_Service_WindowsAzure_Storage_BlobContainer">\Zend_Service_WindowsAzure_Storage_BlobContainer</a></code><div class="description"><p class="short_description">Get container</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_BlobContainer.html#%5CZend_Service_WindowsAzure_Storage_BlobContainer">\Zend_Service_WindowsAzure_Storage_BlobContainer</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getContainerAcl()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContainerAcl</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', bool $signedIdentifiers
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Get container ACL</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$signedIdentifiers</th>
+<td>bool</td>
+<td><em><p>Display only private/blob/container or display signed identifiers?</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Acl, to be compared with Zend_Service_WindowsAzure_Storage_Blob::ACL_*</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getContainerMetadata()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContainerMetadata</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              ''
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Get container metadata</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Key/value pairs of meta data</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getCredentials()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCredentials</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Credentials_CredentialsAbstract.html#%5CZend_Service_WindowsAzure_Credentials_CredentialsAbstract">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::getCredentials()">\Zend_Service_WindowsAzure_Storage::getCredentials()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Credentials_CredentialsAbstract.html#%5CZend_Service_WindowsAzure_Credentials_CredentialsAbstract">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getHttpClientChannel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getHttpClientChannel</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Http_Client_Adapter_Interface.html#%5CZend_Http_Client_Adapter_Interface">\Zend_Http_Client_Adapter_Interface</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve HTTP client channel</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::getHttpClientChannel()">\Zend_Service_WindowsAzure_Storage::getHttpClientChannel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Http_Client_Adapter_Interface.html#%5CZend_Http_Client_Adapter_Interface">\Zend_Http_Client_Adapter_Interface</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getPageRegions()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPageRegions</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', int $startByteOffset
+              =
+              0, int $endByteOffset
+              =
+              0, string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Put page in page blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$startByteOffset</th>
+<td>int</td>
+<td><em><p>Start byte offset</p></em></td>
+</tr>
+<tr>
+<th>$endByteOffset</th>
+<td>int</td>
+<td><em><p>End byte offset</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Array of page ranges</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::getWrapperClient()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getWrapperClient</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></code><div class="description">
+<span class="attribute">static</span><p class="short_description">Get wrapper client for stream type</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Protocol name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::isValidContainerName()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValidContainerName</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              ''
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Is valid container name?</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::isValidMetadataName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValidMetadataName</span><span class="nb-faded-text">(
+          string $metadataName
+              =
+              ''
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Is valid metadata name?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::isValidMetadataName()">\Zend_Service_WindowsAzure_Storage::isValidMetadataName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$metadataName</th>
+<td>string</td>
+<td><em><p>Metadata name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::isoDate()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isoDate</span><span class="nb-faded-text">(
+          int $timestamp
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Generate ISO 8601 compliant date string in UTC time zone</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::isoDate()">\Zend_Service_WindowsAzure_Storage::isoDate()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$timestamp</th>
+<td>int</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::leaseBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">leaseBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $leaseAction
+              =
+              self::LEASE_ACQUIRE, string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_LeaseInstance.html#%5CZend_Service_WindowsAzure_Storage_LeaseInstance">\Zend_Service_WindowsAzure_Storage_LeaseInstance</a></code><div class="description"><p class="short_description">Lease blob - See (http://msdn.microsoft.com/en-us/library/ee691972.aspx)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$leaseAction</th>
+<td>string</td>
+<td><em><p>Lease action (Zend_Service_WindowsAzure_Storage_Blob::LEASE_*)</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier, required to renew the lease or to release the lease.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_LeaseInstance.html#%5CZend_Service_WindowsAzure_Storage_LeaseInstance">\Zend_Service_WindowsAzure_Storage_LeaseInstance</a></td>
+<td>Lease instance</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::listBlobs()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">listBlobs</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $prefix
+              =
+              '', string $delimiter
+              =
+              '', int $maxResults
+              =
+              null, string $marker
+              =
+              null, string $include
+              =
+              null, int $currentResultCount
+              =
+              0
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">List blobs</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$prefix</th>
+<td>string</td>
+<td><em><p>Optional. Filters the results to return only blobs whose name begins with the specified prefix.</p></em></td>
+</tr>
+<tr>
+<th>$delimiter</th>
+<td>string</td>
+<td><em><p>Optional. Delimiter, i.e. '/', for specifying folder hierarchy</p>
+</em></td>
+</tr>
+<tr>
+<th>$maxResults</th>
+<td>int</td>
+<td><em><p>Optional. Specifies the maximum number of blobs to return per call to Azure storage. This does NOT affect list size returned by this function. (maximum: 5000)</p>
+</em></td>
+</tr>
+<tr>
+<th>$marker</th>
+<td>string</td>
+<td><em><p>Optional string value that identifies the portion of the list to be returned with the next list operation.</p></em></td>
+</tr>
+<tr>
+<th>$include</th>
+<td>string</td>
+<td><em><p>Optional. Specifies that the response should include one or more of the following subsets: '', 'metadata', 'snapshots', 'uncommittedblobs'). Multiple values can be added separated with a comma (,)</p>
+</em></td>
+</tr>
+<tr>
+<th>$currentResultCount</th>
+<td>int</td>
+<td><em><p>Current result count (internal use)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::listContainers()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">listContainers</span><span class="nb-faded-text">(
+          string $prefix
+              =
+              null, int $maxResults
+              =
+              null, string $marker
+              =
+              null, string $include
+              =
+              null, int $currentResultCount
+              =
+              0
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">List containers</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$prefix</th>
+<td>string</td>
+<td><em><p>Optional. Filters the results to return only containers whose name begins with the specified prefix.</p></em></td>
+</tr>
+<tr>
+<th>$maxResults</th>
+<td>int</td>
+<td><em><p>Optional. Specifies the maximum number of containers to return per call to Azure storage. This does NOT affect list size returned by this function. (maximum: 5000)</p>
+</em></td>
+</tr>
+<tr>
+<th>$marker</th>
+<td>string</td>
+<td><em><p>Optional string value that identifies the portion of the list to be returned with the next list operation.</p></em></td>
+</tr>
+<tr>
+<th>$include</th>
+<td>string</td>
+<td><em><p>Optional. Include this parameter to specify that the container's metadata be returned as part of the response body. (allowed values: '', 'metadata')</p>
+</em></td>
+</tr>
+<tr>
+<th>$currentResultCount</th>
+<td>int</td>
+<td><em><p>Current result count (internal use)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $localFileName
+              =
+              '', array $metadata
+              =
+              array(), string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Put blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$localFileName</th>
+<td>string</td>
+<td><em><p>Local file name to be uploaded</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Partial blob properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putBlobData()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putBlobData</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', mixed $data
+              =
+              '', array $metadata
+              =
+              array(), string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Put blob data</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$data</th>
+<td>mixed</td>
+<td><em><p>Data to store</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Partial blob properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putBlock()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putBlock</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $identifier
+              =
+              '', array $contents
+              =
+              '', string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Put large blob block</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$identifier</th>
+<td>string</td>
+<td><em><p>Block ID</p></em></td>
+</tr>
+<tr>
+<th>$contents</th>
+<td>array</td>
+<td><em><p>Contents of the block</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putBlockList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putBlockList</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', array $blockList
+              =
+              array(), array $metadata
+              =
+              array(), string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Put block list</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$blockList</th>
+<td>array</td>
+<td><em><p>Array of block identifiers</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putLargeBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putLargeBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $localFileName
+              =
+              '', array $metadata
+              =
+              array(), string $leaseId
+              =
+              null
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Put large blob (> 64 MB)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$localFileName</th>
+<td>string</td>
+<td><em><p>Local file name to be uploaded</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>Partial blob properties</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::putPage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">putPage</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', int $startByteOffset
+              =
+              0, int $endByteOffset
+              =
+              0, mixed $contents
+              =
+              '', string $writeMethod
+              =
+              self::PAGE_WRITE_UPDATE, string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Put page in page blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$startByteOffset</th>
+<td>int</td>
+<td><em><p>Start byte offset</p></em></td>
+</tr>
+<tr>
+<th>$endByteOffset</th>
+<td>int</td>
+<td><em><p>End byte offset</p></em></td>
+</tr>
+<tr>
+<th>$contents</th>
+<td>mixed</td>
+<td><em><p>Page contents</p></em></td>
+</tr>
+<tr>
+<th>$writeMethod</th>
+<td>string</td>
+<td><em><p>Write method (Zend_Service_WindowsAzure_Storage_Blob::PAGE_WRITE_*)</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::registerAsClient()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">registerAsClient</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></code><div class="description"><p class="short_description">Register this object as stream wrapper client</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Protocol name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::registerStreamWrapper()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">registerStreamWrapper</span><span class="nb-faded-text">(
+          string $name
+              =
+              'azure'
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Register this object as stream wrapper</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Protocol name</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setBlobMetadata()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBlobMetadata</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', array $metadata
+              =
+              array(), string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set blob metadata</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Calling the Set Blob Metadata operation overwrites all existing metadata that is associated with the blob. It's not possible to modify an individual name/value pair.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setBlobProperties()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBlobProperties</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', string $leaseId
+              =
+              null, array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set blob properties</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>All available properties are listed at http://msdn.microsoft.com/en-us/library/ee691966.aspx and should be provided in the $additionalHeaders parameter.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$leaseId</th>
+<td>string</td>
+<td><em><p>Lease identifier</p></em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setContainerAcl()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContainerAcl</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', bool $acl
+              =
+              self::ACL_PRIVATE, array $signedIdentifiers
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set container ACL</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$acl</th>
+<td>bool</td>
+<td><em><p>Zend_Service_WindowsAzure_Storage_Blob::ACL_*</p>
+</em></td>
+</tr>
+<tr>
+<th>$signedIdentifiers</th>
+<td>array</td>
+<td><em><p>Signed identifiers</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setContainerMetadata()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContainerMetadata</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', array $metadata
+              =
+              array(), array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set container metadata</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Calling the Set Container Metadata operation overwrites all existing metadata that is associated with the container. It's not possible to modify an individual name/value pair.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setCredentials()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCredentials</span><span class="nb-faded-text">(
+          <a href="db_Zend_Service_WindowsAzure_Credentials_CredentialsAbstract.html#%5CZend_Service_WindowsAzure_Credentials_CredentialsAbstract">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract</a> $credentials
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::setCredentials()">\Zend_Service_WindowsAzure_Storage::setCredentials()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$credentials</th>
+<td><a href="db_Zend_Service_WindowsAzure_Credentials_CredentialsAbstract.html#%5CZend_Service_WindowsAzure_Credentials_CredentialsAbstract">\Zend_Service_WindowsAzure_Credentials_CredentialsAbstract</a></td>
+<td><em><p>Zend_Service_WindowsAzure_Credentials_CredentialsAbstract instance to use for request signing.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setHttpClientChannel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setHttpClientChannel</span><span class="nb-faded-text">(
+          <a href="db_Zend_Http_Client_Adapter_Interface.html#%5CZend_Http_Client_Adapter_Interface">\Zend_Http_Client_Adapter_Interface</a> | string $adapterInstance
+              =
+              'Zend_Http_Client_Adapter_Proxy'
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the HTTP client channel to use</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::setHttpClientChannel()">\Zend_Service_WindowsAzure_Storage::setHttpClientChannel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$adapterInstance</th>
+<td>
+<a href="db_Zend_Http_Client_Adapter_Interface.html#%5CZend_Http_Client_Adapter_Interface">\Zend_Http_Client_Adapter_Interface</a> | string</td>
+<td><em><p>Adapter instance or adapter class name.</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setProxy()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setProxy</span><span class="nb-faded-text">(
+          boolean $useProxy
+              =
+              false, string $proxyUrl
+              =
+              '', int $proxyPort
+              =
+              80, string $proxyCredentials
+              =
+              ''
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set proxy</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::setProxy()">\Zend_Service_WindowsAzure_Storage::setProxy()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$useProxy</th>
+<td>boolean</td>
+<td><em><p>Use proxy?</p>
+</em></td>
+</tr>
+<tr>
+<th>$proxyUrl</th>
+<td>string</td>
+<td><em><p>Proxy URL</p></em></td>
+</tr>
+<tr>
+<th>$proxyPort</th>
+<td>int</td>
+<td><em><p>Proxy port</p></em></td>
+</tr>
+<tr>
+<th>$proxyCredentials</th>
+<td>string</td>
+<td><em><p>Proxy credentials</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::setRetryPolicy()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setRetryPolicy</span><span class="nb-faded-text">(
+          <a href="db_Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract.html#%5CZend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract</a> $retryPolicy
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set retry policy to use when making requests</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::setRetryPolicy()">\Zend_Service_WindowsAzure_Storage::setRetryPolicy()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$retryPolicy</th>
+<td><a href="db_Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract.html#%5CZend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract">\Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract</a></td>
+<td><em><p>Retry policy to use when making requests</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::snapshotBlob()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">snapshotBlob</span><span class="nb-faded-text">(
+          string $containerName
+              =
+              '', string $blobName
+              =
+              '', array $metadata
+              =
+              array(), array $additionalHeaders
+              =
+              array()
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Snapshot blob</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$containerName</th>
+<td>string</td>
+<td><em><p>Container name</p></em></td>
+</tr>
+<tr>
+<th>$blobName</th>
+<td>string</td>
+<td><em><p>Blob name</p></em></td>
+</tr>
+<tr>
+<th>$metadata</th>
+<td>array</td>
+<td><em><p>Key/value pairs of meta data</p>
+</em></td>
+</tr>
+<tr>
+<th>$additionalHeaders</th>
+<td>array</td>
+<td><em><p>Additional headers. See http://msdn.microsoft.com/en-us/library/dd179371.aspx for more information.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Date/Time value representing the snapshot identifier.</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Exception.html#%5CZend_Service_WindowsAzure_Exception">\Zend_Service_WindowsAzure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::unregisterAsClient()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">unregisterAsClient</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></code><div class="description"><p class="short_description">Unregister this object as stream wrapper client</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Protocol name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::unregisterStreamWrapper()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">unregisterStreamWrapper</span><span class="nb-faded-text">(
+          string $name
+              =
+              'azure'
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></code><div class="description"><p class="short_description">Unregister this object as stream wrapper</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Protocol name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_WindowsAzure_Storage_Blob.html#%5CZend_Service_WindowsAzure_Storage_Blob">\Zend_Service_WindowsAzure_Storage_Blob</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_WindowsAzure_Storage_Blob::urlencode()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">urlencode</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">URL encode function</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_WindowsAzure_Storage.html#%5CZend_Service_WindowsAzure_Storage::urlencode()">\Zend_Service_WindowsAzure_Storage::urlencode()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Value to encode</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>Encoded value</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

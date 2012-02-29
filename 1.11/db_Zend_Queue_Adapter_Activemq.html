@@ -1,0 +1,920 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Queue/Adapter/Activemq.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Queue_Adapter_Activemq">\Zend_Queue_Adapter_Activemq</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Queue
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Adapter
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Activemq.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Queue_Adapter_Activemq" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Queue_Adapter_Activemq<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Queue\Adapter</small><p class="short-description">Class for using Stomp to talk to an Stomp compliant server</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract">\Zend_Queue_Adapter_AdapterAbstract</a>
+            &lt;
+            <a href="db_Zend_Queue_Adapter_AdapterInterface.html#%5CZend_Queue_Adapter_AdapterInterface" style="color: gray; font-size: 0.8em
+                ">\Zend_Queue_Adapter_AdapterInterface</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Queue_Adapter_Activemq::DEFAULT_SCHEME" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEFAULT_SCHEME</span>
+                = 'tcp'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::DEFAULT_HOST" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEFAULT_HOST</span>
+                = '127.0.0.1'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::DEFAULT_PORT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEFAULT_PORT</span>
+                = 61613</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::CREATE_TIMEOUT_DEFAULT" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CREATE_TIMEOUT_DEFAULT</span>
+                = 30</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Default timeout for createQueue() function</p>
+<small>Inherited from:
+                        <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::CREATE_TIMEOUT_DEFAULT">\Zend_Queue_Adapter_AdapterAbstract::CREATE_TIMEOUT_DEFAULT</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::CREATE_TIMEOUT_DEFAULT">\Zend_Queue_Adapter_AdapterAbstract::CREATE_TIMEOUT_DEFAULT</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::RECEIVE_TIMEOUT_DEFAULT" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">RECEIVE_TIMEOUT_DEFAULT</span>
+                = 30</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Default timeout for recieve() function</p>
+<small>Inherited from:
+                        <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::RECEIVE_TIMEOUT_DEFAULT">\Zend_Queue_Adapter_AdapterAbstract::RECEIVE_TIMEOUT_DEFAULT</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::RECEIVE_TIMEOUT_DEFAULT">\Zend_Queue_Adapter_AdapterAbstract::RECEIVE_TIMEOUT_DEFAULT</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Queue_Adapter_Activemq::$_client" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Queue_Adapter_Stomp_client
+                 <span class="highlight">$_client</span>= 'null'
+                </code><div class="description">
+<p class="short-description"></p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Zend_Queue_Adapter_Stomp_client</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::$_options" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_options</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">User-provided options</p><small>Inherited from:
+                        <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_options">\Zend_Queue_Adapter_AdapterAbstract::$$_options</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_options">\Zend_Queue_Adapter_AdapterAbstract::$$_options</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::$_queue" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Queue_Adapter_Abstract
+                 <span class="highlight">$_queue</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Contains the Zend_Queue that this object</p><small>Inherited from:
+                        <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_queue">\Zend_Queue_Adapter_AdapterAbstract::$$_queue</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\Zend_Queue_Adapter_Abstract</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_queue">\Zend_Queue_Adapter_AdapterAbstract::$$_queue</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::$_queues" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_queues</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Internal array of queues to save on lookups</p><small>Inherited from:
+                        <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_queues">\Zend_Queue_Adapter_AdapterAbstract::$$_queues</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::%24%24_queues">\Zend_Queue_Adapter_AdapterAbstract::$$_queues</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::$_subscribed" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_subscribed</span>= 'array()'
+                </code><div class="description">
+<p class="short-description"></p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Queue_Adapter_Activemq::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+           $options, <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>$options is an array of key/value pairs or an instance of Zend_Config
+containing configuration options.  These options are common to most adapters:</p>
+
+<p>See the Zend_Queue Adapter Notes documentation for example configurations.</p>
+
+<p>Some options are used on a case-by-case basis by adapters:</p>
+
+<p>access_key     => (string) Amazon AWS Access Key
+secret_key     => (string) Amazon AWS Secret Key
+dbname         => (string) The name of the database to user
+username       => (string) Connect to the database as this username.
+password       => (string) Password associated with the username.
+host           => (string) What host to connect to, defaults to localhost
+port           => (string) The port of the database</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em><p>The Zend_Queue object that created this class</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::__destruct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__destruct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Close the socket explicitly when destructed</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::_isSubscribed()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_isSubscribed</span><span class="nb-faded-text">(
+          <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Checks if the client is subscribed to the queue</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::_subscribe()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_subscribe</span><span class="nb-faded-text">(
+          <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Subscribes the client to the queue.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::count()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">count</span><span class="nb-faded-text">(
+          <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+              =
+              null
+          )
+        </span>
+        :
+          integer</code><div class="description"><p class="short_description">Returns the length of the queue</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em>(not supported)</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::create()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">create</span><span class="nb-faded-text">(
+          string $name, integer $timeout
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Create a new queue</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>queue name</p></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td>integer</td>
+<td><em><p>default visibility timeout</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::delete()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">delete</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Delete a queue and all of its messages</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>queue name</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::deleteMessage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">deleteMessage</span><span class="nb-faded-text">(
+          <a href="db_Zend_Queue_Message.html#%5CZend_Queue_Message">\Zend_Queue_Message</a> $message
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Delete a message from the queue</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns true if the message is deleted, false if the deletion is
+unsuccessful.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$message</th>
+<td><a href="db_Zend_Queue_Message.html#%5CZend_Queue_Message">\Zend_Queue_Message</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::getCapabilities()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCapabilities</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Return a list of queue capabilities functions</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>$array['function name'] = true or false
+true is supported, false is not supported.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::getOptions()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getOptions</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the configuration options in this adapter.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::getOptions()">\Zend_Queue_Adapter_AdapterAbstract::getOptions()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::getQueue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getQueue</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">get the Zend_Queue class that is attached to this object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::getQueue()">\Zend_Queue_Adapter_AdapterAbstract::getQueue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>
+<a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::getQueues()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getQueues</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Get an array of all available queues</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::isExists()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isExists</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Does a queue already exist?</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Exception.html#%5CZend_Queue_Exception">\Zend_Queue_Exception</a></td>
+<td><em>(not supported)</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::isSupported()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isSupported</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Indicates if a function is supported or not.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::isSupported()">\Zend_Queue_Adapter_AdapterAbstract::isSupported()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::receive()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">receive</span><span class="nb-faded-text">(
+          integer $maxMessages
+              =
+              null, integer $timeout
+              =
+              null, <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Queue_Message_Iterator.html#%5CZend_Queue_Message_Iterator">\Zend_Queue_Message_Iterator</a></code><div class="description"><p class="short_description">Return the first element in the queue</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$maxMessages</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$timeout</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Message_Iterator.html#%5CZend_Queue_Message_Iterator">\Zend_Queue_Message_Iterator</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::send()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">send</span><span class="nb-faded-text">(
+          string $message, <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Queue_Message.html#%5CZend_Queue_Message">\Zend_Queue_Message</a></code><div class="description"><p class="short_description">Push an element onto the end of the queue</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$message</th>
+<td>string</td>
+<td><em><p>message to send to the queue</p></em></td>
+</tr>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Message.html#%5CZend_Queue_Message">\Zend_Queue_Message</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Queue_Adapter_Activemq::setQueue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setQueue</span><span class="nb-faded-text">(
+          <a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a> $queue
+          )
+        </span>
+        :
+          <a href="db_Zend_Queue_Adapter_AdapterInterface.html#%5CZend_Queue_Adapter_AdapterInterface">\Zend_Queue_Adapter_AdapterInterface</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">set the Zend_Queue class for this object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Queue_Adapter_AdapterAbstract.html#%5CZend_Queue_Adapter_AdapterAbstract::setQueue()">\Zend_Queue_Adapter_AdapterAbstract::setQueue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$queue</th>
+<td><a href="db_Zend_Queue.html#%5CZend_Queue">\Zend_Queue</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Queue_Adapter_AdapterInterface.html#%5CZend_Queue_Adapter_AdapterInterface">\Zend_Queue_Adapter_AdapterInterface</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

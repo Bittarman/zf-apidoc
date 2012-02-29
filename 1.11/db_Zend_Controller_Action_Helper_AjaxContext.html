@@ -1,0 +1,2825 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Controller/Action/Helper/AjaxContext.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Controller_Action_Helper_AjaxContext">\Zend_Controller_Action_Helper_AjaxContext</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Controller
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Controller_Action_Helper
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: AjaxContext.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Controller_Action_Helper_AjaxContext" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Controller_Action_Helper_AjaxContext<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Controller\Zend\Controller\Action\Helper</small><p class="short-description">Simplify AJAX context switching based on requested format</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a>
+            &lt;
+            <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract" style="color: gray; font-size: 0.8em
+                ">\Zend_Controller_Action_Helper_Abstract</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt>Uses</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract">\Zend_Controller_Action_Helper_Abstract</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::TRIGGER_INIT" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRIGGER_INIT</span>
+                = 'TRIGGER_INIT'</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Trigger type constants</p>
+<small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::TRIGGER_INIT">\Zend_Controller_Action_Helper_ContextSwitch::TRIGGER_INIT</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::TRIGGER_INIT">\Zend_Controller_Action_Helper_ContextSwitch::TRIGGER_INIT</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::TRIGGER_POST" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TRIGGER_POST</span>
+                = 'TRIGGER_POST'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::TRIGGER_POST">\Zend_Controller_Action_Helper_ContextSwitch::TRIGGER_POST</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::TRIGGER_POST">\Zend_Controller_Action_Helper_ContextSwitch::TRIGGER_POST</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_actionController" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Controller_Action
+                 <span class="highlight">$_actionController</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">$_actionController</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::%24%24_actionController">\Zend_Controller_Action_Helper_Abstract::$$_actionController</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_actionController">\Zend_Controller_Action_Helper_ContextSwitch::$$_actionController</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Controller_Action.html#%5CZend_Controller_Action">\Zend_Controller_Action</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::%24%24_actionController">\Zend_Controller_Action_Helper_Abstract::$$_actionController</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_actionController">\Zend_Controller_Action_Helper_ContextSwitch::$$_actionController</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_autoJsonSerialization" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_autoJsonSerialization</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">JSON auto-serialization flag</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_autoJsonSerialization">\Zend_Controller_Action_Helper_ContextSwitch::$$_autoJsonSerialization</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_autoJsonSerialization">\Zend_Controller_Action_Helper_ContextSwitch::$$_autoJsonSerialization</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_contextKey" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_contextKey</span>= ''ajaxable''
+                </code><div class="description">
+<p class="short-description">Controller property to utilize for context switching</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'ajaxable'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_contextParam" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_contextParam</span>= ''format''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Request parameter containing requested context</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_contextParam">\Zend_Controller_Action_Helper_ContextSwitch::$$_contextParam</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'format'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_contextParam">\Zend_Controller_Action_Helper_ContextSwitch::$$_contextParam</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_contexts" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_contexts</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Supported contexts</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_contexts">\Zend_Controller_Action_Helper_ContextSwitch::$$_contexts</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_contexts">\Zend_Controller_Action_Helper_ContextSwitch::$$_contexts</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_currentContext" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_currentContext</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current context</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_currentContext">\Zend_Controller_Action_Helper_ContextSwitch::$$_currentContext</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_currentContext">\Zend_Controller_Action_Helper_ContextSwitch::$$_currentContext</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_defaultContext" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_defaultContext</span>= ''xml''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Default context (xml)</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_defaultContext">\Zend_Controller_Action_Helper_ContextSwitch::$$_defaultContext</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'xml'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_defaultContext">\Zend_Controller_Action_Helper_ContextSwitch::$$_defaultContext</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_disableLayout" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_disableLayout</span>= 'true'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Whether or not to disable layouts when switching contexts</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_disableLayout">\Zend_Controller_Action_Helper_ContextSwitch::$$_disableLayout</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>true</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_disableLayout">\Zend_Controller_Action_Helper_ContextSwitch::$$_disableLayout</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_frontController" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">mixed
+                 <span class="highlight">$_frontController</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::%24%24_frontController">\Zend_Controller_Action_Helper_Abstract::$$_frontController</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_frontController">\Zend_Controller_Action_Helper_ContextSwitch::$$_frontController</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>mixed</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::%24%24_frontController">\Zend_Controller_Action_Helper_Abstract::$$_frontController</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_frontController">\Zend_Controller_Action_Helper_ContextSwitch::$$_frontController</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_specialConfig" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_specialConfig</span>= 'array(
+        'setSuffix',
+        'setHeaders',
+        'setCallbacks',
+    )'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Methods that require special configuration</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_specialConfig">\Zend_Controller_Action_Helper_ContextSwitch::$$_specialConfig</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'setSuffix',
+        'setHeaders',
+        'setCallbacks',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_specialConfig">\Zend_Controller_Action_Helper_ContextSwitch::$$_specialConfig</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_unconfigurable" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_unconfigurable</span>= 'array(
+        'setOptions',
+        'setConfig',
+        'setHeader',
+        'setCallback',
+        'setContext',
+        'setActionContext',
+        'setActionContexts',
+    )'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Methods that are not configurable via setOptions and setConfig</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_unconfigurable">\Zend_Controller_Action_Helper_ContextSwitch::$$_unconfigurable</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'setOptions',
+        'setConfig',
+        'setHeader',
+        'setCallback',
+        'setContext',
+        'setActionContext',
+        'setActionContexts',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_unconfigurable">\Zend_Controller_Action_Helper_ContextSwitch::$$_unconfigurable</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_viewRenderer" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Controller_Action_Helper_ViewRenderer
+                 <span class="highlight">$_viewRenderer</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_viewRenderer">\Zend_Controller_Action_Helper_ContextSwitch::$$_viewRenderer</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Controller_Action_Helper_ViewRenderer.html#%5CZend_Controller_Action_Helper_ViewRenderer">\Zend_Controller_Action_Helper_ViewRenderer</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_viewRenderer">\Zend_Controller_Action_Helper_ContextSwitch::$$_viewRenderer</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::$_viewSuffixOrig" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_viewSuffixOrig</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Original view suffix prior to detecting context switch</p><small>Inherited from:
+                        <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_viewSuffixOrig">\Zend_Controller_Action_Helper_ContextSwitch::$$_viewSuffixOrig</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::%24%24_viewSuffixOrig">\Zend_Controller_Action_Helper_ContextSwitch::$$_viewSuffixOrig</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs"><div class="long-description"><p>Add HTML context</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::_getViewRenderer()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getViewRenderer</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ViewRenderer.html#%5CZend_Controller_Action_Helper_ViewRenderer">\Zend_Controller_Action_Helper_ViewRenderer</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve ViewRenderer</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::_getViewRenderer()">\Zend_Controller_Action_Helper_ContextSwitch::_getViewRenderer()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ViewRenderer.html#%5CZend_Controller_Action_Helper_ViewRenderer">\Zend_Controller_Action_Helper_ViewRenderer</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::_setCallbacks()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_setCallbacks</span><span class="nb-faded-text">(
+          array $options
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set callbacks from array of context => callbacks pairs</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::_setCallbacks()">\Zend_Controller_Action_Helper_ContextSwitch::_setCallbacks()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::_setHeaders()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_setHeaders</span><span class="nb-faded-text">(
+          array $options
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set headers from context => headers pairs</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::_setHeaders()">\Zend_Controller_Action_Helper_ContextSwitch::_setHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::_setSuffix()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_setSuffix</span><span class="nb-faded-text">(
+          array $spec
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set suffix from array</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::_setSuffix()">\Zend_Controller_Action_Helper_ContextSwitch::_setSuffix()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$spec</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::_validateTrigger()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_validateTrigger</span><span class="nb-faded-text">(
+          string $trigger
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Validate trigger and return in normalized form</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::_validateTrigger()">\Zend_Controller_Action_Helper_ContextSwitch::_validateTrigger()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$trigger</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addActionContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addActionContext</span><span class="nb-faded-text">(
+          string $action, string | array $context
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a> | void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add one or more contexts to an action</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addActionContext()">\Zend_Controller_Action_Helper_ContextSwitch::addActionContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$context</th>
+<td>string | array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a> | void</td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addActionContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addActionContexts</span><span class="nb-faded-text">(
+          array $contexts
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add multiple action/context pairs at once</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addActionContexts()">\Zend_Controller_Action_Helper_ContextSwitch::addActionContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$contexts</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addContext</span><span class="nb-faded-text">(
+          string $context, array $spec
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add new context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addContext()">\Zend_Controller_Action_Helper_ContextSwitch::addContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em><p>Context type</p></em></td>
+</tr>
+<tr>
+<th>$spec</th>
+<td>array</td>
+<td><em><p>Context specification</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addContexts</span><span class="nb-faded-text">(
+          array $contexts
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add multiple contexts</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addContexts()">\Zend_Controller_Action_Helper_ContextSwitch::addContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$contexts</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addHeader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addHeader</span><span class="nb-faded-text">(
+          string $context, string $header, string $content
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add header to context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addHeader()">\Zend_Controller_Action_Helper_ContextSwitch::addHeader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$content</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::addHeaders()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addHeaders</span><span class="nb-faded-text">(
+          string $context, array $headers
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add multiple headers at once for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::addHeaders()">\Zend_Controller_Action_Helper_ContextSwitch::addHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::clearActionContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearActionContexts</span><span class="nb-faded-text">(
+          string $action
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Clear all contexts for a given controller action or all actions</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::clearActionContexts()">\Zend_Controller_Action_Helper_ContextSwitch::clearActionContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::clearCallbacks()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearCallbacks</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Clear all callbacks for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::clearCallbacks()">\Zend_Controller_Action_Helper_ContextSwitch::clearCallbacks()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::clearContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearContexts</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove all contexts</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::clearContexts()">\Zend_Controller_Action_Helper_ContextSwitch::clearContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::clearHeaders()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearHeaders</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Clear all headers for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::clearHeaders()">\Zend_Controller_Action_Helper_ContextSwitch::clearHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::direct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">direct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Strategy pattern: return object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::direct()">\Zend_Controller_Action_Helper_ContextSwitch::direct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getActionContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getActionContexts</span><span class="nb-faded-text">(
+          string $action
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get contexts for a given action or all actions in the controller</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getActionContexts()">\Zend_Controller_Action_Helper_ContextSwitch::getActionContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getActionController()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getActionController</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action.html#%5CZend_Controller_Action">\Zend_Controller_Action</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve current action controller</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::getActionController()">\Zend_Controller_Action_Helper_Abstract::getActionController()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getActionController()">\Zend_Controller_Action_Helper_ContextSwitch::getActionController()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action.html#%5CZend_Controller_Action">\Zend_Controller_Action</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getAutoDisableLayout()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAutoDisableLayout</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve auto layout disable flag</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getAutoDisableLayout()">\Zend_Controller_Action_Helper_ContextSwitch::getAutoDisableLayout()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getAutoJsonSerialization()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAutoJsonSerialization</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get JSON context auto-serialization flag</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getAutoJsonSerialization()">\Zend_Controller_Action_Helper_ContextSwitch::getAutoJsonSerialization()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getCallback()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCallback</span><span class="nb-faded-text">(
+          string $context, string $trigger
+          )
+        </span>
+        :
+          string | array | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get a single callback for a given context and trigger</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getCallback()">\Zend_Controller_Action_Helper_ContextSwitch::getCallback()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$trigger</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | array | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getCallbacks()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCallbacks</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get all callbacks for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getCallbacks()">\Zend_Controller_Action_Helper_ContextSwitch::getCallbacks()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContext</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          array | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve context specification</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getContext()">\Zend_Controller_Action_Helper_ContextSwitch::getContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getContextParam()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContextParam</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return context format request parameter name</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getContextParam()">\Zend_Controller_Action_Helper_ContextSwitch::getContextParam()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getContexts</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve context definitions</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getContexts()">\Zend_Controller_Action_Helper_ContextSwitch::getContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getCurrentContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCurrentContext</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          null | string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return current context, if any</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getCurrentContext()">\Zend_Controller_Action_Helper_ContextSwitch::getCurrentContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>null | string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getDefaultContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDefaultContext</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return default context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getDefaultContext()">\Zend_Controller_Action_Helper_ContextSwitch::getDefaultContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getFrontController()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFrontController</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Front.html#%5CZend_Controller_Front">\Zend_Controller_Front</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve front controller instance</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::getFrontController()">\Zend_Controller_Action_Helper_Abstract::getFrontController()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getFrontController()">\Zend_Controller_Action_Helper_ContextSwitch::getFrontController()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Front.html#%5CZend_Controller_Front">\Zend_Controller_Front</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getHeader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getHeader</span><span class="nb-faded-text">(
+          string $context, string $header
+          )
+        </span>
+        :
+          string | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve context header</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getHeader()">\Zend_Controller_Action_Helper_ContextSwitch::getHeader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns the value of a given header for a given context type</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getHeaders()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getHeaders</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve context headers</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getHeaders()">\Zend_Controller_Action_Helper_ContextSwitch::getHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns all headers for a context as key/value pairs</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getName</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">getName()</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::getName()">\Zend_Controller_Action_Helper_Abstract::getName()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getName()">\Zend_Controller_Action_Helper_ContextSwitch::getName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getRequest()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getRequest</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Request_Abstract.html#%5CZend_Controller_Request_Abstract">\Zend_Controller_Request_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">getRequest() -</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::getRequest()">\Zend_Controller_Action_Helper_Abstract::getRequest()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getRequest()">\Zend_Controller_Action_Helper_ContextSwitch::getRequest()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Request_Abstract.html#%5CZend_Controller_Request_Abstract">\Zend_Controller_Request_Abstract</a></td>
+<td>$request</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getResponse()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getResponse</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Response_Abstract.html#%5CZend_Controller_Response_Abstract">\Zend_Controller_Response_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">getResponse() -</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::getResponse()">\Zend_Controller_Action_Helper_Abstract::getResponse()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getResponse()">\Zend_Controller_Action_Helper_ContextSwitch::getResponse()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Response_Abstract.html#%5CZend_Controller_Response_Abstract">\Zend_Controller_Response_Abstract</a></td>
+<td>$response</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::getSuffix()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getSuffix</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve suffix for given context type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::getSuffix()">\Zend_Controller_Action_Helper_ContextSwitch::getSuffix()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Context type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::hasActionContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasActionContext</span><span class="nb-faded-text">(
+          string $action, string | array $context
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does a particular controller action have the given context(s)?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::hasActionContext()">\Zend_Controller_Action_Helper_ContextSwitch::hasActionContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$context</th>
+<td>string | array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::hasContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasContext</span><span class="nb-faded-text">(
+          string $context, boolean $throwException
+              =
+              false
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does the given context exist?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::hasContext()">\Zend_Controller_Action_Helper_ContextSwitch::hasContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$throwException</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em>if context does not exist and throwException is true</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::init()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">init</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Initialize at start of action controller</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::init()">\Zend_Controller_Action_Helper_ContextSwitch::init()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>Reset the view script suffix to the original state, or store the
+original state.</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::initContext()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">initContext</span><span class="nb-faded-text">(
+          string $format
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Initialize AJAX context switching</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Checks for XHR requests; if detected, attempts to perform context switch.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$format</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::initJsonContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">initJsonContext</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">JSON context extra initialization</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::initJsonContext()">\Zend_Controller_Action_Helper_ContextSwitch::initJsonContext()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>Turns off viewRenderer auto-rendering</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::postDispatch()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">postDispatch</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Post dispatch processing</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::postDispatch()">\Zend_Controller_Action_Helper_ContextSwitch::postDispatch()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Execute postDispatch callback for current context, if available</p></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::postJsonContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">postJsonContext</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">JSON post processing</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::postJsonContext()">\Zend_Controller_Action_Helper_ContextSwitch::postJsonContext()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>JSON serialize view variables to response body</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::preDispatch()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">preDispatch</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Hook into action controller preDispatch() workflow</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::preDispatch()">\Zend_Controller_Action_Helper_Abstract::preDispatch()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::preDispatch()">\Zend_Controller_Action_Helper_ContextSwitch::preDispatch()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::removeActionContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeActionContext</span><span class="nb-faded-text">(
+          string $action, string | array $context
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove one or more contexts for a given controller action</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::removeActionContext()">\Zend_Controller_Action_Helper_ContextSwitch::removeActionContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$context</th>
+<td>string | array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::removeCallback()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeCallback</span><span class="nb-faded-text">(
+          string $context, string $trigger
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Clear a callback for a given context and trigger</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::removeCallback()">\Zend_Controller_Action_Helper_ContextSwitch::removeCallback()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$trigger</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::removeContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeContext</span><span class="nb-faded-text">(
+          string $context
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove a context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::removeContext()">\Zend_Controller_Action_Helper_ContextSwitch::removeContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::removeHeader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeHeader</span><span class="nb-faded-text">(
+          string $context, string $header
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove a single header from a context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::removeHeader()">\Zend_Controller_Action_Helper_ContextSwitch::removeHeader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setActionContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setActionContext</span><span class="nb-faded-text">(
+          string $action, string | array $context
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a> | void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a context as available for a given controller action</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setActionContext()">\Zend_Controller_Action_Helper_ContextSwitch::setActionContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$action</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$context</th>
+<td>string | array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>
+<a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a> | void</td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setActionContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setActionContexts</span><span class="nb-faded-text">(
+          array $contexts
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overwrite and set multiple action contexts at once</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setActionContexts()">\Zend_Controller_Action_Helper_ContextSwitch::setActionContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$contexts</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setActionController()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setActionController</span><span class="nb-faded-text">(
+          <a href="db_Zend_Controller_Action.html#%5CZend_Controller_Action">\Zend_Controller_Action</a> $actionController
+              =
+              null
+          )
+        </span>
+        :
+          \Zend_Controller_ActionHelper_Abstract</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">setActionController()</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_Abstract.html#%5CZend_Controller_Action_Helper_Abstract::setActionController()">\Zend_Controller_Action_Helper_Abstract::setActionController()</a><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setActionController()">\Zend_Controller_Action_Helper_ContextSwitch::setActionController()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$actionController</th>
+<td><a href="db_Zend_Controller_Action.html#%5CZend_Controller_Action">\Zend_Controller_Action</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Zend_Controller_ActionHelper_Abstract</td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setAutoDisableLayout()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAutoDisableLayout</span><span class="nb-faded-text">(
+          boolean $flag
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set flag indicating if layout should be disabled</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setAutoDisableLayout()">\Zend_Controller_Action_Helper_ContextSwitch::setAutoDisableLayout()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$flag</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setAutoJsonSerialization()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setAutoJsonSerialization</span><span class="nb-faded-text">(
+          boolean $flag
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Should JSON contexts auto-serialize?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setAutoJsonSerialization()">\Zend_Controller_Action_Helper_ContextSwitch::setAutoJsonSerialization()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$flag</th>
+<td>boolean</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setCallback()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCallback</span><span class="nb-faded-text">(
+          string $context, string $trigger, string | array $callback
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a callback for a given context and trigger</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setCallback()">\Zend_Controller_Action_Helper_ContextSwitch::setCallback()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$trigger</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$callback</th>
+<td>string | array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setCallbacks()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCallbacks</span><span class="nb-faded-text">(
+          string $context, array $callbacks
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set callbacks for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setCallbacks()">\Zend_Controller_Action_Helper_ContextSwitch::setCallbacks()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Callbacks should be in trigger/callback pairs.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$callbacks</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setConfig()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setConfig</span><span class="nb-faded-text">(
+          <a href="db_Zend_Config.html#%5CZend_Config">\Zend_Config</a> $config
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set object state from config object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setConfig()">\Zend_Controller_Action_Helper_ContextSwitch::setConfig()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$config</th>
+<td><a href="db_Zend_Config.html#%5CZend_Config">\Zend_Config</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContext</span><span class="nb-faded-text">(
+          string $context, array $spec
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Overwrite existing context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setContext()">\Zend_Controller_Action_Helper_ContextSwitch::setContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em><p>Context type</p></em></td>
+</tr>
+<tr>
+<th>$spec</th>
+<td>array</td>
+<td><em><p>Context specification</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setContextParam()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContextParam</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set name of parameter to use when determining context format</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setContextParam()">\Zend_Controller_Action_Helper_ContextSwitch::setContextParam()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setContexts()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setContexts</span><span class="nb-faded-text">(
+          array $contexts
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set multiple contexts, after first removing all</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setContexts()">\Zend_Controller_Action_Helper_ContextSwitch::setContexts()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$contexts</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setDefaultContext()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDefaultContext</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Indicate default context to use when no context format provided</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setDefaultContext()">\Zend_Controller_Action_Helper_ContextSwitch::setDefaultContext()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setHeader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setHeader</span><span class="nb-faded-text">(
+           $context, string $header, string $content
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Customize response header to use when switching context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setHeader()">\Zend_Controller_Action_Helper_ContextSwitch::setHeader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Passing an empty header value to the setters disables the response
+header.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$header</th>
+<td>string</td>
+<td><em><p>Header to set</p></em></td>
+</tr>
+<tr>
+<th>$content</th>
+<td>string</td>
+<td><em><p>Header content</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setHeaders()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setHeaders</span><span class="nb-faded-text">(
+          string $context, array $headers
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set multiple headers at once for a given context</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setHeaders()">\Zend_Controller_Action_Helper_ContextSwitch::setHeaders()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$headers</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setOptions()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setOptions</span><span class="nb-faded-text">(
+          array $options
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Configure object from array of options</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setOptions()">\Zend_Controller_Action_Helper_ContextSwitch::setOptions()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Controller_Action_Helper_AjaxContext::setSuffix()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setSuffix</span><span class="nb-faded-text">(
+          string $context, string $suffix, boolean $prependViewRendererSuffix
+              =
+              true
+          )
+        </span>
+        :
+          <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Customize view script suffix to use when switching context.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch::setSuffix()">\Zend_Controller_Action_Helper_ContextSwitch::setSuffix()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Passing an empty suffix value to the setters disables the view script
+suffix change.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$context</th>
+<td>string</td>
+<td><em><p>Context type for which to set suffix</p></em></td>
+</tr>
+<tr>
+<th>$suffix</th>
+<td>string</td>
+<td><em><p>Suffix to use</p></em></td>
+</tr>
+<tr>
+<th>$prependViewRendererSuffix</th>
+<td>boolean</td>
+<td><em><p>Whether or not to prepend the new suffix to the viewrenderer suffix</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Helper_ContextSwitch.html#%5CZend_Controller_Action_Helper_ContextSwitch">\Zend_Controller_Action_Helper_ContextSwitch</a></td>
+<td>Provides a fluent interface</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Controller_Action_Exception.html#%5CZend_Controller_Action_Exception">\Zend_Controller_Action_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

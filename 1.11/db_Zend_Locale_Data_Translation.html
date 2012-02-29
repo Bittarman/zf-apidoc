@@ -1,0 +1,691 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Locale/Data/Translation.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Locale_Data_Translation">\Zend_Locale_Data_Translation</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Locale
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Translation.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Locale_Data_Translation" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Locale_Data_Translation<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Locale</small><p class="short-description">Definition class for all Windows locales
+Based on this two lists:</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://msdn.microsoft.com/en-us/library/39cwe7zf.aspx">http://msdn.microsoft.com/en-us/library/39cwe7zf.aspx</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://msdn.microsoft.com/en-us/library/cdax410z.aspx">http://msdn.microsoft.com/en-us/library/cdax410z.aspx</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://msdn.microsoft.com/en-us/goglobal/bb964664.aspx">http://msdn.microsoft.com/en-us/goglobal/bb964664.aspx</a>
+         
+    </dd>
+<dt>Link</dt>
+<dd>
+<a href="http://msdn.microsoft.com/en-us/goglobal/bb895996.aspx">http://msdn.microsoft.com/en-us/goglobal/bb895996.aspx</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Locale_Data_Translation::$languageTranslation" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">array
+                 <span class="highlight">$languageTranslation</span>= 'array(
+        'Afrikaans'         =&gt; 'af',
+        'Albanian'          =&gt; 'sq',
+        'Amharic'           =&gt; 'am',
+        'Arabic'            =&gt; 'ar',
+        'Armenian'          =&gt; 'hy',
+        'Assamese'          =&gt; 'as',
+        'Azeri'             =&gt; 'az',
+        'Azeri Latin'       =&gt; 'az_Latn',
+        'Azeri Cyrillic'    =&gt; 'az_Cyrl',
+        'Basque'            =&gt; 'eu',
+        'Belarusian'        =&gt; 'be',
+        'Bengali'           =&gt; 'bn',
+        'Bengali Latin'     =&gt; 'bn_Latn',
+        'Bosnian'           =&gt; 'bs',
+        'Bulgarian'         =&gt; 'bg',
+        'Burmese'           =&gt; 'my',
+        'Catalan'           =&gt; 'ca',
+        'Cherokee'          =&gt; 'chr',
+        'Chinese'           =&gt; 'zh',
+        'Croatian'          =&gt; 'hr',
+        'Czech'             =&gt; 'cs',
+        'Danish'            =&gt; 'da',
+        'Divehi'            =&gt; 'dv',
+        'Dutch'             =&gt; 'nl',
+        'English'           =&gt; 'en',
+        'Estonian'          =&gt; 'et',
+        'Faroese'           =&gt; 'fo',
+        'Faeroese'          =&gt; 'fo',
+        'Farsi'             =&gt; 'fa',
+        'Filipino'          =&gt; 'fil',
+        'Finnish'           =&gt; 'fi',
+        'French'            =&gt; 'fr',
+        'Frisian'           =&gt; 'fy',
+        'Macedonian'        =&gt; 'mk',
+        'Gaelic'            =&gt; 'gd',
+        'Galician'          =&gt; 'gl',
+        'Georgian'          =&gt; 'ka',
+        'German'            =&gt; 'de',
+        'Greek'             =&gt; 'el',
+        'Guarani'           =&gt; 'gn',
+        'Gujarati'          =&gt; 'gu',
+        'Hausa'             =&gt; 'ha',
+        'Hawaiian'          =&gt; 'haw',
+        'Hebrew'            =&gt; 'he',
+        'Hindi'             =&gt; 'hi',
+        'Hungarian'         =&gt; 'hu',
+        'Icelandic'         =&gt; 'is',
+        'Igbo'              =&gt; 'ig',
+        'Indonesian'        =&gt; 'id',
+        'Inuktitut'         =&gt; 'iu',
+        'Italian'           =&gt; 'it',
+        'Japanese'          =&gt; 'ja',
+        'Kannada'           =&gt; 'kn',
+        'Kanuri'            =&gt; 'kr',
+        'Kashmiri'          =&gt; 'ks',
+        'Kazakh'            =&gt; 'kk',
+        'Khmer'             =&gt; 'km',
+        'Konkani'           =&gt; 'kok',
+        'Korean'            =&gt; 'ko',
+        'Kyrgyz'            =&gt; 'ky',
+        'Lao'               =&gt; 'lo',
+        'Latin'             =&gt; 'la',
+        'Latvian'           =&gt; 'lv',
+        'Lithuanian'        =&gt; 'lt',
+        'Macedonian'        =&gt; 'mk',
+        'Malay'             =&gt; 'ms',
+        'Malayalam'         =&gt; 'ml',
+        'Maltese'           =&gt; 'mt',
+        'Manipuri'          =&gt; 'mni',
+        'Maori'             =&gt; 'mi',
+        'Marathi'           =&gt; 'mr',
+        'Mongolian'         =&gt; 'mn',
+        'Nepali'            =&gt; 'ne',
+        'Norwegian'         =&gt; 'no',
+        'Norwegian Bokmal'  =&gt; 'nb',
+        'Norwegian Nynorsk' =&gt; 'nn',
+        'Oriya'             =&gt; 'or',
+        'Oromo'             =&gt; 'om',
+        'Papiamentu'        =&gt; 'pap',
+        'Pashto'            =&gt; 'ps',
+        'Polish'            =&gt; 'pl',
+        'Portuguese'        =&gt; 'pt',
+        'Punjabi'           =&gt; 'pa',
+        'Quecha'            =&gt; 'qu',
+        'Quechua'           =&gt; 'qu',
+        'Rhaeto-Romanic'    =&gt; 'rm',
+        'Romanian'          =&gt; 'ro',
+        'Russian'           =&gt; 'ru',
+        'Sami'              =&gt; 'smi',
+        'Sami Inari'        =&gt; 'smn',
+        'Sami Lule'         =&gt; 'smj',
+        'Sami Northern'     =&gt; 'se',
+        'Sami Skolt'        =&gt; 'sms',
+        'Sami Southern'     =&gt; 'sma',
+        'Sanskrit'          =&gt; 'sa',
+        'Serbian'           =&gt; 'sr',
+        'Serbian Latin'     =&gt; 'sr_Latn',
+        'Serbian Cyrillic'  =&gt; 'sr_Cyrl',
+        'Sindhi'            =&gt; 'sd',
+        'Sinhalese'         =&gt; 'si',
+        'Slovak'            =&gt; 'sk',
+        'Slovenian'         =&gt; 'sl',
+        'Somali'            =&gt; 'so',
+        'Sorbian'           =&gt; 'wen',
+        'Spanish'           =&gt; 'es',
+        'Swahili'           =&gt; 'sw',
+        'Swedish'           =&gt; 'sv',
+        'Syriac'            =&gt; 'syr',
+        'Tajik'             =&gt; 'tg',
+        'Tamazight'         =&gt; 'tmh',
+        'Tamil'             =&gt; 'ta',
+        'Tatar'             =&gt; 'tt',
+        'Telugu'            =&gt; 'te',
+        'Thai'              =&gt; 'th',
+        'Tibetan'           =&gt; 'bo',
+        'Tigrigna'          =&gt; 'ti',
+        'Tsonga'            =&gt; 'ts',
+        'Tswana'            =&gt; 'tn',
+        'Turkish'           =&gt; 'tr',
+        'Turkmen'           =&gt; 'tk',
+        'Uighur'            =&gt; 'ug',
+        'Ukrainian'         =&gt; 'uk',
+        'Urdu'              =&gt; 'ur',
+        'Uzbek'             =&gt; 'uz',
+        'Uzbek Latin'       =&gt; 'uz_Latn',
+        'Uzbek Cyrillic'    =&gt; 'uz_Cyrl',
+        'Venda'             =&gt; 've',
+        'Vietnamese'        =&gt; 'vi',
+        'Welsh'             =&gt; 'cy',
+        'Xhosa'             =&gt; 'xh',
+        'Yiddish'           =&gt; 'yi',
+        'Yoruba'            =&gt; 'yo',
+        'Zulu'              =&gt; 'zu',
+    )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Locale Translation for Full Named Locales</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'Afrikaans'         =&gt; 'af',
+        'Albanian'          =&gt; 'sq',
+        'Amharic'           =&gt; 'am',
+        'Arabic'            =&gt; 'ar',
+        'Armenian'          =&gt; 'hy',
+        'Assamese'          =&gt; 'as',
+        'Azeri'             =&gt; 'az',
+        'Azeri Latin'       =&gt; 'az_Latn',
+        'Azeri Cyrillic'    =&gt; 'az_Cyrl',
+        'Basque'            =&gt; 'eu',
+        'Belarusian'        =&gt; 'be',
+        'Bengali'           =&gt; 'bn',
+        'Bengali Latin'     =&gt; 'bn_Latn',
+        'Bosnian'           =&gt; 'bs',
+        'Bulgarian'         =&gt; 'bg',
+        'Burmese'           =&gt; 'my',
+        'Catalan'           =&gt; 'ca',
+        'Cherokee'          =&gt; 'chr',
+        'Chinese'           =&gt; 'zh',
+        'Croatian'          =&gt; 'hr',
+        'Czech'             =&gt; 'cs',
+        'Danish'            =&gt; 'da',
+        'Divehi'            =&gt; 'dv',
+        'Dutch'             =&gt; 'nl',
+        'English'           =&gt; 'en',
+        'Estonian'          =&gt; 'et',
+        'Faroese'           =&gt; 'fo',
+        'Faeroese'          =&gt; 'fo',
+        'Farsi'             =&gt; 'fa',
+        'Filipino'          =&gt; 'fil',
+        'Finnish'           =&gt; 'fi',
+        'French'            =&gt; 'fr',
+        'Frisian'           =&gt; 'fy',
+        'Macedonian'        =&gt; 'mk',
+        'Gaelic'            =&gt; 'gd',
+        'Galician'          =&gt; 'gl',
+        'Georgian'          =&gt; 'ka',
+        'German'            =&gt; 'de',
+        'Greek'             =&gt; 'el',
+        'Guarani'           =&gt; 'gn',
+        'Gujarati'          =&gt; 'gu',
+        'Hausa'             =&gt; 'ha',
+        'Hawaiian'          =&gt; 'haw',
+        'Hebrew'            =&gt; 'he',
+        'Hindi'             =&gt; 'hi',
+        'Hungarian'         =&gt; 'hu',
+        'Icelandic'         =&gt; 'is',
+        'Igbo'              =&gt; 'ig',
+        'Indonesian'        =&gt; 'id',
+        'Inuktitut'         =&gt; 'iu',
+        'Italian'           =&gt; 'it',
+        'Japanese'          =&gt; 'ja',
+        'Kannada'           =&gt; 'kn',
+        'Kanuri'            =&gt; 'kr',
+        'Kashmiri'          =&gt; 'ks',
+        'Kazakh'            =&gt; 'kk',
+        'Khmer'             =&gt; 'km',
+        'Konkani'           =&gt; 'kok',
+        'Korean'            =&gt; 'ko',
+        'Kyrgyz'            =&gt; 'ky',
+        'Lao'               =&gt; 'lo',
+        'Latin'             =&gt; 'la',
+        'Latvian'           =&gt; 'lv',
+        'Lithuanian'        =&gt; 'lt',
+        'Macedonian'        =&gt; 'mk',
+        'Malay'             =&gt; 'ms',
+        'Malayalam'         =&gt; 'ml',
+        'Maltese'           =&gt; 'mt',
+        'Manipuri'          =&gt; 'mni',
+        'Maori'             =&gt; 'mi',
+        'Marathi'           =&gt; 'mr',
+        'Mongolian'         =&gt; 'mn',
+        'Nepali'            =&gt; 'ne',
+        'Norwegian'         =&gt; 'no',
+        'Norwegian Bokmal'  =&gt; 'nb',
+        'Norwegian Nynorsk' =&gt; 'nn',
+        'Oriya'             =&gt; 'or',
+        'Oromo'             =&gt; 'om',
+        'Papiamentu'        =&gt; 'pap',
+        'Pashto'            =&gt; 'ps',
+        'Polish'            =&gt; 'pl',
+        'Portuguese'        =&gt; 'pt',
+        'Punjabi'           =&gt; 'pa',
+        'Quecha'            =&gt; 'qu',
+        'Quechua'           =&gt; 'qu',
+        'Rhaeto-Romanic'    =&gt; 'rm',
+        'Romanian'          =&gt; 'ro',
+        'Russian'           =&gt; 'ru',
+        'Sami'              =&gt; 'smi',
+        'Sami Inari'        =&gt; 'smn',
+        'Sami Lule'         =&gt; 'smj',
+        'Sami Northern'     =&gt; 'se',
+        'Sami Skolt'        =&gt; 'sms',
+        'Sami Southern'     =&gt; 'sma',
+        'Sanskrit'          =&gt; 'sa',
+        'Serbian'           =&gt; 'sr',
+        'Serbian Latin'     =&gt; 'sr_Latn',
+        'Serbian Cyrillic'  =&gt; 'sr_Cyrl',
+        'Sindhi'            =&gt; 'sd',
+        'Sinhalese'         =&gt; 'si',
+        'Slovak'            =&gt; 'sk',
+        'Slovenian'         =&gt; 'sl',
+        'Somali'            =&gt; 'so',
+        'Sorbian'           =&gt; 'wen',
+        'Spanish'           =&gt; 'es',
+        'Swahili'           =&gt; 'sw',
+        'Swedish'           =&gt; 'sv',
+        'Syriac'            =&gt; 'syr',
+        'Tajik'             =&gt; 'tg',
+        'Tamazight'         =&gt; 'tmh',
+        'Tamil'             =&gt; 'ta',
+        'Tatar'             =&gt; 'tt',
+        'Telugu'            =&gt; 'te',
+        'Thai'              =&gt; 'th',
+        'Tibetan'           =&gt; 'bo',
+        'Tigrigna'          =&gt; 'ti',
+        'Tsonga'            =&gt; 'ts',
+        'Tswana'            =&gt; 'tn',
+        'Turkish'           =&gt; 'tr',
+        'Turkmen'           =&gt; 'tk',
+        'Uighur'            =&gt; 'ug',
+        'Ukrainian'         =&gt; 'uk',
+        'Urdu'              =&gt; 'ur',
+        'Uzbek'             =&gt; 'uz',
+        'Uzbek Latin'       =&gt; 'uz_Latn',
+        'Uzbek Cyrillic'    =&gt; 'uz_Cyrl',
+        'Venda'             =&gt; 've',
+        'Vietnamese'        =&gt; 'vi',
+        'Welsh'             =&gt; 'cy',
+        'Xhosa'             =&gt; 'xh',
+        'Yiddish'           =&gt; 'yi',
+        'Yoruba'            =&gt; 'yo',
+        'Zulu'              =&gt; 'zu',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale_Data_Translation::$regionTranslation" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+                 <span class="highlight">$regionTranslation</span>= 'array(
+        'Albania'                    =&gt; 'AL',
+        'Algeria'                    =&gt; 'DZ',
+        'Argentina'                  =&gt; 'AR',
+        'Armenia'                    =&gt; 'AM',
+        'Australia'                  =&gt; 'AU',
+        'Austria'                    =&gt; 'AT',
+        'Bahrain'                    =&gt; 'BH',
+        'Bangladesh'                 =&gt; 'BD',
+        'Belgium'                    =&gt; 'BE',
+        'Belize'                     =&gt; 'BZ',
+        'Bhutan'                     =&gt; 'BT',
+        'Bolivia'                    =&gt; 'BO',
+        'Bosnia Herzegovina'         =&gt; 'BA',
+        'Brazil'                     =&gt; 'BR',
+        'Brazilian'                  =&gt; 'BR',
+        'Brunei Darussalam'          =&gt; 'BN',
+        'Cameroon'                   =&gt; 'CM',
+        'Canada'                     =&gt; 'CA',
+        'Chile'                      =&gt; 'CL',
+        'China'                      =&gt; 'CN',
+        'Colombia'                   =&gt; 'CO',
+        'Costa Rica'                 =&gt; 'CR',
+        "Cote d'Ivoire"              =&gt; 'CI',
+        'Czech Republic'             =&gt; 'CZ',
+        'Dominican Republic'         =&gt; 'DO',
+        'Denmark'                    =&gt; 'DK',
+        'Ecuador'                    =&gt; 'EC',
+        'Egypt'                      =&gt; 'EG',
+        'El Salvador'                =&gt; 'SV',
+        'Eritrea'                    =&gt; 'ER',
+        'Ethiopia'                   =&gt; 'ET',
+        'Finland'                    =&gt; 'FI',
+        'France'                     =&gt; 'FR',
+        'Germany'                    =&gt; 'DE',
+        'Greece'                     =&gt; 'GR',
+        'Guatemala'                  =&gt; 'GT',
+        'Haiti'                      =&gt; 'HT',
+        'Honduras'                   =&gt; 'HN',
+        'Hong Kong'                  =&gt; 'HK',
+        'Hong Kong SAR'              =&gt; 'HK',
+        'Hungary'                    =&gt; 'HU',
+        'Iceland'                    =&gt; 'IS',
+        'India'                      =&gt; 'IN',
+        'Indonesia'                  =&gt; 'ID',
+        'Iran'                       =&gt; 'IR',
+        'Iraq'                       =&gt; 'IQ',
+        'Ireland'                    =&gt; 'IE',
+        'Italy'                      =&gt; 'IT',
+        'Jamaica'                    =&gt; 'JM',
+        'Japan'                      =&gt; 'JP',
+        'Jordan'                     =&gt; 'JO',
+        'Korea'                      =&gt; 'KR',
+        'Kuwait'                     =&gt; 'KW',
+        'Lebanon'                    =&gt; 'LB',
+        'Libya'                      =&gt; 'LY',
+        'Liechtenstein'              =&gt; 'LI',
+        'Luxembourg'                 =&gt; 'LU',
+        'Macau'                      =&gt; 'MO',
+        'Macao SAR'                  =&gt; 'MO',
+        'Malaysia'                   =&gt; 'MY',
+        'Mali'                       =&gt; 'ML',
+        'Mexico'                     =&gt; 'MX',
+        'Moldava'                    =&gt; 'MD',
+        'Monaco'                     =&gt; 'MC',
+        'Morocco'                    =&gt; 'MA',
+        'Netherlands'                =&gt; 'NL',
+        'New Zealand'                =&gt; 'NZ',
+        'Nicaragua'                  =&gt; 'NI',
+        'Nigeria'                    =&gt; 'NG',
+        'Norway'                     =&gt; 'NO',
+        'Oman'                       =&gt; 'OM',
+        'Pakistan'                   =&gt; 'PK',
+        'Panama'                     =&gt; 'PA',
+        'Paraguay'                   =&gt; 'PY',
+        "People's Republic of China" =&gt; 'CN',
+        'Peru'                       =&gt; 'PE',
+        'Philippines'                =&gt; 'PH',
+        'Poland'                     =&gt; 'PL',
+        'Portugal'                   =&gt; 'PT',
+        'PRC'                        =&gt; 'CN',
+        'Puerto Rico'                =&gt; 'PR',
+        'Qatar'                      =&gt; 'QA',
+        'Reunion'                    =&gt; 'RE',
+        'Russia'                     =&gt; 'RU',
+        'Saudi Arabia'               =&gt; 'SA',
+        'Senegal'                    =&gt; 'SN',
+        'Singapore'                  =&gt; 'SG',
+        'Slovakia'                   =&gt; 'SK',
+        'South Africa'               =&gt; 'ZA',
+        'Spain'                      =&gt; 'ES',
+        'Sri Lanka'                  =&gt; 'LK',
+        'Sweden'                     =&gt; 'SE',
+        'Switzerland'                =&gt; 'CH',
+        'Syria'                      =&gt; 'SY',
+        'Taiwan'                     =&gt; 'TW',
+        'The Netherlands'            =&gt; 'NL',
+        'Trinidad'                   =&gt; 'TT',
+        'Tunisia'                    =&gt; 'TN',
+        'UAE'                        =&gt; 'AE',
+        'United Kingdom'             =&gt; 'GB',
+        'United States'              =&gt; 'US',
+        'Uruguay'                    =&gt; 'UY',
+        'Venezuela'                  =&gt; 'VE',
+        'Yemen'                      =&gt; 'YE',
+        'Zimbabwe'                   =&gt; 'ZW',
+    )'
+                </code><div class="description"><span class="attribute">static</span></div>
+<div class="code-tabs">
+<strong>Default value</strong><code>array(
+        'Albania'                    =&gt; 'AL',
+        'Algeria'                    =&gt; 'DZ',
+        'Argentina'                  =&gt; 'AR',
+        'Armenia'                    =&gt; 'AM',
+        'Australia'                  =&gt; 'AU',
+        'Austria'                    =&gt; 'AT',
+        'Bahrain'                    =&gt; 'BH',
+        'Bangladesh'                 =&gt; 'BD',
+        'Belgium'                    =&gt; 'BE',
+        'Belize'                     =&gt; 'BZ',
+        'Bhutan'                     =&gt; 'BT',
+        'Bolivia'                    =&gt; 'BO',
+        'Bosnia Herzegovina'         =&gt; 'BA',
+        'Brazil'                     =&gt; 'BR',
+        'Brazilian'                  =&gt; 'BR',
+        'Brunei Darussalam'          =&gt; 'BN',
+        'Cameroon'                   =&gt; 'CM',
+        'Canada'                     =&gt; 'CA',
+        'Chile'                      =&gt; 'CL',
+        'China'                      =&gt; 'CN',
+        'Colombia'                   =&gt; 'CO',
+        'Costa Rica'                 =&gt; 'CR',
+        "Cote d'Ivoire"              =&gt; 'CI',
+        'Czech Republic'             =&gt; 'CZ',
+        'Dominican Republic'         =&gt; 'DO',
+        'Denmark'                    =&gt; 'DK',
+        'Ecuador'                    =&gt; 'EC',
+        'Egypt'                      =&gt; 'EG',
+        'El Salvador'                =&gt; 'SV',
+        'Eritrea'                    =&gt; 'ER',
+        'Ethiopia'                   =&gt; 'ET',
+        'Finland'                    =&gt; 'FI',
+        'France'                     =&gt; 'FR',
+        'Germany'                    =&gt; 'DE',
+        'Greece'                     =&gt; 'GR',
+        'Guatemala'                  =&gt; 'GT',
+        'Haiti'                      =&gt; 'HT',
+        'Honduras'                   =&gt; 'HN',
+        'Hong Kong'                  =&gt; 'HK',
+        'Hong Kong SAR'              =&gt; 'HK',
+        'Hungary'                    =&gt; 'HU',
+        'Iceland'                    =&gt; 'IS',
+        'India'                      =&gt; 'IN',
+        'Indonesia'                  =&gt; 'ID',
+        'Iran'                       =&gt; 'IR',
+        'Iraq'                       =&gt; 'IQ',
+        'Ireland'                    =&gt; 'IE',
+        'Italy'                      =&gt; 'IT',
+        'Jamaica'                    =&gt; 'JM',
+        'Japan'                      =&gt; 'JP',
+        'Jordan'                     =&gt; 'JO',
+        'Korea'                      =&gt; 'KR',
+        'Kuwait'                     =&gt; 'KW',
+        'Lebanon'                    =&gt; 'LB',
+        'Libya'                      =&gt; 'LY',
+        'Liechtenstein'              =&gt; 'LI',
+        'Luxembourg'                 =&gt; 'LU',
+        'Macau'                      =&gt; 'MO',
+        'Macao SAR'                  =&gt; 'MO',
+        'Malaysia'                   =&gt; 'MY',
+        'Mali'                       =&gt; 'ML',
+        'Mexico'                     =&gt; 'MX',
+        'Moldava'                    =&gt; 'MD',
+        'Monaco'                     =&gt; 'MC',
+        'Morocco'                    =&gt; 'MA',
+        'Netherlands'                =&gt; 'NL',
+        'New Zealand'                =&gt; 'NZ',
+        'Nicaragua'                  =&gt; 'NI',
+        'Nigeria'                    =&gt; 'NG',
+        'Norway'                     =&gt; 'NO',
+        'Oman'                       =&gt; 'OM',
+        'Pakistan'                   =&gt; 'PK',
+        'Panama'                     =&gt; 'PA',
+        'Paraguay'                   =&gt; 'PY',
+        "People's Republic of China" =&gt; 'CN',
+        'Peru'                       =&gt; 'PE',
+        'Philippines'                =&gt; 'PH',
+        'Poland'                     =&gt; 'PL',
+        'Portugal'                   =&gt; 'PT',
+        'PRC'                        =&gt; 'CN',
+        'Puerto Rico'                =&gt; 'PR',
+        'Qatar'                      =&gt; 'QA',
+        'Reunion'                    =&gt; 'RE',
+        'Russia'                     =&gt; 'RU',
+        'Saudi Arabia'               =&gt; 'SA',
+        'Senegal'                    =&gt; 'SN',
+        'Singapore'                  =&gt; 'SG',
+        'Slovakia'                   =&gt; 'SK',
+        'South Africa'               =&gt; 'ZA',
+        'Spain'                      =&gt; 'ES',
+        'Sri Lanka'                  =&gt; 'LK',
+        'Sweden'                     =&gt; 'SE',
+        'Switzerland'                =&gt; 'CH',
+        'Syria'                      =&gt; 'SY',
+        'Taiwan'                     =&gt; 'TW',
+        'The Netherlands'            =&gt; 'NL',
+        'Trinidad'                   =&gt; 'TT',
+        'Tunisia'                    =&gt; 'TN',
+        'UAE'                        =&gt; 'AE',
+        'United Kingdom'             =&gt; 'GB',
+        'United States'              =&gt; 'US',
+        'Uruguay'                    =&gt; 'UY',
+        'Venezuela'                  =&gt; 'VE',
+        'Yemen'                      =&gt; 'YE',
+        'Zimbabwe'                   =&gt; 'ZW',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

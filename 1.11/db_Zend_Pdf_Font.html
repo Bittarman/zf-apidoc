@@ -1,0 +1,1081 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Pdf/Font.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Pdf_Font">\Zend_Pdf_Font</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Pdf
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Fonts
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Font.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Pdf_Font" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Pdf_Font<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Pdf\Fonts</small><p class="short-description">Abstract factory class which vends {@link Zend_Pdf_Resource_Font} objects.</p>
+<div class="long-description"><p>Font objects themselves are normally instantiated through the factory methods
+{@link fontWithName()} or {@link fontWithPath()}.</p>
+
+<p>This class is also the home for font-related constants because the name of
+the true base class ({@link Zend_Pdf_Resource_Font}) is not intuitive for the
+end user.</p></div>
+<dl class="class-info">
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Pdf_Font::TYPE_UNKNOWN" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_UNKNOWN</span>
+                = 0</code><div class="description"><p class="short-description">Unknown font type.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_STANDARD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_STANDARD</span>
+                = 1</code><div class="description"><p class="short-description">One of the standard 14 PDF fonts.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_TYPE_1" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_TYPE_1</span>
+                = 2</code><div class="description"><p class="short-description">A PostScript Type 1 font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_TRUETYPE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_TRUETYPE</span>
+                = 3</code><div class="description"><p class="short-description">A TrueType font or an OpenType font containing TrueType outlines.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_TYPE_0" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_TYPE_0</span>
+                = 4</code><div class="description"><p class="short-description">Type 0 composite font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_CIDFONT_TYPE_0" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_CIDFONT_TYPE_0</span>
+                = 5</code><div class="description"><p class="short-description">CID font containing a PostScript Type 1 font.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>These fonts are used only to construct Type 0 composite fonts and can't be used directly</p></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::TYPE_CIDFONT_TYPE_2" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_CIDFONT_TYPE_2</span>
+                = 6</code><div class="description"><p class="short-description">CID font containing a TrueType font or an OpenType font containing TrueType outlines.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>These fonts are used only to construct Type 0 composite fonts and can't be used directly</p></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER</span>
+                = 'Courier'</code><div class="description"><p class="short-description">Name of the standard PDF font Courier.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER_BOLD</span>
+                = 'Courier-Bold'</code><div class="description"><p class="short-description">Name of the bold style of the standard PDF font Courier.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER_OBLIQUE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER_OBLIQUE</span>
+                = 'Courier-Oblique'</code><div class="description"><p class="short-description">Name of the italic style of the standard PDF font Courier.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER_ITALIC</span>
+                = 'Courier-Oblique'</code><div class="description"><p class="short-description">Convenience constant for a common misspelling of
+{@link FONT_COURIER_OBLIQUE}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER_BOLD_OBLIQUE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER_BOLD_OBLIQUE</span>
+                = 'Courier-BoldOblique'</code><div class="description"><p class="short-description">Name of the bold and italic style of the standard PDF font Courier.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_COURIER_BOLD_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_COURIER_BOLD_ITALIC</span>
+                = 'Courier-BoldOblique'</code><div class="description"><p class="short-description">Convenience constant for a common misspelling of
+{@link FONT_COURIER_BOLD_OBLIQUE}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA</span>
+                = 'Helvetica'</code><div class="description"><p class="short-description">Name of the standard PDF font Helvetica.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA_BOLD</span>
+                = 'Helvetica-Bold'</code><div class="description"><p class="short-description">Name of the bold style of the standard PDF font Helvetica.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA_OBLIQUE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA_OBLIQUE</span>
+                = 'Helvetica-Oblique'</code><div class="description"><p class="short-description">Name of the italic style of the standard PDF font Helvetica.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA_ITALIC</span>
+                = 'Helvetica-Oblique'</code><div class="description"><p class="short-description">Convenience constant for a common misspelling of
+{@link FONT_HELVETICA_OBLIQUE}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA_BOLD_OBLIQUE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA_BOLD_OBLIQUE</span>
+                = 'Helvetica-BoldOblique'</code><div class="description"><p class="short-description">Name of the bold and italic style of the standard PDF font Helvetica.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_HELVETICA_BOLD_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_HELVETICA_BOLD_ITALIC</span>
+                = 'Helvetica-BoldOblique'</code><div class="description"><p class="short-description">Convenience constant for a common misspelling of
+{@link FONT_HELVETICA_BOLD_OBLIQUE}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_SYMBOL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_SYMBOL</span>
+                = 'Symbol'</code><div class="description"><p class="short-description">Name of the standard PDF font Symbol.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_TIMES_ROMAN" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_TIMES_ROMAN</span>
+                = 'Times-Roman'</code><div class="description"><p class="short-description">Name of the standard PDF font Times.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_TIMES" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_TIMES</span>
+                = 'Times-Roman'</code><div class="description"><p class="short-description">Convenience constant for a common misspelling of
+{@link FONT_TIMES_ROMAN}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_TIMES_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_TIMES_BOLD</span>
+                = 'Times-Bold'</code><div class="description"><p class="short-description">Name of the bold style of the standard PDF font Times.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_TIMES_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_TIMES_ITALIC</span>
+                = 'Times-Italic'</code><div class="description"><p class="short-description">Name of the italic style of the standard PDF font Times.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_TIMES_BOLD_ITALIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_TIMES_BOLD_ITALIC</span>
+                = 'Times-BoldItalic'</code><div class="description"><p class="short-description">Name of the bold and italic style of the standard PDF font Times.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::FONT_ZAPFDINGBATS" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FONT_ZAPFDINGBATS</span>
+                = 'ZapfDingbats'</code><div class="description"><p class="short-description">Name of the standard PDF font Zapf Dingbats.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_COPYRIGHT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_COPYRIGHT</span>
+                = 0</code><div class="description"><p class="short-description">Full copyright notice for the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_FAMILY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_FAMILY</span>
+                = 1</code><div class="description"><p class="short-description">Font family name. Used to group similar styles of fonts together.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_STYLE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_STYLE</span>
+                = 2</code><div class="description"><p class="short-description">Font style within the font family. Examples: Regular, Italic, Bold, etc.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_ID" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_ID</span>
+                = 3</code><div class="description"><p class="short-description">Unique font identifier.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_FULL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_FULL</span>
+                = 4</code><div class="description"><p class="short-description">Full font name. Usually a combination of the {@link NAME_FAMILY} and
+{@link NAME_STYLE} strings.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_VERSION" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_VERSION</span>
+                = 5</code><div class="description"><p class="short-description">Version number of the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_POSTSCRIPT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_POSTSCRIPT</span>
+                = 6</code><div class="description"><p class="short-description">PostScript name for the font. This is the name used to identify fonts
+internally and within the PDF file.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_TRADEMARK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_TRADEMARK</span>
+                = 7</code><div class="description"><p class="short-description">Font trademark notice. This is distinct from the {@link NAME_COPYRIGHT}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_MANUFACTURER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_MANUFACTURER</span>
+                = 8</code><div class="description"><p class="short-description">Name of the font manufacturer.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_DESIGNER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_DESIGNER</span>
+                = 9</code><div class="description"><p class="short-description">Name of the designer of the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_DESCRIPTION" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_DESCRIPTION</span>
+                = 10</code><div class="description"><p class="short-description">Description of the font. May contain revision information, usage
+recommendations, features, etc.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_VENDOR_URL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_VENDOR_URL</span>
+                = 11</code><div class="description"><p class="short-description">URL of the font vendor. Some fonts may contain a unique serial number
+embedded in this URL, which is used for licensing.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_DESIGNER_URL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_DESIGNER_URL</span>
+                = 12</code><div class="description"><p class="short-description">URL of the font designer ({@link NAME_DESIGNER}).</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_LICENSE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_LICENSE</span>
+                = 13</code><div class="description"><p class="short-description">Plain language licensing terms for the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_LICENSE_URL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_LICENSE_URL</span>
+                = 14</code><div class="description"><p class="short-description">URL of more detailed licensing information for the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_PREFERRED_FAMILY" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_PREFERRED_FAMILY</span>
+                = 16</code><div class="description"><p class="short-description">Preferred font family. Used by some fonts to work around a Microsoft
+Windows limitation where only four fonts styles can share the same
+{@link NAME_FAMILY} value.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_PREFERRED_STYLE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_PREFERRED_STYLE</span>
+                = 17</code><div class="description"><p class="short-description">Preferred font style. A more descriptive string than {@link NAME_STYLE}.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_SAMPLE_TEXT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_SAMPLE_TEXT</span>
+                = 19</code><div class="description"><p class="short-description">Suggested text to use as a representative sample of the font.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::NAME_CID_NAME" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NAME_CID_NAME</span>
+                = 20</code><div class="description"><p class="short-description">PostScript CID findfont name.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_THIN" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_THIN</span>
+                = 100</code><div class="description"><p class="short-description">Thin font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_EXTRA_LIGHT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_EXTRA_LIGHT</span>
+                = 200</code><div class="description"><p class="short-description">Extra-light (Ultra-light) font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_LIGHT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_LIGHT</span>
+                = 300</code><div class="description"><p class="short-description">Light font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_NORMAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_NORMAL</span>
+                = 400</code><div class="description"><p class="short-description">Normal (Regular) font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_MEDIUM" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_MEDIUM</span>
+                = 500</code><div class="description"><p class="short-description">Medium font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_SEMI_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_SEMI_BOLD</span>
+                = 600</code><div class="description"><p class="short-description">Semi-bold (Demi-bold) font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_BOLD</span>
+                = 700</code><div class="description"><p class="short-description">Bold font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_EXTRA_BOLD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_EXTRA_BOLD</span>
+                = 800</code><div class="description"><p class="short-description">Extra-bold (Ultra-bold) font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WEIGHT_BLACK" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WEIGHT_BLACK</span>
+                = 900</code><div class="description"><p class="short-description">Black (Heavy) font weight.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_ULTRA_CONDENSED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_ULTRA_CONDENSED</span>
+                = 1</code><div class="description"><p class="short-description">Ultra-condensed font width. Typically 50% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_EXTRA_CONDENSED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_EXTRA_CONDENSED</span>
+                = 2</code><div class="description"><p class="short-description">Extra-condensed font width. Typically 62.5% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_CONDENSED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_CONDENSED</span>
+                = 3</code><div class="description"><p class="short-description">Condensed font width. Typically 75% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_SEMI_CONDENSED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_SEMI_CONDENSED</span>
+                = 4</code><div class="description"><p class="short-description">Semi-condensed font width. Typically 87.5% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_NORMAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_NORMAL</span>
+                = 5</code><div class="description"><p class="short-description">Normal (Medium) font width.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_SEMI_EXPANDED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_SEMI_EXPANDED</span>
+                = 6</code><div class="description"><p class="short-description">Semi-expanded font width. Typically 112.5% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_EXPANDED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_EXPANDED</span>
+                = 7</code><div class="description"><p class="short-description">Expanded font width. Typically 125% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_EXTRA_EXPANDED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_EXTRA_EXPANDED</span>
+                = 8</code><div class="description"><p class="short-description">Extra-expanded font width. Typically 150% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::WIDTH_ULTRA_EXPANDED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WIDTH_ULTRA_EXPANDED</span>
+                = 9</code><div class="description"><p class="short-description">Ultra-expanded font width. Typically 200% of normal.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::EMBED_DONT_EMBED" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EMBED_DONT_EMBED</span>
+                = 0x01</code><div class="description"><p class="short-description">Do not embed the font in the PDF document.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::EMBED_DONT_SUBSET" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EMBED_DONT_SUBSET</span>
+                = 0x02</code><div class="description"><p class="short-description">Embed, but do not subset the font in the PDF document.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::EMBED_DONT_COMPRESS" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EMBED_DONT_COMPRESS</span>
+                = 0x04</code><div class="description"><p class="short-description">Embed, but do not compress the font in the PDF document.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::EMBED_SUPPRESS_EMBED_EXCEPTION" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EMBED_SUPPRESS_EMBED_EXCEPTION</span>
+                = 0x08</code><div class="description"><p class="short-description">Suppress the exception normally thrown if the font cannot be embedded
+due to its copyright bits being set.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Pdf_Font::$_fontFilePaths" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_fontFilePaths</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Array whose keys are the md5 hash of the full paths on disk for parsed
+fonts. The values are the font objects themselves.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::$_fontNames" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_fontNames</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Array whose keys are the unique PostScript names of instantiated fonts.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>The values are the font objects themselves.</p></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Pdf_Font::_extractTrueTypeFont()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_extractTrueTypeFont</span><span class="nb-faded-text">(
+          <a href="db_Zend_Pdf_FileParserDataSource.html#%5CZend_Pdf_FileParserDataSource">\Zend_Pdf_FileParserDataSource</a> $dataSource, integer $embeddingOptions
+          )
+        </span>
+        :
+          \Zend_Pdf_Resource_Font_OpenType_TrueType</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Attempts to extract a TrueType font from the data source.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If the font parser throws an exception that suggests the data source
+simply doesn't contain a TrueType font, catches it and returns null. If
+an exception is thrown that suggests the TrueType font is corrupt or
+otherwise unusable, throws that exception. If successful, returns the
+font object.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$dataSource</th>
+<td><a href="db_Zend_Pdf_FileParserDataSource.html#%5CZend_Pdf_FileParserDataSource">\Zend_Pdf_FileParserDataSource</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$embeddingOptions</th>
+<td>integer</td>
+<td><em><p>Options for font embedding.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\Zend_Pdf_Resource_Font_OpenType_TrueType</td>
+<td>May also return null if the data source does not appear to contain a TrueType font.</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::fontWithName()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fontWithName</span><span class="nb-faded-text">(
+          string $name, integer $embeddingOptions
+              =
+              0
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font">\Zend_Pdf_Resource_Font</a></code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns a {@link Zend_Pdf_Resource_Font} object by full name.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This is the preferred method to obtain one of the standard 14 PDF fonts.</p>
+
+<p>The result of this method is cached, preventing unnecessary duplication
+of font objects. Repetitive calls for a font with the same name will
+return the same object.</p>
+
+<p>The $embeddingOptions parameter allows you to set certain flags related
+to font embedding. You may combine options by OR-ing them together. See
+the EMBED_ constants defined in {@link Zend_Pdf_Font} for the list of
+available options and their descriptions. Note that this value is only
+used when creating a font for the first time. If a font with the same
+name already exists, you will get that object and the options you specify
+here will be ignored. This is because fonts are only embedded within the
+PDF file once.</p>
+
+<p>If the font name supplied does not match the name of a previously
+instantiated object and it is not one of the 14 standard PDF fonts, an
+exception will be thrown.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em><p>Full PostScript name of font.</p></em></td>
+</tr>
+<tr>
+<th>$embeddingOptions</th>
+<td>integer</td>
+<td><em><p>(optional) Options for font embedding.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font">\Zend_Pdf_Resource_Font</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Font::fontWithPath()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fontWithPath</span><span class="nb-faded-text">(
+          string $filePath, integer $embeddingOptions
+              =
+              0
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font">\Zend_Pdf_Resource_Font</a></code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns a {@link Zend_Pdf_Resource_Font} object by file path.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The result of this method is cached, preventing unnecessary duplication
+of font objects. Repetitive calls for the font with the same path will
+return the same object.</p>
+
+<p>The $embeddingOptions parameter allows you to set certain flags related
+to font embedding. You may combine options by OR-ing them together. See
+the EMBED_ constants defined in {@link Zend_Pdf_Font} for the list of
+available options and their descriptions. Note that this value is only
+used when creating a font for the first time. If a font with the same
+name already exists, you will get that object and the options you specify
+here will be ignored. This is because fonts are only embedded within the
+PDF file once.</p>
+
+<p>If the file path supplied does not match the path of a previously
+instantiated object or the font type cannot be determined, an exception
+will be thrown.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filePath</th>
+<td>string</td>
+<td><em><p>Full path to the font file.</p></em></td>
+</tr>
+<tr>
+<th>$embeddingOptions</th>
+<td>integer</td>
+<td><em><p>(optional) Options for font embedding.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font">\Zend_Pdf_Resource_Font</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

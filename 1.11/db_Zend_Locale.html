@@ -1,0 +1,1934 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Locale.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Locale">\Zend_Locale</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Locale
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Locale.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Locale" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Locale<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Locale</small><p class="short-description">Base class for localization</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Locale::BROWSER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BROWSER</span>
+                = 'browser'</code><div class="description"><p class="short-description">Autosearch constants</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info"></dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::ENVIRONMENT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ENVIRONMENT</span>
+                = 'environment'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::ZFDEFAULT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ZFDEFAULT</span>
+                = 'default'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Locale::$_auto" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_auto</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Automatic detected locale</p>Locales</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_breakChain" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">boolean
+                 <span class="highlight">$_breakChain</span>= 'false'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Internal variable</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_browser" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_browser</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Browser detected locale</p>Locales</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_default" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_default</span>= 'array('en' =&gt; true)'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Default locale</p>Locales</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array('en' =&gt; true)</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_environment" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_environment</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Environment detected locale</p>Locales</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_locale" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_locale</span>= ''
+                </code><div class="description">
+<p class="short-description">Actual set locale</p>Locale</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_localeData" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_localeData</span>= 'array(
+        'root'  =&gt; true, 'aa_DJ' =&gt; true, 'aa_ER' =&gt; true, 'aa_ET' =&gt; true, 'aa'    =&gt; true,
+        'af_NA' =&gt; true, 'af_ZA' =&gt; true, 'af'    =&gt; true, 'ak_GH' =&gt; true, 'ak'    =&gt; true,
+        'am_ET' =&gt; true, 'am'    =&gt; true, 'ar_AE' =&gt; true, 'ar_BH' =&gt; true, 'ar_DZ' =&gt; true,
+        'ar_EG' =&gt; true, 'ar_IQ' =&gt; true, 'ar_JO' =&gt; true, 'ar_KW' =&gt; true, 'ar_LB' =&gt; true,
+        'ar_LY' =&gt; true, 'ar_MA' =&gt; true, 'ar_OM' =&gt; true, 'ar_QA' =&gt; true, 'ar_SA' =&gt; true,
+        'ar_SD' =&gt; true, 'ar_SY' =&gt; true, 'ar_TN' =&gt; true, 'ar_YE' =&gt; true, 'ar'    =&gt; true,
+        'as_IN' =&gt; true, 'as'    =&gt; true, 'az_AZ' =&gt; true, 'az'    =&gt; true, 'be_BY' =&gt; true,
+        'be'    =&gt; true, 'bg_BG' =&gt; true, 'bg'    =&gt; true, 'bn_BD' =&gt; true, 'bn_IN' =&gt; true,
+        'bn'    =&gt; true, 'bo_CN' =&gt; true, 'bo_IN' =&gt; true, 'bo'    =&gt; true, 'bs_BA' =&gt; true,
+        'bs'    =&gt; true, 'byn_ER'=&gt; true, 'byn'   =&gt; true, 'ca_ES' =&gt; true, 'ca'    =&gt; true,
+        'cch_NG'=&gt; true, 'cch'   =&gt; true, 'cop'   =&gt; true, 'cs_CZ' =&gt; true, 'cs'    =&gt; true,
+        'cy_GB' =&gt; true, 'cy'    =&gt; true, 'da_DK' =&gt; true, 'da'    =&gt; true, 'de_AT' =&gt; true,
+        'de_BE' =&gt; true, 'de_CH' =&gt; true, 'de_DE' =&gt; true, 'de_LI' =&gt; true, 'de_LU' =&gt; true,
+        'de'    =&gt; true, 'dv_MV' =&gt; true, 'dv'    =&gt; true, 'dz_BT' =&gt; true, 'dz'    =&gt; true,
+        'ee_GH' =&gt; true, 'ee_TG' =&gt; true, 'ee'    =&gt; true, 'el_CY' =&gt; true, 'el_GR' =&gt; true,
+        'el'    =&gt; true, 'en_AS' =&gt; true, 'en_AU' =&gt; true, 'en_BE' =&gt; true, 'en_BW' =&gt; true,
+        'en_BZ' =&gt; true, 'en_CA' =&gt; true, 'en_GB' =&gt; true, 'en_GU' =&gt; true, 'en_HK' =&gt; true,
+        'en_IE' =&gt; true, 'en_IN' =&gt; true, 'en_JM' =&gt; true, 'en_MH' =&gt; true, 'en_MP' =&gt; true,
+        'en_MT' =&gt; true, 'en_NA' =&gt; true, 'en_NZ' =&gt; true, 'en_PH' =&gt; true, 'en_PK' =&gt; true,
+        'en_SG' =&gt; true, 'en_TT' =&gt; true, 'en_UM' =&gt; true, 'en_US' =&gt; true, 'en_VI' =&gt; true,
+        'en_ZA' =&gt; true, 'en_ZW' =&gt; true, 'en'    =&gt; true, 'eo'    =&gt; true, 'es_AR' =&gt; true,
+        'es_BO' =&gt; true, 'es_CL' =&gt; true, 'es_CO' =&gt; true, 'es_CR' =&gt; true, 'es_DO' =&gt; true,
+        'es_EC' =&gt; true, 'es_ES' =&gt; true, 'es_GT' =&gt; true, 'es_HN' =&gt; true, 'es_MX' =&gt; true,
+        'es_NI' =&gt; true, 'es_PA' =&gt; true, 'es_PE' =&gt; true, 'es_PR' =&gt; true, 'es_PY' =&gt; true,
+        'es_SV' =&gt; true, 'es_US' =&gt; true, 'es_UY' =&gt; true, 'es_VE' =&gt; true, 'es'    =&gt; true,
+        'et_EE' =&gt; true, 'et'    =&gt; true, 'eu_ES' =&gt; true, 'eu'    =&gt; true, 'fa_AF' =&gt; true,
+        'fa_IR' =&gt; true, 'fa'    =&gt; true, 'fi_FI' =&gt; true, 'fi'    =&gt; true, 'fil_PH'=&gt; true,
+        'fil'   =&gt; true, 'fo_FO' =&gt; true, 'fo'    =&gt; true, 'fr_BE' =&gt; true, 'fr_CA' =&gt; true,
+        'fr_CH' =&gt; true, 'fr_FR' =&gt; true, 'fr_LU' =&gt; true, 'fr_MC' =&gt; true, 'fr_SN' =&gt; true,
+        'fr'    =&gt; true, 'fur_IT'=&gt; true, 'fur'   =&gt; true, 'ga_IE' =&gt; true, 'ga'    =&gt; true,
+        'gaa_GH'=&gt; true, 'gaa'   =&gt; true, 'gez_ER'=&gt; true, 'gez_ET'=&gt; true, 'gez'   =&gt; true,
+        'gl_ES' =&gt; true, 'gl'    =&gt; true, 'gsw_CH'=&gt; true, 'gsw'   =&gt; true, 'gu_IN' =&gt; true,
+        'gu'    =&gt; true, 'gv_GB' =&gt; true, 'gv'    =&gt; true, 'ha_GH' =&gt; true, 'ha_NE' =&gt; true,
+        'ha_NG' =&gt; true, 'ha_SD' =&gt; true, 'ha'    =&gt; true, 'haw_US'=&gt; true, 'haw'   =&gt; true,
+        'he_IL' =&gt; true, 'he'    =&gt; true, 'hi_IN' =&gt; true, 'hi'    =&gt; true, 'hr_HR' =&gt; true,
+        'hr'    =&gt; true, 'hu_HU' =&gt; true, 'hu'    =&gt; true, 'hy_AM' =&gt; true, 'hy'    =&gt; true,
+        'ia'    =&gt; true, 'id_ID' =&gt; true, 'id'    =&gt; true, 'ig_NG' =&gt; true, 'ig'    =&gt; true,
+        'ii_CN' =&gt; true, 'ii'    =&gt; true, 'in'    =&gt; true, 'is_IS' =&gt; true, 'is'    =&gt; true,
+        'it_CH' =&gt; true, 'it_IT' =&gt; true, 'it'    =&gt; true, 'iu'    =&gt; true, 'iw'    =&gt; true,
+        'ja_JP' =&gt; true, 'ja'    =&gt; true, 'ka_GE' =&gt; true, 'ka'    =&gt; true, 'kaj_NG'=&gt; true,
+        'kaj'   =&gt; true, 'kam_KE'=&gt; true, 'kam'   =&gt; true, 'kcg_NG'=&gt; true, 'kcg'   =&gt; true,
+        'kfo_CI'=&gt; true, 'kfo'   =&gt; true, 'kk_KZ' =&gt; true, 'kk'    =&gt; true, 'kl_GL' =&gt; true,
+        'kl'    =&gt; true, 'km_KH' =&gt; true, 'km'    =&gt; true, 'kn_IN' =&gt; true, 'kn'    =&gt; true,
+        'ko_KR' =&gt; true, 'ko'    =&gt; true, 'kok_IN'=&gt; true, 'kok'   =&gt; true, 'kpe_GN'=&gt; true,
+        'kpe_LR'=&gt; true, 'kpe'   =&gt; true, 'ku_IQ' =&gt; true, 'ku_IR' =&gt; true, 'ku_SY' =&gt; true,
+        'ku_TR' =&gt; true, 'ku'    =&gt; true, 'kw_GB' =&gt; true, 'kw'    =&gt; true, 'ky_KG' =&gt; true,
+        'ky'    =&gt; true, 'ln_CD' =&gt; true, 'ln_CG' =&gt; true, 'ln'    =&gt; true, 'lo_LA' =&gt; true,
+        'lo'    =&gt; true, 'lt_LT' =&gt; true, 'lt'    =&gt; true, 'lv_LV' =&gt; true, 'lv'    =&gt; true,
+        'mk_MK' =&gt; true, 'mk'    =&gt; true, 'ml_IN' =&gt; true, 'ml'    =&gt; true, 'mn_CN' =&gt; true,
+        'mn_MN' =&gt; true, 'mn'    =&gt; true, 'mo'    =&gt; true, 'mr_IN' =&gt; true, 'mr'    =&gt; true,
+        'ms_BN' =&gt; true, 'ms_MY' =&gt; true, 'ms'    =&gt; true, 'mt_MT' =&gt; true, 'mt'    =&gt; true,
+        'my_MM' =&gt; true, 'my'    =&gt; true, 'nb_NO' =&gt; true, 'nb'    =&gt; true, 'nds_DE'=&gt; true,
+        'nds'   =&gt; true, 'ne_IN' =&gt; true, 'ne_NP' =&gt; true, 'ne'    =&gt; true, 'nl_BE' =&gt; true,
+        'nl_NL' =&gt; true, 'nl'    =&gt; true, 'nn_NO' =&gt; true, 'nn'    =&gt; true, 'no'    =&gt; true,
+        'nr_ZA' =&gt; true, 'nr'    =&gt; true, 'nso_ZA'=&gt; true, 'nso'   =&gt; true, 'ny_MW' =&gt; true,
+        'ny'    =&gt; true, 'oc_FR' =&gt; true, 'oc'    =&gt; true, 'om_ET' =&gt; true, 'om_KE' =&gt; true,
+        'om'    =&gt; true, 'or_IN' =&gt; true, 'or'    =&gt; true, 'pa_IN' =&gt; true, 'pa_PK' =&gt; true,
+        'pa'    =&gt; true, 'pl_PL' =&gt; true, 'pl'    =&gt; true, 'ps_AF' =&gt; true, 'ps'    =&gt; true,
+        'pt_BR' =&gt; true, 'pt_PT' =&gt; true, 'pt'    =&gt; true, 'ro_MD' =&gt; true, 'ro_RO' =&gt; true,
+        'ro'    =&gt; true, 'ru_RU' =&gt; true, 'ru_UA' =&gt; true, 'ru'    =&gt; true, 'rw_RW' =&gt; true,
+        'rw'    =&gt; true, 'sa_IN' =&gt; true, 'sa'    =&gt; true, 'se_FI' =&gt; true, 'se_NO' =&gt; true,
+        'se'    =&gt; true, 'sh_BA' =&gt; true, 'sh_CS' =&gt; true, 'sh_YU' =&gt; true, 'sh'    =&gt; true,
+        'si_LK' =&gt; true, 'si'    =&gt; true, 'sid_ET'=&gt; true, 'sid'   =&gt; true, 'sk_SK' =&gt; true,
+        'sk'    =&gt; true, 'sl_SI' =&gt; true, 'sl'    =&gt; true, 'so_DJ' =&gt; true, 'so_ET' =&gt; true,
+        'so_KE' =&gt; true, 'so_SO' =&gt; true, 'so'    =&gt; true, 'sq_AL' =&gt; true, 'sq'    =&gt; true,
+        'sr_BA' =&gt; true, 'sr_CS' =&gt; true, 'sr_ME' =&gt; true, 'sr_RS' =&gt; true, 'sr_YU' =&gt; true,
+        'sr'    =&gt; true, 'ss_SZ' =&gt; true, 'ss_ZA' =&gt; true, 'ss'    =&gt; true, 'st_LS' =&gt; true,
+        'st_ZA' =&gt; true, 'st'    =&gt; true, 'sv_FI' =&gt; true, 'sv_SE' =&gt; true, 'sv'    =&gt; true,
+        'sw_KE' =&gt; true, 'sw_TZ' =&gt; true, 'sw'    =&gt; true, 'syr_SY'=&gt; true, 'syr'   =&gt; true,
+        'ta_IN' =&gt; true, 'ta'    =&gt; true, 'te_IN' =&gt; true, 'te'    =&gt; true, 'tg_TJ' =&gt; true,
+        'tg'    =&gt; true, 'th_TH' =&gt; true, 'th'    =&gt; true, 'ti_ER' =&gt; true, 'ti_ET' =&gt; true,
+        'ti'    =&gt; true, 'tig_ER'=&gt; true, 'tig'   =&gt; true, 'tl'    =&gt; true, 'tn_ZA' =&gt; true,
+        'tn'    =&gt; true, 'to_TO' =&gt; true, 'to'    =&gt; true, 'tr_TR' =&gt; true, 'tr'    =&gt; true,
+        'trv_TW'=&gt; true, 'trv'   =&gt; true, 'ts_ZA' =&gt; true, 'ts'    =&gt; true, 'tt_RU' =&gt; true,
+        'tt'    =&gt; true, 'ug_CN' =&gt; true, 'ug'    =&gt; true, 'uk_UA' =&gt; true, 'uk'    =&gt; true,
+        'ur_IN' =&gt; true, 'ur_PK' =&gt; true, 'ur'    =&gt; true, 'uz_AF' =&gt; true, 'uz_UZ' =&gt; true,
+        'uz'    =&gt; true, 've_ZA' =&gt; true, 've'    =&gt; true, 'vi_VN' =&gt; true, 'vi'    =&gt; true,
+        'wal_ET'=&gt; true, 'wal'   =&gt; true, 'wo_SN' =&gt; true, 'wo'    =&gt; true, 'xh_ZA' =&gt; true,
+        'xh'    =&gt; true, 'yo_NG' =&gt; true, 'yo'    =&gt; true, 'zh_CN' =&gt; true, 'zh_HK' =&gt; true,
+        'zh_MO' =&gt; true, 'zh_SG' =&gt; true, 'zh_TW' =&gt; true, 'zh'    =&gt; true, 'zu_ZA' =&gt; true,
+        'zu'    =&gt; true
+    )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Class wide Locale Constants</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'root'  =&gt; true, 'aa_DJ' =&gt; true, 'aa_ER' =&gt; true, 'aa_ET' =&gt; true, 'aa'    =&gt; true,
+        'af_NA' =&gt; true, 'af_ZA' =&gt; true, 'af'    =&gt; true, 'ak_GH' =&gt; true, 'ak'    =&gt; true,
+        'am_ET' =&gt; true, 'am'    =&gt; true, 'ar_AE' =&gt; true, 'ar_BH' =&gt; true, 'ar_DZ' =&gt; true,
+        'ar_EG' =&gt; true, 'ar_IQ' =&gt; true, 'ar_JO' =&gt; true, 'ar_KW' =&gt; true, 'ar_LB' =&gt; true,
+        'ar_LY' =&gt; true, 'ar_MA' =&gt; true, 'ar_OM' =&gt; true, 'ar_QA' =&gt; true, 'ar_SA' =&gt; true,
+        'ar_SD' =&gt; true, 'ar_SY' =&gt; true, 'ar_TN' =&gt; true, 'ar_YE' =&gt; true, 'ar'    =&gt; true,
+        'as_IN' =&gt; true, 'as'    =&gt; true, 'az_AZ' =&gt; true, 'az'    =&gt; true, 'be_BY' =&gt; true,
+        'be'    =&gt; true, 'bg_BG' =&gt; true, 'bg'    =&gt; true, 'bn_BD' =&gt; true, 'bn_IN' =&gt; true,
+        'bn'    =&gt; true, 'bo_CN' =&gt; true, 'bo_IN' =&gt; true, 'bo'    =&gt; true, 'bs_BA' =&gt; true,
+        'bs'    =&gt; true, 'byn_ER'=&gt; true, 'byn'   =&gt; true, 'ca_ES' =&gt; true, 'ca'    =&gt; true,
+        'cch_NG'=&gt; true, 'cch'   =&gt; true, 'cop'   =&gt; true, 'cs_CZ' =&gt; true, 'cs'    =&gt; true,
+        'cy_GB' =&gt; true, 'cy'    =&gt; true, 'da_DK' =&gt; true, 'da'    =&gt; true, 'de_AT' =&gt; true,
+        'de_BE' =&gt; true, 'de_CH' =&gt; true, 'de_DE' =&gt; true, 'de_LI' =&gt; true, 'de_LU' =&gt; true,
+        'de'    =&gt; true, 'dv_MV' =&gt; true, 'dv'    =&gt; true, 'dz_BT' =&gt; true, 'dz'    =&gt; true,
+        'ee_GH' =&gt; true, 'ee_TG' =&gt; true, 'ee'    =&gt; true, 'el_CY' =&gt; true, 'el_GR' =&gt; true,
+        'el'    =&gt; true, 'en_AS' =&gt; true, 'en_AU' =&gt; true, 'en_BE' =&gt; true, 'en_BW' =&gt; true,
+        'en_BZ' =&gt; true, 'en_CA' =&gt; true, 'en_GB' =&gt; true, 'en_GU' =&gt; true, 'en_HK' =&gt; true,
+        'en_IE' =&gt; true, 'en_IN' =&gt; true, 'en_JM' =&gt; true, 'en_MH' =&gt; true, 'en_MP' =&gt; true,
+        'en_MT' =&gt; true, 'en_NA' =&gt; true, 'en_NZ' =&gt; true, 'en_PH' =&gt; true, 'en_PK' =&gt; true,
+        'en_SG' =&gt; true, 'en_TT' =&gt; true, 'en_UM' =&gt; true, 'en_US' =&gt; true, 'en_VI' =&gt; true,
+        'en_ZA' =&gt; true, 'en_ZW' =&gt; true, 'en'    =&gt; true, 'eo'    =&gt; true, 'es_AR' =&gt; true,
+        'es_BO' =&gt; true, 'es_CL' =&gt; true, 'es_CO' =&gt; true, 'es_CR' =&gt; true, 'es_DO' =&gt; true,
+        'es_EC' =&gt; true, 'es_ES' =&gt; true, 'es_GT' =&gt; true, 'es_HN' =&gt; true, 'es_MX' =&gt; true,
+        'es_NI' =&gt; true, 'es_PA' =&gt; true, 'es_PE' =&gt; true, 'es_PR' =&gt; true, 'es_PY' =&gt; true,
+        'es_SV' =&gt; true, 'es_US' =&gt; true, 'es_UY' =&gt; true, 'es_VE' =&gt; true, 'es'    =&gt; true,
+        'et_EE' =&gt; true, 'et'    =&gt; true, 'eu_ES' =&gt; true, 'eu'    =&gt; true, 'fa_AF' =&gt; true,
+        'fa_IR' =&gt; true, 'fa'    =&gt; true, 'fi_FI' =&gt; true, 'fi'    =&gt; true, 'fil_PH'=&gt; true,
+        'fil'   =&gt; true, 'fo_FO' =&gt; true, 'fo'    =&gt; true, 'fr_BE' =&gt; true, 'fr_CA' =&gt; true,
+        'fr_CH' =&gt; true, 'fr_FR' =&gt; true, 'fr_LU' =&gt; true, 'fr_MC' =&gt; true, 'fr_SN' =&gt; true,
+        'fr'    =&gt; true, 'fur_IT'=&gt; true, 'fur'   =&gt; true, 'ga_IE' =&gt; true, 'ga'    =&gt; true,
+        'gaa_GH'=&gt; true, 'gaa'   =&gt; true, 'gez_ER'=&gt; true, 'gez_ET'=&gt; true, 'gez'   =&gt; true,
+        'gl_ES' =&gt; true, 'gl'    =&gt; true, 'gsw_CH'=&gt; true, 'gsw'   =&gt; true, 'gu_IN' =&gt; true,
+        'gu'    =&gt; true, 'gv_GB' =&gt; true, 'gv'    =&gt; true, 'ha_GH' =&gt; true, 'ha_NE' =&gt; true,
+        'ha_NG' =&gt; true, 'ha_SD' =&gt; true, 'ha'    =&gt; true, 'haw_US'=&gt; true, 'haw'   =&gt; true,
+        'he_IL' =&gt; true, 'he'    =&gt; true, 'hi_IN' =&gt; true, 'hi'    =&gt; true, 'hr_HR' =&gt; true,
+        'hr'    =&gt; true, 'hu_HU' =&gt; true, 'hu'    =&gt; true, 'hy_AM' =&gt; true, 'hy'    =&gt; true,
+        'ia'    =&gt; true, 'id_ID' =&gt; true, 'id'    =&gt; true, 'ig_NG' =&gt; true, 'ig'    =&gt; true,
+        'ii_CN' =&gt; true, 'ii'    =&gt; true, 'in'    =&gt; true, 'is_IS' =&gt; true, 'is'    =&gt; true,
+        'it_CH' =&gt; true, 'it_IT' =&gt; true, 'it'    =&gt; true, 'iu'    =&gt; true, 'iw'    =&gt; true,
+        'ja_JP' =&gt; true, 'ja'    =&gt; true, 'ka_GE' =&gt; true, 'ka'    =&gt; true, 'kaj_NG'=&gt; true,
+        'kaj'   =&gt; true, 'kam_KE'=&gt; true, 'kam'   =&gt; true, 'kcg_NG'=&gt; true, 'kcg'   =&gt; true,
+        'kfo_CI'=&gt; true, 'kfo'   =&gt; true, 'kk_KZ' =&gt; true, 'kk'    =&gt; true, 'kl_GL' =&gt; true,
+        'kl'    =&gt; true, 'km_KH' =&gt; true, 'km'    =&gt; true, 'kn_IN' =&gt; true, 'kn'    =&gt; true,
+        'ko_KR' =&gt; true, 'ko'    =&gt; true, 'kok_IN'=&gt; true, 'kok'   =&gt; true, 'kpe_GN'=&gt; true,
+        'kpe_LR'=&gt; true, 'kpe'   =&gt; true, 'ku_IQ' =&gt; true, 'ku_IR' =&gt; true, 'ku_SY' =&gt; true,
+        'ku_TR' =&gt; true, 'ku'    =&gt; true, 'kw_GB' =&gt; true, 'kw'    =&gt; true, 'ky_KG' =&gt; true,
+        'ky'    =&gt; true, 'ln_CD' =&gt; true, 'ln_CG' =&gt; true, 'ln'    =&gt; true, 'lo_LA' =&gt; true,
+        'lo'    =&gt; true, 'lt_LT' =&gt; true, 'lt'    =&gt; true, 'lv_LV' =&gt; true, 'lv'    =&gt; true,
+        'mk_MK' =&gt; true, 'mk'    =&gt; true, 'ml_IN' =&gt; true, 'ml'    =&gt; true, 'mn_CN' =&gt; true,
+        'mn_MN' =&gt; true, 'mn'    =&gt; true, 'mo'    =&gt; true, 'mr_IN' =&gt; true, 'mr'    =&gt; true,
+        'ms_BN' =&gt; true, 'ms_MY' =&gt; true, 'ms'    =&gt; true, 'mt_MT' =&gt; true, 'mt'    =&gt; true,
+        'my_MM' =&gt; true, 'my'    =&gt; true, 'nb_NO' =&gt; true, 'nb'    =&gt; true, 'nds_DE'=&gt; true,
+        'nds'   =&gt; true, 'ne_IN' =&gt; true, 'ne_NP' =&gt; true, 'ne'    =&gt; true, 'nl_BE' =&gt; true,
+        'nl_NL' =&gt; true, 'nl'    =&gt; true, 'nn_NO' =&gt; true, 'nn'    =&gt; true, 'no'    =&gt; true,
+        'nr_ZA' =&gt; true, 'nr'    =&gt; true, 'nso_ZA'=&gt; true, 'nso'   =&gt; true, 'ny_MW' =&gt; true,
+        'ny'    =&gt; true, 'oc_FR' =&gt; true, 'oc'    =&gt; true, 'om_ET' =&gt; true, 'om_KE' =&gt; true,
+        'om'    =&gt; true, 'or_IN' =&gt; true, 'or'    =&gt; true, 'pa_IN' =&gt; true, 'pa_PK' =&gt; true,
+        'pa'    =&gt; true, 'pl_PL' =&gt; true, 'pl'    =&gt; true, 'ps_AF' =&gt; true, 'ps'    =&gt; true,
+        'pt_BR' =&gt; true, 'pt_PT' =&gt; true, 'pt'    =&gt; true, 'ro_MD' =&gt; true, 'ro_RO' =&gt; true,
+        'ro'    =&gt; true, 'ru_RU' =&gt; true, 'ru_UA' =&gt; true, 'ru'    =&gt; true, 'rw_RW' =&gt; true,
+        'rw'    =&gt; true, 'sa_IN' =&gt; true, 'sa'    =&gt; true, 'se_FI' =&gt; true, 'se_NO' =&gt; true,
+        'se'    =&gt; true, 'sh_BA' =&gt; true, 'sh_CS' =&gt; true, 'sh_YU' =&gt; true, 'sh'    =&gt; true,
+        'si_LK' =&gt; true, 'si'    =&gt; true, 'sid_ET'=&gt; true, 'sid'   =&gt; true, 'sk_SK' =&gt; true,
+        'sk'    =&gt; true, 'sl_SI' =&gt; true, 'sl'    =&gt; true, 'so_DJ' =&gt; true, 'so_ET' =&gt; true,
+        'so_KE' =&gt; true, 'so_SO' =&gt; true, 'so'    =&gt; true, 'sq_AL' =&gt; true, 'sq'    =&gt; true,
+        'sr_BA' =&gt; true, 'sr_CS' =&gt; true, 'sr_ME' =&gt; true, 'sr_RS' =&gt; true, 'sr_YU' =&gt; true,
+        'sr'    =&gt; true, 'ss_SZ' =&gt; true, 'ss_ZA' =&gt; true, 'ss'    =&gt; true, 'st_LS' =&gt; true,
+        'st_ZA' =&gt; true, 'st'    =&gt; true, 'sv_FI' =&gt; true, 'sv_SE' =&gt; true, 'sv'    =&gt; true,
+        'sw_KE' =&gt; true, 'sw_TZ' =&gt; true, 'sw'    =&gt; true, 'syr_SY'=&gt; true, 'syr'   =&gt; true,
+        'ta_IN' =&gt; true, 'ta'    =&gt; true, 'te_IN' =&gt; true, 'te'    =&gt; true, 'tg_TJ' =&gt; true,
+        'tg'    =&gt; true, 'th_TH' =&gt; true, 'th'    =&gt; true, 'ti_ER' =&gt; true, 'ti_ET' =&gt; true,
+        'ti'    =&gt; true, 'tig_ER'=&gt; true, 'tig'   =&gt; true, 'tl'    =&gt; true, 'tn_ZA' =&gt; true,
+        'tn'    =&gt; true, 'to_TO' =&gt; true, 'to'    =&gt; true, 'tr_TR' =&gt; true, 'tr'    =&gt; true,
+        'trv_TW'=&gt; true, 'trv'   =&gt; true, 'ts_ZA' =&gt; true, 'ts'    =&gt; true, 'tt_RU' =&gt; true,
+        'tt'    =&gt; true, 'ug_CN' =&gt; true, 'ug'    =&gt; true, 'uk_UA' =&gt; true, 'uk'    =&gt; true,
+        'ur_IN' =&gt; true, 'ur_PK' =&gt; true, 'ur'    =&gt; true, 'uz_AF' =&gt; true, 'uz_UZ' =&gt; true,
+        'uz'    =&gt; true, 've_ZA' =&gt; true, 've'    =&gt; true, 'vi_VN' =&gt; true, 'vi'    =&gt; true,
+        'wal_ET'=&gt; true, 'wal'   =&gt; true, 'wo_SN' =&gt; true, 'wo'    =&gt; true, 'xh_ZA' =&gt; true,
+        'xh'    =&gt; true, 'yo_NG' =&gt; true, 'yo'    =&gt; true, 'zh_CN' =&gt; true, 'zh_HK' =&gt; true,
+        'zh_MO' =&gt; true, 'zh_SG' =&gt; true, 'zh_TW' =&gt; true, 'zh'    =&gt; true, 'zu_ZA' =&gt; true,
+        'zu'    =&gt; true
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$_territoryData" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_territoryData</span>= 'array(
+        'AD' =&gt; 'ca_AD', 'AE' =&gt; 'ar_AE', 'AF' =&gt; 'fa_AF', 'AG' =&gt; 'en_AG', 'AI' =&gt; 'en_AI',
+        'AL' =&gt; 'sq_AL', 'AM' =&gt; 'hy_AM', 'AN' =&gt; 'pap_AN', 'AO' =&gt; 'pt_AO', 'AQ' =&gt; 'und_AQ',
+        'AR' =&gt; 'es_AR', 'AS' =&gt; 'sm_AS', 'AT' =&gt; 'de_AT', 'AU' =&gt; 'en_AU', 'AW' =&gt; 'nl_AW',
+        'AX' =&gt; 'sv_AX', 'AZ' =&gt; 'az_Latn_AZ', 'BA' =&gt; 'bs_BA', 'BB' =&gt; 'en_BB', 'BD' =&gt; 'bn_BD',
+        'BE' =&gt; 'nl_BE', 'BF' =&gt; 'mos_BF', 'BG' =&gt; 'bg_BG', 'BH' =&gt; 'ar_BH', 'BI' =&gt; 'rn_BI',
+        'BJ' =&gt; 'fr_BJ', 'BL' =&gt; 'fr_BL', 'BM' =&gt; 'en_BM', 'BN' =&gt; 'ms_BN', 'BO' =&gt; 'es_BO',
+        'BR' =&gt; 'pt_BR', 'BS' =&gt; 'en_BS', 'BT' =&gt; 'dz_BT', 'BV' =&gt; 'und_BV', 'BW' =&gt; 'en_BW',
+        'BY' =&gt; 'be_BY', 'BZ' =&gt; 'en_BZ', 'CA' =&gt; 'en_CA', 'CC' =&gt; 'ms_CC', 'CD' =&gt; 'sw_CD',
+        'CF' =&gt; 'fr_CF', 'CG' =&gt; 'fr_CG', 'CH' =&gt; 'de_CH', 'CI' =&gt; 'fr_CI', 'CK' =&gt; 'en_CK',
+        'CL' =&gt; 'es_CL', 'CM' =&gt; 'fr_CM', 'CN' =&gt; 'zh_Hans_CN', 'CO' =&gt; 'es_CO', 'CR' =&gt; 'es_CR',
+        'CU' =&gt; 'es_CU', 'CV' =&gt; 'kea_CV', 'CX' =&gt; 'en_CX', 'CY' =&gt; 'el_CY', 'CZ' =&gt; 'cs_CZ',
+        'DE' =&gt; 'de_DE', 'DJ' =&gt; 'aa_DJ', 'DK' =&gt; 'da_DK', 'DM' =&gt; 'en_DM', 'DO' =&gt; 'es_DO',
+        'DZ' =&gt; 'ar_DZ', 'EC' =&gt; 'es_EC', 'EE' =&gt; 'et_EE', 'EG' =&gt; 'ar_EG', 'EH' =&gt; 'ar_EH',
+        'ER' =&gt; 'ti_ER', 'ES' =&gt; 'es_ES', 'ET' =&gt; 'en_ET', 'FI' =&gt; 'fi_FI', 'FJ' =&gt; 'hi_FJ',
+        'FK' =&gt; 'en_FK', 'FM' =&gt; 'chk_FM', 'FO' =&gt; 'fo_FO', 'FR' =&gt; 'fr_FR', 'GA' =&gt; 'fr_GA',
+        'GB' =&gt; 'en_GB', 'GD' =&gt; 'en_GD', 'GE' =&gt; 'ka_GE', 'GF' =&gt; 'fr_GF', 'GG' =&gt; 'en_GG',
+        'GH' =&gt; 'ak_GH', 'GI' =&gt; 'en_GI', 'GL' =&gt; 'iu_GL', 'GM' =&gt; 'en_GM', 'GN' =&gt; 'fr_GN',
+        'GP' =&gt; 'fr_GP', 'GQ' =&gt; 'fan_GQ', 'GR' =&gt; 'el_GR', 'GS' =&gt; 'und_GS', 'GT' =&gt; 'es_GT',
+        'GU' =&gt; 'en_GU', 'GW' =&gt; 'pt_GW', 'GY' =&gt; 'en_GY', 'HK' =&gt; 'zh_Hant_HK', 'HM' =&gt; 'und_HM',
+        'HN' =&gt; 'es_HN', 'HR' =&gt; 'hr_HR', 'HT' =&gt; 'ht_HT', 'HU' =&gt; 'hu_HU', 'ID' =&gt; 'id_ID',
+        'IE' =&gt; 'en_IE', 'IL' =&gt; 'he_IL', 'IM' =&gt; 'en_IM', 'IN' =&gt; 'hi_IN', 'IO' =&gt; 'und_IO',
+        'IQ' =&gt; 'ar_IQ', 'IR' =&gt; 'fa_IR', 'IS' =&gt; 'is_IS', 'IT' =&gt; 'it_IT', 'JE' =&gt; 'en_JE',
+        'JM' =&gt; 'en_JM', 'JO' =&gt; 'ar_JO', 'JP' =&gt; 'ja_JP', 'KE' =&gt; 'en_KE', 'KG' =&gt; 'ky_Cyrl_KG',
+        'KH' =&gt; 'km_KH', 'KI' =&gt; 'en_KI', 'KM' =&gt; 'ar_KM', 'KN' =&gt; 'en_KN', 'KP' =&gt; 'ko_KP',
+        'KR' =&gt; 'ko_KR', 'KW' =&gt; 'ar_KW', 'KY' =&gt; 'en_KY', 'KZ' =&gt; 'ru_KZ', 'LA' =&gt; 'lo_LA',
+        'LB' =&gt; 'ar_LB', 'LC' =&gt; 'en_LC', 'LI' =&gt; 'de_LI', 'LK' =&gt; 'si_LK', 'LR' =&gt; 'en_LR',
+        'LS' =&gt; 'st_LS', 'LT' =&gt; 'lt_LT', 'LU' =&gt; 'fr_LU', 'LV' =&gt; 'lv_LV', 'LY' =&gt; 'ar_LY',
+        'MA' =&gt; 'ar_MA', 'MC' =&gt; 'fr_MC', 'MD' =&gt; 'ro_MD', 'ME' =&gt; 'sr_Latn_ME', 'MF' =&gt; 'fr_MF',
+        'MG' =&gt; 'mg_MG', 'MH' =&gt; 'mh_MH', 'MK' =&gt; 'mk_MK', 'ML' =&gt; 'bm_ML', 'MM' =&gt; 'my_MM',
+        'MN' =&gt; 'mn_Cyrl_MN', 'MO' =&gt; 'zh_Hant_MO', 'MP' =&gt; 'en_MP', 'MQ' =&gt; 'fr_MQ', 'MR' =&gt; 'ar_MR',
+        'MS' =&gt; 'en_MS', 'MT' =&gt; 'mt_MT', 'MU' =&gt; 'mfe_MU', 'MV' =&gt; 'dv_MV', 'MW' =&gt; 'ny_MW',
+        'MX' =&gt; 'es_MX', 'MY' =&gt; 'ms_MY', 'MZ' =&gt; 'pt_MZ', 'NA' =&gt; 'kj_NA', 'NC' =&gt; 'fr_NC',
+        'NE' =&gt; 'ha_Latn_NE', 'NF' =&gt; 'en_NF', 'NG' =&gt; 'en_NG', 'NI' =&gt; 'es_NI', 'NL' =&gt; 'nl_NL',
+        'NO' =&gt; 'nb_NO', 'NP' =&gt; 'ne_NP', 'NR' =&gt; 'en_NR', 'NU' =&gt; 'niu_NU', 'NZ' =&gt; 'en_NZ',
+        'OM' =&gt; 'ar_OM', 'PA' =&gt; 'es_PA', 'PE' =&gt; 'es_PE', 'PF' =&gt; 'fr_PF', 'PG' =&gt; 'tpi_PG',
+        'PH' =&gt; 'fil_PH', 'PK' =&gt; 'ur_PK', 'PL' =&gt; 'pl_PL', 'PM' =&gt; 'fr_PM', 'PN' =&gt; 'en_PN',
+        'PR' =&gt; 'es_PR', 'PS' =&gt; 'ar_PS', 'PT' =&gt; 'pt_PT', 'PW' =&gt; 'pau_PW', 'PY' =&gt; 'gn_PY',
+        'QA' =&gt; 'ar_QA', 'RE' =&gt; 'fr_RE', 'RO' =&gt; 'ro_RO', 'RS' =&gt; 'sr_Cyrl_RS', 'RU' =&gt; 'ru_RU',
+        'RW' =&gt; 'rw_RW', 'SA' =&gt; 'ar_SA', 'SB' =&gt; 'en_SB', 'SC' =&gt; 'crs_SC', 'SD' =&gt; 'ar_SD',
+        'SE' =&gt; 'sv_SE', 'SG' =&gt; 'en_SG', 'SH' =&gt; 'en_SH', 'SI' =&gt; 'sl_SI', 'SJ' =&gt; 'nb_SJ',
+        'SK' =&gt; 'sk_SK', 'SL' =&gt; 'kri_SL', 'SM' =&gt; 'it_SM', 'SN' =&gt; 'fr_SN', 'SO' =&gt; 'sw_SO',
+        'SR' =&gt; 'srn_SR', 'ST' =&gt; 'pt_ST', 'SV' =&gt; 'es_SV', 'SY' =&gt; 'ar_SY', 'SZ' =&gt; 'en_SZ',
+        'TC' =&gt; 'en_TC', 'TD' =&gt; 'fr_TD', 'TF' =&gt; 'und_TF', 'TG' =&gt; 'fr_TG', 'TH' =&gt; 'th_TH',
+        'TJ' =&gt; 'tg_Cyrl_TJ', 'TK' =&gt; 'tkl_TK', 'TL' =&gt; 'pt_TL', 'TM' =&gt; 'tk_TM', 'TN' =&gt; 'ar_TN',
+        'TO' =&gt; 'to_TO', 'TR' =&gt; 'tr_TR', 'TT' =&gt; 'en_TT', 'TV' =&gt; 'tvl_TV', 'TW' =&gt; 'zh_Hant_TW',
+        'TZ' =&gt; 'sw_TZ', 'UA' =&gt; 'uk_UA', 'UG' =&gt; 'sw_UG', 'UM' =&gt; 'en_UM', 'US' =&gt; 'en_US',
+        'UY' =&gt; 'es_UY', 'UZ' =&gt; 'uz_Cyrl_UZ', 'VA' =&gt; 'it_VA', 'VC' =&gt; 'en_VC', 'VE' =&gt; 'es_VE',
+        'VG' =&gt; 'en_VG', 'VI' =&gt; 'en_VI', 'VU' =&gt; 'bi_VU', 'WF' =&gt; 'wls_WF', 'WS' =&gt; 'sm_WS',
+        'YE' =&gt; 'ar_YE', 'YT' =&gt; 'swb_YT', 'ZA' =&gt; 'en_ZA', 'ZM' =&gt; 'en_ZM', 'ZW' =&gt; 'sn_ZW'
+    )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Class wide Locale Constants</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'AD' =&gt; 'ca_AD', 'AE' =&gt; 'ar_AE', 'AF' =&gt; 'fa_AF', 'AG' =&gt; 'en_AG', 'AI' =&gt; 'en_AI',
+        'AL' =&gt; 'sq_AL', 'AM' =&gt; 'hy_AM', 'AN' =&gt; 'pap_AN', 'AO' =&gt; 'pt_AO', 'AQ' =&gt; 'und_AQ',
+        'AR' =&gt; 'es_AR', 'AS' =&gt; 'sm_AS', 'AT' =&gt; 'de_AT', 'AU' =&gt; 'en_AU', 'AW' =&gt; 'nl_AW',
+        'AX' =&gt; 'sv_AX', 'AZ' =&gt; 'az_Latn_AZ', 'BA' =&gt; 'bs_BA', 'BB' =&gt; 'en_BB', 'BD' =&gt; 'bn_BD',
+        'BE' =&gt; 'nl_BE', 'BF' =&gt; 'mos_BF', 'BG' =&gt; 'bg_BG', 'BH' =&gt; 'ar_BH', 'BI' =&gt; 'rn_BI',
+        'BJ' =&gt; 'fr_BJ', 'BL' =&gt; 'fr_BL', 'BM' =&gt; 'en_BM', 'BN' =&gt; 'ms_BN', 'BO' =&gt; 'es_BO',
+        'BR' =&gt; 'pt_BR', 'BS' =&gt; 'en_BS', 'BT' =&gt; 'dz_BT', 'BV' =&gt; 'und_BV', 'BW' =&gt; 'en_BW',
+        'BY' =&gt; 'be_BY', 'BZ' =&gt; 'en_BZ', 'CA' =&gt; 'en_CA', 'CC' =&gt; 'ms_CC', 'CD' =&gt; 'sw_CD',
+        'CF' =&gt; 'fr_CF', 'CG' =&gt; 'fr_CG', 'CH' =&gt; 'de_CH', 'CI' =&gt; 'fr_CI', 'CK' =&gt; 'en_CK',
+        'CL' =&gt; 'es_CL', 'CM' =&gt; 'fr_CM', 'CN' =&gt; 'zh_Hans_CN', 'CO' =&gt; 'es_CO', 'CR' =&gt; 'es_CR',
+        'CU' =&gt; 'es_CU', 'CV' =&gt; 'kea_CV', 'CX' =&gt; 'en_CX', 'CY' =&gt; 'el_CY', 'CZ' =&gt; 'cs_CZ',
+        'DE' =&gt; 'de_DE', 'DJ' =&gt; 'aa_DJ', 'DK' =&gt; 'da_DK', 'DM' =&gt; 'en_DM', 'DO' =&gt; 'es_DO',
+        'DZ' =&gt; 'ar_DZ', 'EC' =&gt; 'es_EC', 'EE' =&gt; 'et_EE', 'EG' =&gt; 'ar_EG', 'EH' =&gt; 'ar_EH',
+        'ER' =&gt; 'ti_ER', 'ES' =&gt; 'es_ES', 'ET' =&gt; 'en_ET', 'FI' =&gt; 'fi_FI', 'FJ' =&gt; 'hi_FJ',
+        'FK' =&gt; 'en_FK', 'FM' =&gt; 'chk_FM', 'FO' =&gt; 'fo_FO', 'FR' =&gt; 'fr_FR', 'GA' =&gt; 'fr_GA',
+        'GB' =&gt; 'en_GB', 'GD' =&gt; 'en_GD', 'GE' =&gt; 'ka_GE', 'GF' =&gt; 'fr_GF', 'GG' =&gt; 'en_GG',
+        'GH' =&gt; 'ak_GH', 'GI' =&gt; 'en_GI', 'GL' =&gt; 'iu_GL', 'GM' =&gt; 'en_GM', 'GN' =&gt; 'fr_GN',
+        'GP' =&gt; 'fr_GP', 'GQ' =&gt; 'fan_GQ', 'GR' =&gt; 'el_GR', 'GS' =&gt; 'und_GS', 'GT' =&gt; 'es_GT',
+        'GU' =&gt; 'en_GU', 'GW' =&gt; 'pt_GW', 'GY' =&gt; 'en_GY', 'HK' =&gt; 'zh_Hant_HK', 'HM' =&gt; 'und_HM',
+        'HN' =&gt; 'es_HN', 'HR' =&gt; 'hr_HR', 'HT' =&gt; 'ht_HT', 'HU' =&gt; 'hu_HU', 'ID' =&gt; 'id_ID',
+        'IE' =&gt; 'en_IE', 'IL' =&gt; 'he_IL', 'IM' =&gt; 'en_IM', 'IN' =&gt; 'hi_IN', 'IO' =&gt; 'und_IO',
+        'IQ' =&gt; 'ar_IQ', 'IR' =&gt; 'fa_IR', 'IS' =&gt; 'is_IS', 'IT' =&gt; 'it_IT', 'JE' =&gt; 'en_JE',
+        'JM' =&gt; 'en_JM', 'JO' =&gt; 'ar_JO', 'JP' =&gt; 'ja_JP', 'KE' =&gt; 'en_KE', 'KG' =&gt; 'ky_Cyrl_KG',
+        'KH' =&gt; 'km_KH', 'KI' =&gt; 'en_KI', 'KM' =&gt; 'ar_KM', 'KN' =&gt; 'en_KN', 'KP' =&gt; 'ko_KP',
+        'KR' =&gt; 'ko_KR', 'KW' =&gt; 'ar_KW', 'KY' =&gt; 'en_KY', 'KZ' =&gt; 'ru_KZ', 'LA' =&gt; 'lo_LA',
+        'LB' =&gt; 'ar_LB', 'LC' =&gt; 'en_LC', 'LI' =&gt; 'de_LI', 'LK' =&gt; 'si_LK', 'LR' =&gt; 'en_LR',
+        'LS' =&gt; 'st_LS', 'LT' =&gt; 'lt_LT', 'LU' =&gt; 'fr_LU', 'LV' =&gt; 'lv_LV', 'LY' =&gt; 'ar_LY',
+        'MA' =&gt; 'ar_MA', 'MC' =&gt; 'fr_MC', 'MD' =&gt; 'ro_MD', 'ME' =&gt; 'sr_Latn_ME', 'MF' =&gt; 'fr_MF',
+        'MG' =&gt; 'mg_MG', 'MH' =&gt; 'mh_MH', 'MK' =&gt; 'mk_MK', 'ML' =&gt; 'bm_ML', 'MM' =&gt; 'my_MM',
+        'MN' =&gt; 'mn_Cyrl_MN', 'MO' =&gt; 'zh_Hant_MO', 'MP' =&gt; 'en_MP', 'MQ' =&gt; 'fr_MQ', 'MR' =&gt; 'ar_MR',
+        'MS' =&gt; 'en_MS', 'MT' =&gt; 'mt_MT', 'MU' =&gt; 'mfe_MU', 'MV' =&gt; 'dv_MV', 'MW' =&gt; 'ny_MW',
+        'MX' =&gt; 'es_MX', 'MY' =&gt; 'ms_MY', 'MZ' =&gt; 'pt_MZ', 'NA' =&gt; 'kj_NA', 'NC' =&gt; 'fr_NC',
+        'NE' =&gt; 'ha_Latn_NE', 'NF' =&gt; 'en_NF', 'NG' =&gt; 'en_NG', 'NI' =&gt; 'es_NI', 'NL' =&gt; 'nl_NL',
+        'NO' =&gt; 'nb_NO', 'NP' =&gt; 'ne_NP', 'NR' =&gt; 'en_NR', 'NU' =&gt; 'niu_NU', 'NZ' =&gt; 'en_NZ',
+        'OM' =&gt; 'ar_OM', 'PA' =&gt; 'es_PA', 'PE' =&gt; 'es_PE', 'PF' =&gt; 'fr_PF', 'PG' =&gt; 'tpi_PG',
+        'PH' =&gt; 'fil_PH', 'PK' =&gt; 'ur_PK', 'PL' =&gt; 'pl_PL', 'PM' =&gt; 'fr_PM', 'PN' =&gt; 'en_PN',
+        'PR' =&gt; 'es_PR', 'PS' =&gt; 'ar_PS', 'PT' =&gt; 'pt_PT', 'PW' =&gt; 'pau_PW', 'PY' =&gt; 'gn_PY',
+        'QA' =&gt; 'ar_QA', 'RE' =&gt; 'fr_RE', 'RO' =&gt; 'ro_RO', 'RS' =&gt; 'sr_Cyrl_RS', 'RU' =&gt; 'ru_RU',
+        'RW' =&gt; 'rw_RW', 'SA' =&gt; 'ar_SA', 'SB' =&gt; 'en_SB', 'SC' =&gt; 'crs_SC', 'SD' =&gt; 'ar_SD',
+        'SE' =&gt; 'sv_SE', 'SG' =&gt; 'en_SG', 'SH' =&gt; 'en_SH', 'SI' =&gt; 'sl_SI', 'SJ' =&gt; 'nb_SJ',
+        'SK' =&gt; 'sk_SK', 'SL' =&gt; 'kri_SL', 'SM' =&gt; 'it_SM', 'SN' =&gt; 'fr_SN', 'SO' =&gt; 'sw_SO',
+        'SR' =&gt; 'srn_SR', 'ST' =&gt; 'pt_ST', 'SV' =&gt; 'es_SV', 'SY' =&gt; 'ar_SY', 'SZ' =&gt; 'en_SZ',
+        'TC' =&gt; 'en_TC', 'TD' =&gt; 'fr_TD', 'TF' =&gt; 'und_TF', 'TG' =&gt; 'fr_TG', 'TH' =&gt; 'th_TH',
+        'TJ' =&gt; 'tg_Cyrl_TJ', 'TK' =&gt; 'tkl_TK', 'TL' =&gt; 'pt_TL', 'TM' =&gt; 'tk_TM', 'TN' =&gt; 'ar_TN',
+        'TO' =&gt; 'to_TO', 'TR' =&gt; 'tr_TR', 'TT' =&gt; 'en_TT', 'TV' =&gt; 'tvl_TV', 'TW' =&gt; 'zh_Hant_TW',
+        'TZ' =&gt; 'sw_TZ', 'UA' =&gt; 'uk_UA', 'UG' =&gt; 'sw_UG', 'UM' =&gt; 'en_UM', 'US' =&gt; 'en_US',
+        'UY' =&gt; 'es_UY', 'UZ' =&gt; 'uz_Cyrl_UZ', 'VA' =&gt; 'it_VA', 'VC' =&gt; 'en_VC', 'VE' =&gt; 'es_VE',
+        'VG' =&gt; 'en_VG', 'VI' =&gt; 'en_VI', 'VU' =&gt; 'bi_VU', 'WF' =&gt; 'wls_WF', 'WS' =&gt; 'sm_WS',
+        'YE' =&gt; 'ar_YE', 'YT' =&gt; 'swb_YT', 'ZA' =&gt; 'en_ZA', 'ZM' =&gt; 'en_ZM', 'ZW' =&gt; 'sn_ZW'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::$compatibilityMode" class="anchor"></a><div class="property public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">boolean
+                 <span class="highlight">$compatibilityMode</span>= 'false'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Defines if old behaviour should be supported
+Old behaviour throws notices and will be deleted in future releases</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Locale::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Generates a locale object
+If no locale is given a automatic search is done
+Then the most probable locale will be automatically set
+Search order is
+ 1. Given Locale
+ 2. HTTP Client
+ 3. Server Environment
+ 4. Framework Standard</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for parsing input</p>
+</em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Locale_Exception.html#%5CZend_Locale_Exception">\Zend_Locale_Exception</a></td>
+<td><em>When autodetection has been failed</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::__toString()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Returns a string representation of the object
+Alias for toString</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::_prepareLocale()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_prepareLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale, boolean $strict
+              =
+              false
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Internal function, returns a single locale on detection</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to work on</p>
+</em></td>
+</tr>
+<tr>
+<th>$strict</th>
+<td>boolean</td>
+<td><em><p>(Optional) Strict preparation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Locale_Exception.html#%5CZend_Locale_Exception">\Zend_Locale_Exception</a></td>
+<td><em>When no locale is set which is only possible when the class was wrong extended</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::_prepareQuestionString()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_prepareQuestionString</span><span class="nb-faded-text">(
+          string $input
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Internal function for preparing the returned question regex string</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>string</td>
+<td><em><p>Regex to parse</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::clearCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearCache</span><span class="nb-faded-text">(
+          string $tag
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Clears all set cache data</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$tag</th>
+<td>string</td>
+<td><em><p>Tag to clear when the default tag name is not used</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::disableCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">disableCache</span><span class="nb-faded-text">(
+          boolean $flag
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Disables the set cache</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$flag</th>
+<td>boolean</td>
+<td><em><p>True disables any set cache, default is false</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::equals()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">equals</span><span class="nb-faded-text">(
+          <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description"><p class="short_description">Returns true if both locales are equal</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a></td>
+<td><em><p>Locale to check for equality</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::findLocale()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">findLocale</span><span class="nb-faded-text">(
+          string $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Finds the proper locale based on the input
+Checks if it exists, degrades it when necessary
+Detects registry locale and when all fails tries to detect a automatic locale
+Returns the found locale as string</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Locale_Exception.html#%5CZend_Locale_Exception">\Zend_Locale_Exception</a></td>
+<td><em>When the given locale is no locale or the autodetection fails</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getBrowser()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBrowser</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Return an array of all accepted languages of the client
+Expects RFC compilant Header !!</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The notation can be :
+de,en-UK-US;q=0.5,fr-FR;q=0.2</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>- list of accepted languages including quality</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCache</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Cache_Core.html#%5CZend_Cache_Core">\Zend_Cache_Core</a></code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the set cache</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Cache_Core.html#%5CZend_Cache_Core">\Zend_Cache_Core</a></td>
+<td>The set cache</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getCountryTranslation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCountryTranslation</span><span class="nb-faded-text">(
+          string $value, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the localized country name</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Name to get detailed information about</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for country translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getCountryTranslationList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCountryTranslationList</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns an array with the name of all countries translated to the given language</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for country translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getDefault()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDefault</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Return the default locale</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Returns an array of all locale string</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getEnvironment()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEnvironment</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Expects the Systems standard locale</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>For Windows:
+f.e.: LC_COLLATE=C;LC_CTYPE=German_Austria.1252;LC_MONETARY=C
+would be recognised as de_AT</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getHttpCharset()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getHttpCharset</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Return the accepted charset of the client</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getLanguage()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLanguage</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Returns the language part of the locale</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getLanguageTranslation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLanguageTranslation</span><span class="nb-faded-text">(
+          string $value, string $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the localized language name</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Name to get detailed information about</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string</td>
+<td><em><p>(Optional) Locale for language translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getLanguageTranslationList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLanguageTranslationList</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns an array with the name of all languages translated to the given language</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for language translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getLocaleList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocaleList</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns a list of all known locales where the locale is the key
+Only real locales are returned, the internal locales 'root', 'auto', 'browser'
+and 'environment' are suppressed</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>List of all Locales</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getLocaleToTerritory()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocaleToTerritory</span><span class="nb-faded-text">(
+          string $territory
+          )
+        </span>
+        :
+          string | null</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the expected locale for a given territory</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$territory</th>
+<td>string</td>
+<td><em><p>Territory for which the locale is being searched</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | null</td>
+<td>Locale string or null when no locale has been found</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getOrder()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getOrder</span><span class="nb-faded-text">(
+           $order
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Search the locale automatically and return all used locales
+ordered by quality</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Standard Searchorder is Browser, Environment, Default</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$order</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Returns an array of all detected locales</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getQuestion()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getQuestion</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns an array with translated yes strings</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for language translation (defaults to $this locale)</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getRegion()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getRegion</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string | false</code><div class="description"><p class="short_description">Returns the region part of the locale if available</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | false</td>
+<td>- Regionstring</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getScriptTranslation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getScriptTranslation</span><span class="nb-faded-text">(
+          string $value, string $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the localized script name</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Name to get detailed information about</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string</td>
+<td><em><p>(Optional) locale for script translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getScriptTranslationList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getScriptTranslationList</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns an array with the name of all scripts translated to the given language</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for script translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getTerritoryTranslation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTerritoryTranslation</span><span class="nb-faded-text">(
+          string $value, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns the localized territory name
+All territories contains other countries.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Name to get detailed information about</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for territory translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getTerritoryTranslationList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTerritoryTranslationList</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns an array with the name of all territories translated to the given language
+All territories contains other countries.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for territory translation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Deprecated</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getTranslation()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTranslation</span><span class="nb-faded-text">(
+          string $value
+              =
+              null, string $path
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string | false</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns a localized information string, supported are several types of informations.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>For detailed information about the types look into the documentation</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>Name to get detailed information about</p></em></td>
+</tr>
+<tr>
+<th>$path</th>
+<td>string</td>
+<td><em><p>(Optional) Type of information to return</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale|Language for which this informations should be returned</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | false</td>
+<td>The wished information in the given language</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::getTranslationList()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getTranslationList</span><span class="nb-faded-text">(
+          string $path
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null, string $value
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns localized informations as array, supported are several
+types of informations.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>For detailed information about the types look into the documentation</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$path</th>
+<td>string</td>
+<td><em><p>(Optional) Type of information to return</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale|Language for which this informations should be returned</p>
+</em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>(Optional) Value for detail list</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Array with the wished information in the given language</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::hasCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasCache</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Returns true when a cache is set</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::isLocale()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale, boolean $strict
+              =
+              false, boolean $compatible
+              =
+              true
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Checks if a locale identifier is a real locale or not
+Examples:
+"en_XX" refers to "en", which returns true
+"XX_yy" refers to "root", which returns false</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>Locale to check for</p></em></td>
+</tr>
+<tr>
+<th>$strict</th>
+<td>boolean</td>
+<td><em><p>(Optional) If true, no rerouting will be done when checking</p>
+</em></td>
+</tr>
+<tr>
+<th>$compatible</th>
+<td>boolean</td>
+<td><em><p>(DEPRECATED) Only for internal usage, brakes compatibility mode</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td>If the locale is known dependend on the settings</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::removeCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeCache</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Removes any set cache</p>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::serialize()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">serialize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Serialization Interface</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::setCache()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setCache</span><span class="nb-faded-text">(
+          <a href="db_Zend_Cache_Core.html#%5CZend_Cache_Core">\Zend_Cache_Core</a> $cache
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Sets a cache</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$cache</th>
+<td><a href="db_Zend_Cache_Core.html#%5CZend_Cache_Core">\Zend_Cache_Core</a></td>
+<td><em><p>Cache to set</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::setDefault()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDefault</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale, float $quality
+              =
+              1
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Sets a new default locale which will be used when no locale can be detected
+If provided you can set a quality between 0 and 1 (or 2 and 100)
+which represents the percent of quality the browser
+requested within HTTP</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>Locale to set</p></em></td>
+</tr>
+<tr>
+<th>$quality</th>
+<td>float</td>
+<td><em><p>The quality to set from 0 to 1</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Locale_Exception.html#%5CZend_Locale_Exception">\Zend_Locale_Exception</a></td>
+<td><em>When a autolocale was given</em></td>
+</tr>
+<tr>
+<td><a href="db_Zend_Locale_Exception.html#%5CZend_Locale_Exception">\Zend_Locale_Exception</a></td>
+<td><em>When a unknown locale was given</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::setLocale()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Sets a new locale</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) New locale to set</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Locale::toString()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Returns a string representation of the object</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

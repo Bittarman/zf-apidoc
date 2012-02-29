@@ -1,0 +1,1505 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Measure/Power.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Measure_Power">\Zend_Measure_Power</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Measure
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Power.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Measure_Power" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Measure_Power<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Measure\Zend\Measure\Power</small><p class="short-description">Class for handling power conversions</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Measure_Power::STANDARD" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">STANDARD</span>
+                = 'WATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ATTOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ATTOWATT</span>
+                = 'ATTOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::BTU_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BTU_PER_HOUR</span>
+                = 'BTU_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::BTU_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BTU_PER_MINUTE</span>
+                = 'BTU_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::BTU_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">BTU_PER_SECOND</span>
+                = 'BTU_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CALORIE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CALORIE_PER_HOUR</span>
+                = 'CALORIE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CALORIE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CALORIE_PER_MINUTE</span>
+                = 'CALORIE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CALORIE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CALORIE_PER_SECOND</span>
+                = 'CALORIE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CENTIWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CENTIWATT</span>
+                = 'CENTIWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CHEVAL_VAPEUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CHEVAL_VAPEUR</span>
+                = 'CHEVAL_VAPEUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::CLUSEC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLUSEC</span>
+                = 'CLUSEC'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::DECIWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DECIWATT</span>
+                = 'DECIWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::DEKAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DEKAWATT</span>
+                = 'DEKAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::DYNE_CENTIMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DYNE_CENTIMETER_PER_HOUR</span>
+                = 'DYNE_CENTIMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::DYNE_CENTIMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DYNE_CENTIMETER_PER_MINUTE</span>
+                = 'DYNE_CENTIMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::DYNE_CENTIMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">DYNE_CENTIMETER_PER_SECOND</span>
+                = 'DYNE_CENTIMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ERG_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ERG_PER_HOUR</span>
+                = 'ERG_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ERG_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ERG_PER_MINUTE</span>
+                = 'ERG_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ERG_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ERG_PER_SECOND</span>
+                = 'ERG_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::EXAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">EXAWATT</span>
+                = 'EXAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FEMTOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FEMTOWATT</span>
+                = 'FEMTOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUND_FORCE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUND_FORCE_PER_HOUR</span>
+                = 'FOOT_POUND_FORCE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUND_FORCE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUND_FORCE_PER_MINUTE</span>
+                = 'FOOT_POUND_FORCE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUND_FORCE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUND_FORCE_PER_SECOND</span>
+                = 'FOOT_POUND_FORCE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUNDAL_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUNDAL_PER_HOUR</span>
+                = 'FOOT_POUNDAL_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUNDAL_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUNDAL_PER_MINUTE</span>
+                = 'FOOT_POUNDAL_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::FOOT_POUNDAL_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">FOOT_POUNDAL_PER_SECOND</span>
+                = 'FOOT_POUNDAL_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::GIGAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GIGAWATT</span>
+                = 'GIGAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::GRAM_FORCE_CENTIMETER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GRAM_FORCE_CENTIMETER_PER_HOUR</span>
+                = 'GRAM_FORCE_CENTIMETER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::GRAM_FORCE_CENTIMETER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GRAM_FORCE_CENTIMETER_PER_MINUTE</span>
+                = 'GRAM_FORCE_CENTIMETER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::GRAM_FORCE_CENTIMETER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">GRAM_FORCE_CENTIMETER_PER_SECOND</span>
+                = 'GRAM_FORCE_CENTIMETER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::HECTOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HECTOWATT</span>
+                = 'HECTOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::HORSEPOWER_INTERNATIONAL" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HORSEPOWER_INTERNATIONAL</span>
+                = 'HORSEPOWER_INTERNATIONAL'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::HORSEPOWER_ELECTRIC" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HORSEPOWER_ELECTRIC</span>
+                = 'HORSEPOWER_ELECTRIC'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::HORSEPOWER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HORSEPOWER</span>
+                = 'HORSEPOWER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::HORSEPOWER_WATER" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">HORSEPOWER_WATER</span>
+                = 'HORSEPOWER_WATER'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::INCH_OUNCE_FORCE_REVOLUTION_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">INCH_OUNCE_FORCE_REVOLUTION_PER_MINUTE</span>
+                = 'INCH_OUNCH_FORCE_REVOLUTION_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::JOULE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">JOULE_PER_HOUR</span>
+                = 'JOULE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::JOULE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">JOULE_PER_MINUTE</span>
+                = 'JOULE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::JOULE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">JOULE_PER_SECOND</span>
+                = 'JOULE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOCALORIE_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOCALORIE_PER_HOUR</span>
+                = 'KILOCALORIE_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOCALORIE_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOCALORIE_PER_MINUTE</span>
+                = 'KILOCALORIE_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOCALORIE_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOCALORIE_PER_SECOND</span>
+                = 'KILOCALORIE_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOGRAM_FORCE_METER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOGRAM_FORCE_METER_PER_HOUR</span>
+                = 'KILOGRAM_FORCE_METER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOGRAM_FORCE_METER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOGRAM_FORCE_METER_PER_MINUTE</span>
+                = 'KILOGRAM_FORCE_METER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOGRAM_FORCE_METER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOGRAM_FORCE_METER_PER_SECOND</span>
+                = 'KILOGRAM_FORCE_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOPOND_METER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOPOND_METER_PER_HOUR</span>
+                = 'KILOPOND_METER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOPOND_METER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOPOND_METER_PER_MINUTE</span>
+                = 'KILOPOND_METER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOPOND_METER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOPOND_METER_PER_SECOND</span>
+                = 'KILOPOND_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::KILOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">KILOWATT</span>
+                = 'KILOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::MEGAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MEGAWATT</span>
+                = 'MEGAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::MICROWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MICROWATT</span>
+                = 'MICROWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::MILLION_BTU_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLION_BTU_PER_HOUR</span>
+                = 'MILLION_BTU_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::MILLIWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">MILLIWATT</span>
+                = 'MILLIWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::NANOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NANOWATT</span>
+                = 'NANOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::NEWTON_METER_PER_HOUR" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NEWTON_METER_PER_HOUR</span>
+                = 'NEWTON_METER_PER_HOUR'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::NEWTON_METER_PER_MINUTE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NEWTON_METER_PER_MINUTE</span>
+                = 'NEWTON_METER_PER_MINUTE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::NEWTON_METER_PER_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">NEWTON_METER_PER_SECOND</span>
+                = 'NEWTON_METER_PER_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::PETAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PETAWATT</span>
+                = 'PETAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::PFERDESTAERKE" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PFERDESTAERKE</span>
+                = 'PFERDESTAERKE'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::PICOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PICOWATT</span>
+                = 'PICOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::PONCELET" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">PONCELET</span>
+                = 'PONCELET'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::POUND_SQUARE_FOOR_PER_CUBIC_SECOND" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">POUND_SQUARE_FOOR_PER_CUBIC_SECOND</span>
+                = 'POUND_SQUARE_FOOT_PER_CUBIC_SECOND'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::TERAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TERAWATT</span>
+                = 'TERAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::TON_OF_REFRIGERATION" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TON_OF_REFRIGERATION</span>
+                = 'TON_OF_REFRIGERATION'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::WATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">WATT</span>
+                = 'WATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::YOCTOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">YOCTOWATT</span>
+                = 'YOCTOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::YOTTAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">YOTTAWATT</span>
+                = 'YOTTAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ZEPTOWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ZEPTOWATT</span>
+                = 'ZEPTOWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::ZETTAWATT" class="anchor"></a><div class="constant publicC">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">ZETTAWATT</span>
+                = 'ZETTAWATT'</code><div class="description"></div>
+<div class="code-tabs"><dl class="constant-info"></dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Measure_Power::$_locale" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_locale</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Locale identifier</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_locale">\Zend_Measure_Abstract::$$_locale</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::$_type" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_type</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Original type for this unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_type">\Zend_Measure_Abstract::$$_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::$_units" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_units</span>= 'array(
+        'ATTOWATT'                    =&gt; array('1.0e-18',           'aW'),
+        'BTU_PER_HOUR'                =&gt; array('0.29307197',        'BTU/h'),
+        'BTU_PER_MINUTE'              =&gt; array('17.5843182',        'BTU/m'),
+        'BTU_PER_SECOND'              =&gt; array('1055.059092',       'BTU/s'),
+        'CALORIE_PER_HOUR'            =&gt; array(array('' =&gt; '11630', '*' =&gt; '1.0e-7'),    'cal/h'),
+        'CALORIE_PER_MINUTE'          =&gt; array(array('' =&gt; '697800', '*' =&gt; '1.0e-7'),   'cal/m'),
+        'CALORIE_PER_SECOND'          =&gt; array(array('' =&gt; '41868000', '*' =&gt; '1.0e-7'), 'cal/s'),
+        'CENTIWATT'                   =&gt; array('0.01',              'cW'),
+        'CHEVAL_VAPEUR'               =&gt; array('735.49875',         'cv'),
+        'CLUSEC'                      =&gt; array('0.0000013332237',   'clusec'),
+        'DECIWATT'                    =&gt; array('0.1',               'dW'),
+        'DEKAWATT'                    =&gt; array('10',                'daW'),
+        'DYNE_CENTIMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '3600'), 'dyn cm/h'),
+        'DYNE_CENTIMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '60'),   'dyn cm/m'),
+        'DYNE_CENTIMETER_PER_SECOND'  =&gt; array('1.0e-7',            'dyn cm/s'),
+        'ERG_PER_HOUR'                =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '3600'), 'erg/h'),
+        'ERG_PER_MINUTE'              =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '60'),   'erg/m'),
+        'ERG_PER_SECOND'              =&gt; array('1.0e-7',            'erg/s'),
+        'EXAWATT'                     =&gt; array('1.0e+18',           'EW'),
+        'FEMTOWATT'                   =&gt; array('1.0e-15',           'fW'),
+        'FOOT_POUND_FORCE_PER_HOUR'   =&gt; array(array('' =&gt; '1.3558179', '/' =&gt; '3600'), 'ft lb/h'),
+        'FOOT_POUND_FORCE_PER_MINUTE' =&gt; array(array('' =&gt; '1.3558179', '/' =&gt; '60'),   'ft lb/m'),
+        'FOOT_POUND_FORCE_PER_SECOND' =&gt; array('1.3558179',         'ft lb/s'),
+        'FOOT_POUNDAL_PER_HOUR'       =&gt; array(array('' =&gt; '0.04214011','/' =&gt; '3600'), 'ft pdl/h'),
+        'FOOT_POUNDAL_PER_MINUTE'     =&gt; array(array('' =&gt; '0.04214011', '/' =&gt; '60'),  'ft pdl/m'),
+        'FOOT_POUNDAL_PER_SECOND'     =&gt; array('0.04214011',        'ft pdl/s'),
+        'GIGAWATT'                    =&gt; array('1.0e+9',            'GW'),
+        'GRAM_FORCE_CENTIMETER_PER_HOUR' =&gt; array(array('' =&gt; '0.0000980665','/' =&gt; '3600'), 'gf cm/h'),
+        'GRAM_FORCE_CENTIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.0000980665','/' =&gt; '60'), 'gf cm/m'),
+        'GRAM_FORCE_CENTIMETER_PER_SECOND' =&gt; array('0.0000980665', 'gf cm/s'),
+        'HECTOWATT'                   =&gt; array('100',               'hW'),
+        'HORSEPOWER_INTERNATIONAL'    =&gt; array('745.69987',         'hp'),
+        'HORSEPOWER_ELECTRIC'         =&gt; array('746',               'hp'),
+        'HORSEPOWER'                  =&gt; array('735.49875',         'hp'),
+        'HORSEPOWER_WATER'            =&gt; array('746.043',           'hp'),
+        'INCH_OUNCH_FORCE_REVOLUTION_PER_MINUTE' =&gt; array('0.00073948398',    'in ocf/m'),
+        'JOULE_PER_HOUR'              =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'), 'J/h'),
+        'JOULE_PER_MINUTE'            =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),   'J/m'),
+        'JOULE_PER_SECOND'            =&gt; array('1',                 'J/s'),
+        'KILOCALORIE_PER_HOUR'        =&gt; array('1.163',             'kcal/h'),
+        'KILOCALORIE_PER_MINUTE'      =&gt; array('69.78',             'kcal/m'),
+        'KILOCALORIE_PER_SECOND'      =&gt; array('4186.8',            'kcal/s'),
+        'KILOGRAM_FORCE_METER_PER_HOUR' =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '3600'), 'kgf m/h'),
+        'KILOGRAM_FORCE_METER_PER_MINUTE' =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '60'), 'kfg m/m'),
+        'KILOGRAM_FORCE_METER_PER_SECOND' =&gt; array('9.80665',       'kfg m/s'),
+        'KILOPOND_METER_PER_HOUR'     =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '3600'), 'kp/h'),
+        'KILOPOND_METER_PER_MINUTE'   =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '60'),   'kp/m'),
+        'KILOPOND_METER_PER_SECOND'   =&gt; array('9.80665',           'kp/s'),
+        'KILOWATT'                    =&gt; array('1000',              'kW'),
+        'MEGAWATT'                    =&gt; array('1000000',           'MW'),
+        'MICROWATT'                   =&gt; array('0.000001',          'µW'),
+        'MILLION_BTU_PER_HOUR'        =&gt; array('293071.07',         'mio BTU/h'),
+        'MILLIWATT'                   =&gt; array('0.001',             'mM'),
+        'NANOWATT'                    =&gt; array('1.0e-9',            'nN'),
+        'NEWTON_METER_PER_HOUR'       =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'), 'Nm/h'),
+        'NEWTON_METER_PER_MINUTE'     =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),   'Nm/m'),
+        'NEWTON_METER_PER_SECOND'     =&gt; array('1',                 'Nm/s'),
+        'PETAWATT'                    =&gt; array('1.0e+15',           'PW'),
+        'PFERDESTAERKE'               =&gt; array('735.49875',         'PS'),
+        'PICOWATT'                    =&gt; array('1.0e-12',           'pW'),
+        'PONCELET'                    =&gt; array('980.665',           'p'),
+        'POUND_SQUARE_FOOT_PER_CUBIC_SECOND' =&gt; array('0.04214011', 'lb ft²/s³'),
+        'TERAWATT'                    =&gt; array('1.0e+12',           'TW'),
+        'TON_OF_REFRIGERATION'        =&gt; array('3516.85284',        'RT'),
+        'WATT'                        =&gt; array('1',                 'W'),
+        'YOCTOWATT'                   =&gt; array('1.0e-24',           'yW'),
+        'YOTTAWATT'                   =&gt; array('1.0e+24',           'YW'),
+        'ZEPTOWATT'                   =&gt; array('1.0e-21',           'zW'),
+        'ZETTAWATT'                   =&gt; array('1.0e+21',           'ZW'),
+        'STANDARD'                    =&gt; 'WATT'
+    )'
+                </code><div class="description">
+<p class="short-description">Calculations for all power units</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'ATTOWATT'                    =&gt; array('1.0e-18',           'aW'),
+        'BTU_PER_HOUR'                =&gt; array('0.29307197',        'BTU/h'),
+        'BTU_PER_MINUTE'              =&gt; array('17.5843182',        'BTU/m'),
+        'BTU_PER_SECOND'              =&gt; array('1055.059092',       'BTU/s'),
+        'CALORIE_PER_HOUR'            =&gt; array(array('' =&gt; '11630', '*' =&gt; '1.0e-7'),    'cal/h'),
+        'CALORIE_PER_MINUTE'          =&gt; array(array('' =&gt; '697800', '*' =&gt; '1.0e-7'),   'cal/m'),
+        'CALORIE_PER_SECOND'          =&gt; array(array('' =&gt; '41868000', '*' =&gt; '1.0e-7'), 'cal/s'),
+        'CENTIWATT'                   =&gt; array('0.01',              'cW'),
+        'CHEVAL_VAPEUR'               =&gt; array('735.49875',         'cv'),
+        'CLUSEC'                      =&gt; array('0.0000013332237',   'clusec'),
+        'DECIWATT'                    =&gt; array('0.1',               'dW'),
+        'DEKAWATT'                    =&gt; array('10',                'daW'),
+        'DYNE_CENTIMETER_PER_HOUR'    =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '3600'), 'dyn cm/h'),
+        'DYNE_CENTIMETER_PER_MINUTE'  =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '60'),   'dyn cm/m'),
+        'DYNE_CENTIMETER_PER_SECOND'  =&gt; array('1.0e-7',            'dyn cm/s'),
+        'ERG_PER_HOUR'                =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '3600'), 'erg/h'),
+        'ERG_PER_MINUTE'              =&gt; array(array('' =&gt; '1.0e-7','/' =&gt; '60'),   'erg/m'),
+        'ERG_PER_SECOND'              =&gt; array('1.0e-7',            'erg/s'),
+        'EXAWATT'                     =&gt; array('1.0e+18',           'EW'),
+        'FEMTOWATT'                   =&gt; array('1.0e-15',           'fW'),
+        'FOOT_POUND_FORCE_PER_HOUR'   =&gt; array(array('' =&gt; '1.3558179', '/' =&gt; '3600'), 'ft lb/h'),
+        'FOOT_POUND_FORCE_PER_MINUTE' =&gt; array(array('' =&gt; '1.3558179', '/' =&gt; '60'),   'ft lb/m'),
+        'FOOT_POUND_FORCE_PER_SECOND' =&gt; array('1.3558179',         'ft lb/s'),
+        'FOOT_POUNDAL_PER_HOUR'       =&gt; array(array('' =&gt; '0.04214011','/' =&gt; '3600'), 'ft pdl/h'),
+        'FOOT_POUNDAL_PER_MINUTE'     =&gt; array(array('' =&gt; '0.04214011', '/' =&gt; '60'),  'ft pdl/m'),
+        'FOOT_POUNDAL_PER_SECOND'     =&gt; array('0.04214011',        'ft pdl/s'),
+        'GIGAWATT'                    =&gt; array('1.0e+9',            'GW'),
+        'GRAM_FORCE_CENTIMETER_PER_HOUR' =&gt; array(array('' =&gt; '0.0000980665','/' =&gt; '3600'), 'gf cm/h'),
+        'GRAM_FORCE_CENTIMETER_PER_MINUTE' =&gt; array(array('' =&gt; '0.0000980665','/' =&gt; '60'), 'gf cm/m'),
+        'GRAM_FORCE_CENTIMETER_PER_SECOND' =&gt; array('0.0000980665', 'gf cm/s'),
+        'HECTOWATT'                   =&gt; array('100',               'hW'),
+        'HORSEPOWER_INTERNATIONAL'    =&gt; array('745.69987',         'hp'),
+        'HORSEPOWER_ELECTRIC'         =&gt; array('746',               'hp'),
+        'HORSEPOWER'                  =&gt; array('735.49875',         'hp'),
+        'HORSEPOWER_WATER'            =&gt; array('746.043',           'hp'),
+        'INCH_OUNCH_FORCE_REVOLUTION_PER_MINUTE' =&gt; array('0.00073948398',    'in ocf/m'),
+        'JOULE_PER_HOUR'              =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'), 'J/h'),
+        'JOULE_PER_MINUTE'            =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),   'J/m'),
+        'JOULE_PER_SECOND'            =&gt; array('1',                 'J/s'),
+        'KILOCALORIE_PER_HOUR'        =&gt; array('1.163',             'kcal/h'),
+        'KILOCALORIE_PER_MINUTE'      =&gt; array('69.78',             'kcal/m'),
+        'KILOCALORIE_PER_SECOND'      =&gt; array('4186.8',            'kcal/s'),
+        'KILOGRAM_FORCE_METER_PER_HOUR' =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '3600'), 'kgf m/h'),
+        'KILOGRAM_FORCE_METER_PER_MINUTE' =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '60'), 'kfg m/m'),
+        'KILOGRAM_FORCE_METER_PER_SECOND' =&gt; array('9.80665',       'kfg m/s'),
+        'KILOPOND_METER_PER_HOUR'     =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '3600'), 'kp/h'),
+        'KILOPOND_METER_PER_MINUTE'   =&gt; array(array('' =&gt; '9.80665', '/' =&gt; '60'),   'kp/m'),
+        'KILOPOND_METER_PER_SECOND'   =&gt; array('9.80665',           'kp/s'),
+        'KILOWATT'                    =&gt; array('1000',              'kW'),
+        'MEGAWATT'                    =&gt; array('1000000',           'MW'),
+        'MICROWATT'                   =&gt; array('0.000001',          'µW'),
+        'MILLION_BTU_PER_HOUR'        =&gt; array('293071.07',         'mio BTU/h'),
+        'MILLIWATT'                   =&gt; array('0.001',             'mM'),
+        'NANOWATT'                    =&gt; array('1.0e-9',            'nN'),
+        'NEWTON_METER_PER_HOUR'       =&gt; array(array('' =&gt; '1', '/' =&gt; '3600'), 'Nm/h'),
+        'NEWTON_METER_PER_MINUTE'     =&gt; array(array('' =&gt; '1', '/' =&gt; '60'),   'Nm/m'),
+        'NEWTON_METER_PER_SECOND'     =&gt; array('1',                 'Nm/s'),
+        'PETAWATT'                    =&gt; array('1.0e+15',           'PW'),
+        'PFERDESTAERKE'               =&gt; array('735.49875',         'PS'),
+        'PICOWATT'                    =&gt; array('1.0e-12',           'pW'),
+        'PONCELET'                    =&gt; array('980.665',           'p'),
+        'POUND_SQUARE_FOOT_PER_CUBIC_SECOND' =&gt; array('0.04214011', 'lb ft²/s³'),
+        'TERAWATT'                    =&gt; array('1.0e+12',           'TW'),
+        'TON_OF_REFRIGERATION'        =&gt; array('3516.85284',        'RT'),
+        'WATT'                        =&gt; array('1',                 'W'),
+        'YOCTOWATT'                   =&gt; array('1.0e-24',           'yW'),
+        'YOTTAWATT'                   =&gt; array('1.0e+24',           'YW'),
+        'ZEPTOWATT'                   =&gt; array('1.0e-21',           'zW'),
+        'ZETTAWATT'                   =&gt; array('1.0e+21',           'ZW'),
+        'STANDARD'                    =&gt; 'WATT'
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Plain value in standard unit</p><small>Inherited from:
+                        <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::%24%24_value">\Zend_Measure_Abstract::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Measure_Power::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          mixed $value, int $type
+              =
+              null, <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Zend_Measure_Abstract is an abstract class for the different measurement types</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__construct()">\Zend_Measure_Abstract::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>int</td>
+<td><em><p>OPTIONAL a measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td><a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a></td>
+<td><em><p>OPTIONAL a Zend_Locale Type</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::__toString()">\Zend_Measure_Abstract::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::add()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">add</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adds an unit to another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::add()">\Zend_Measure_Abstract::add()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::compare()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">compare</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compares two units</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::compare()">\Zend_Measure_Abstract::compare()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::convertTo()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">convertTo</span><span class="nb-faded-text">(
+          string $type, integer $round
+              =
+              2, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Alias function for setType returning the converted unit</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::convertTo()">\Zend_Measure_Abstract::convertTo()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>Constant Type</p></em></td>
+</tr>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to a given precision</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::equals()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">equals</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Compare if the value and type is equal</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::equals()">\Zend_Measure_Abstract::equals()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object to compare</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::getConversionList()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getConversionList</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the conversion list</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getConversionList()">\Zend_Measure_Abstract::getConversionList()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::getLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLocale</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the actual set locale</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getLocale()">\Zend_Measure_Abstract::getLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \type</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the original type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getType()">\Zend_Measure_Abstract::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\type</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::getValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          integer | string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the internal value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::getValue()">\Zend_Measure_Abstract::getValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Rounds the value to an given precision, Default is -1 which returns without rounding</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale for number representation</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer | string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::setLocale()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setLocale</span><span class="nb-faded-text">(
+          string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null, boolean $check
+              =
+              false
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets a new locale for the value representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setLocale()">\Zend_Measure_Abstract::setLocale()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) New locale to set</p>
+</em></td>
+</tr>
+<tr>
+<th>$check</th>
+<td>boolean</td>
+<td><em><p>False, check but don't set; True, set the new locale</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::setType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setType</span><span class="nb-faded-text">(
+          string $type
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new type, and convert the value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setType()">\Zend_Measure_Abstract::setType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>New type to set</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::setValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setValue</span><span class="nb-faded-text">(
+          integer | string $value, string $type
+              =
+              null, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a new value</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::setValue()">\Zend_Measure_Abstract::setValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>integer | string</td>
+<td><em><p>Value as string, integer, real or float</p></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>OPTIONAL A measure type f.e. Zend_Measure_Length::METER</p></em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>OPTIONAL Locale for parsing numbers</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Exception.html#%5CZend_Measure_Exception">\Zend_Measure_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::sub()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">sub</span><span class="nb-faded-text">(
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a> $object
+          )
+        </span>
+        :
+          <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Substracts an unit from another one</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::sub()">\Zend_Measure_Abstract::sub()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$object</th>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td><em><p>object of same unit type</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract">\Zend_Measure_Abstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Measure_Power::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          integer $round
+              =
+              -1, string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a> $locale
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a string representation</p>
+<small>Inherited from:
+                    <a href="db_Zend_Measure_Abstract.html#%5CZend_Measure_Abstract::toString()">\Zend_Measure_Abstract::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$round</th>
+<td>integer</td>
+<td><em><p>(Optional) Runds the value to an given exception</p>
+</em></td>
+</tr>
+<tr>
+<th>$locale</th>
+<td>string | <a href="db_Zend_Locale.html#%5CZend_Locale">\Zend_Locale</a>
+</td>
+<td><em><p>(Optional) Locale to set for the number</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

@@ -1,0 +1,1076 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Search/Lucene/Index/SegmentWriter/DocumentWriter.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Search_Lucene_Index_SegmentWriter_DocumentWriter">\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Search_Lucene
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Index
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: DocumentWriter.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Search\Lucene\Index</small><p class="short-description"></p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter">\Zend_Search_Lucene_Index_SegmentWriter</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_directory" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Search_Lucene_Storage_Directory
+                 <span class="highlight">$_directory</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">File system adapter.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_directory">\Zend_Search_Lucene_Index_SegmentWriter::$$_directory</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_Directory.html#%5CZend_Search_Lucene_Storage_Directory">\Zend_Search_Lucene_Storage_Directory</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_directory">\Zend_Search_Lucene_Index_SegmentWriter::$$_directory</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_docCount" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_docCount</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Number of docs in a segment</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_docCount">\Zend_Search_Lucene_Index_SegmentWriter::$$_docCount</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_docCount">\Zend_Search_Lucene_Index_SegmentWriter::$$_docCount</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_fdtFile" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_fdtFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">'.fdt'  file - Stored Fields, the field data.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fdtFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_fdtFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fdtFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_fdtFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_fdxFile" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_fdxFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">'.fdx'  file - Stored Fields, the field index.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fdxFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_fdxFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fdxFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_fdxFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_fields" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_fields</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Segment fields. Array of Zend_Search_Lucene_Index_FieldInfo objects for this segment</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fields">\Zend_Search_Lucene_Index_SegmentWriter::$$_fields</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_fields">\Zend_Search_Lucene_Index_SegmentWriter::$$_fields</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_files" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\unknown_type
+                 <span class="highlight">$_files</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">List of the index files.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_files">\Zend_Search_Lucene_Index_SegmentWriter::$$_files</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Used for automatic compound file generation</p></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>\unknown_type</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_files">\Zend_Search_Lucene_Index_SegmentWriter::$$_files</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_frqFile" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_frqFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Frequencies file</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_frqFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_frqFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_frqFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_frqFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_lastIndexPosition" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">integer
+                 <span class="highlight">$_lastIndexPosition</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Last term dictionary file position</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_lastIndexPosition">\Zend_Search_Lucene_Index_SegmentWriter::$$_lastIndexPosition</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_lastIndexPosition">\Zend_Search_Lucene_Index_SegmentWriter::$$_lastIndexPosition</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_name" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_name</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Segment name</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_name">\Zend_Search_Lucene_Index_SegmentWriter::$$_name</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_name">\Zend_Search_Lucene_Index_SegmentWriter::$$_name</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_norms" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_norms</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Normalization factors.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_norms">\Zend_Search_Lucene_Index_SegmentWriter::$$_norms</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>An array fieldName => normVector
+normVector is a binary string.
+Each byte corresponds to an indexed document in a segment and
+encodes normalization factor (float value, encoded by
+Zend_Search_Lucene_Search_Similarity::encodeNorm())</p></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_norms">\Zend_Search_Lucene_Index_SegmentWriter::$$_norms</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_prevIndexTerm" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Index_Term
+                 <span class="highlight">$_prevIndexTerm</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Last saved index term</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevIndexTerm">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevIndexTerm</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevIndexTerm">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevIndexTerm</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_prevIndexTermInfo" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Index_TermInfo
+                 <span class="highlight">$_prevIndexTermInfo</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Last saved index term info</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevIndexTermInfo">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevIndexTermInfo</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevIndexTermInfo">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevIndexTermInfo</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_prevTerm" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Index_Term
+                 <span class="highlight">$_prevTerm</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Last saved term</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevTerm">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevTerm</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevTerm">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevTerm</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_prevTermInfo" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Index_TermInfo
+                 <span class="highlight">$_prevTermInfo</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Last saved term info</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevTermInfo">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevTermInfo</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prevTermInfo">\Zend_Search_Lucene_Index_SegmentWriter::$$_prevTermInfo</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_prxFile" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_prxFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Positions file</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prxFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_prxFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_prxFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_prxFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_termCount" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">integer
+                 <span class="highlight">$_termCount</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Number of written terms</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_termCount">\Zend_Search_Lucene_Index_SegmentWriter::$$_termCount</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_termCount">\Zend_Search_Lucene_Index_SegmentWriter::$$_termCount</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_termDictionary" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_termDictionary</span>= ''
+                </code><div class="description">
+<p class="short-description">Term Dictionary
+Array of the Zend_Search_Lucene_Index_Term objects
+Corresponding Zend_Search_Lucene_Index_TermInfo object stored in the $_termDictionaryInfos</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_termDocs" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_termDocs</span>= ''
+                </code><div class="description">
+<p class="short-description">Documents, which contain the term</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_tiiFile" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_tiiFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Term Dictionary index file</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_tiiFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_tiiFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_tiiFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_tiiFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$_tisFile" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Storage_File
+                 <span class="highlight">$_tisFile</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Term Dictionary file</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_tisFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_tisFile</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24_tisFile">\Zend_Search_Lucene_Index_SegmentWriter::$$_tisFile</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$indexInterval" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">integer
+                 <span class="highlight">$indexInterval</span>= '128'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">Expert: The fraction of terms in the "dictionary" which should be stored
+in RAM.  Smaller values use more memory, but make searching slightly
+faster, while larger values use less memory and make searching slightly
+slower.  Searching is typically not dominated by dictionary lookup, so
+tweaking this is rarely useful.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24indexInterval">\Zend_Search_Lucene_Index_SegmentWriter::$$indexInterval</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>128</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24indexInterval">\Zend_Search_Lucene_Index_SegmentWriter::$$indexInterval</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$maxSkipLevels" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">integer
+                 <span class="highlight">$maxSkipLevels</span>= '0'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">Expert: The maximum number of skip levels. Smaller values result in
+slightly smaller indexes, but slower skipping in big posting lists.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24maxSkipLevels">\Zend_Search_Lucene_Index_SegmentWriter::$$maxSkipLevels</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>0 indicates that we don't use skip data</p>
+
+<p>Note: not used in current implementation</p></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24maxSkipLevels">\Zend_Search_Lucene_Index_SegmentWriter::$$maxSkipLevels</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::$skipInterval" class="anchor"></a><div class="property public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">integer
+                 <span class="highlight">$skipInterval</span>= '0x7FFFFFFF'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">Expert: The fraction of TermDocs entries stored in skip tables.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24skipInterval">\Zend_Search_Lucene_Index_SegmentWriter::$$skipInterval</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Larger values result in smaller indexes, greater acceleration, but fewer
+accelerable cases, while smaller values result in bigger indexes,
+less acceleration and more
+accelerable cases. More detailed experiments would be useful here.</p>
+
+<p>0x7FFFFFFF indicates that we don't use skip data</p>
+
+<p>Note: not used in current implementation</p></div>
+<strong>Default value</strong><code>0x7FFFFFFF</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::%24%24skipInterval">\Zend_Search_Lucene_Index_SegmentWriter::$$skipInterval</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Storage_Directory.html#%5CZend_Search_Lucene_Storage_Directory">\Zend_Search_Lucene_Storage_Directory</a> $directory, string $name
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Object constructor.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$directory</th>
+<td><a href="db_Zend_Search_Lucene_Storage_Directory.html#%5CZend_Search_Lucene_Storage_Directory">\Zend_Search_Lucene_Storage_Directory</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::_dumpDictionary()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_dumpDictionary</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Dump Term Dictionary (.tis) and Term Dictionary Index (.tii) segment files</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::_dumpFNM()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_dumpFNM</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Dump Field Info (.fnm) segment file</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::_dumpFNM()">\Zend_Search_Lucene_Index_SegmentWriter::_dumpFNM()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::_dumpTermDictEntry()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_dumpTermDictEntry</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a> $dicFile, <a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a> $prevTerm, <a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a> $term, <a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a> $prevTermInfo, <a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a> $termInfo
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Dump Term Dictionary segment file entry.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::_dumpTermDictEntry()">\Zend_Search_Lucene_Index_SegmentWriter::_dumpTermDictEntry()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Used to write entry to .tis or .tii files</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$dicFile</th>
+<td><a href="db_Zend_Search_Lucene_Storage_File.html#%5CZend_Search_Lucene_Storage_File">\Zend_Search_Lucene_Storage_File</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$prevTerm</th>
+<td><a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$term</th>
+<td><a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$prevTermInfo</th>
+<td><a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$termInfo</th>
+<td><a href="db_Zend_Search_Lucene_Index_TermInfo.html#%5CZend_Search_Lucene_Index_TermInfo">\Zend_Search_Lucene_Index_TermInfo</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::_generateCFS()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_generateCFS</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Generate compound index file</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::_generateCFS()">\Zend_Search_Lucene_Index_SegmentWriter::_generateCFS()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::addDocument()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addDocument</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Document.html#%5CZend_Search_Lucene_Document">\Zend_Search_Lucene_Document</a> $document
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Adds a document to this segment.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$document</th>
+<td><a href="db_Zend_Search_Lucene_Document.html#%5CZend_Search_Lucene_Document">\Zend_Search_Lucene_Document</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Exception.html#%5CZend_Search_Lucene_Exception">\Zend_Search_Lucene_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::addField()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addField</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Field.html#%5CZend_Search_Lucene_Field">\Zend_Search_Lucene_Field</a> $field
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add field to the segment</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::addField()">\Zend_Search_Lucene_Index_SegmentWriter::addField()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns actual field number</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$field</th>
+<td><a href="db_Zend_Search_Lucene_Field.html#%5CZend_Search_Lucene_Field">\Zend_Search_Lucene_Field</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::addFieldInfo()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addFieldInfo</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Index_FieldInfo.html#%5CZend_Search_Lucene_Index_FieldInfo">\Zend_Search_Lucene_Index_FieldInfo</a> $fieldInfo
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add fieldInfo to the segment</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::addFieldInfo()">\Zend_Search_Lucene_Index_SegmentWriter::addFieldInfo()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Returns actual field number</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$fieldInfo</th>
+<td><a href="db_Zend_Search_Lucene_Index_FieldInfo.html#%5CZend_Search_Lucene_Index_FieldInfo">\Zend_Search_Lucene_Index_FieldInfo</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::addStoredFields()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addStoredFields</span><span class="nb-faded-text">(
+          array $storedFields
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add stored fields information</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::addStoredFields()">\Zend_Search_Lucene_Index_SegmentWriter::addStoredFields()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$storedFields</th>
+<td>array</td>
+<td><em><p>array of Zend_Search_Lucene_Field objects</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::addTerm()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addTerm</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a> $termEntry, array $termDocs
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add term</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::addTerm()">\Zend_Search_Lucene_Index_SegmentWriter::addTerm()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Term positions is an array( docId => array(pos1, pos2, pos3, ...), ... )</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$termEntry</th>
+<td><a href="db_Zend_Search_Lucene_Index_Term.html#%5CZend_Search_Lucene_Index_Term">\Zend_Search_Lucene_Index_Term</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$termDocs</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::close()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">close</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Search_Lucene_Index_SegmentInfo.html#%5CZend_Search_Lucene_Index_SegmentInfo">\Zend_Search_Lucene_Index_SegmentInfo</a></code><div class="description"><p class="short_description">Close segment, write it to disk and return segment info</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Index_SegmentInfo.html#%5CZend_Search_Lucene_Index_SegmentInfo">\Zend_Search_Lucene_Index_SegmentInfo</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::closeDictionaryFiles()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">closeDictionaryFiles</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Close dictionary</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::closeDictionaryFiles()">\Zend_Search_Lucene_Index_SegmentWriter::closeDictionaryFiles()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::count()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">count</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the total number of documents in this segment.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::count()">\Zend_Search_Lucene_Index_SegmentWriter::count()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::getFieldInfos()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFieldInfos</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns array of FieldInfo objects.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::getFieldInfos()">\Zend_Search_Lucene_Index_SegmentWriter::getFieldInfos()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::getName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getName</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return segment name</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::getName()">\Zend_Search_Lucene_Index_SegmentWriter::getName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Index_SegmentWriter_DocumentWriter::initializeDictionaryFiles()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">initializeDictionaryFiles</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create dicrionary, frequency and positions files and write necessary headers</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Index_SegmentWriter.html#%5CZend_Search_Lucene_Index_SegmentWriter::initializeDictionaryFiles()">\Zend_Search_Lucene_Index_SegmentWriter::initializeDictionaryFiles()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

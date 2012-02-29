@@ -1,0 +1,1913 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Pdf/Resource/Font/Simple/Standard/ZapfDingbats.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats">\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Pdf
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Fonts
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: ZapfDingbats.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Pdf\Fonts</small><p class="short-description">Implementation for the standard PDF font ZapfDingbats.</p>
+<div class="long-description"><p>This class was generated automatically using the font information and metric
+data contained in the Adobe Font Metric (AFM) files, available here:
+{@link http://partners.adobe.com/public/developer/en/pdf/Core14_AFMs.zip}</p>
+
+<p>The PHP script used to generate this class can be found in the /tools
+directory of the framework distribution. If you need to make modifications to
+this class, chances are the same modifications are needed for the rest of the
+standard fonts. You should modify the script and regenerate the classes
+instead of changing this class file by hand.</p></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard">\Zend_Pdf_Resource_Font_Simple_Standard</a>
+            &lt;
+            <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple" style="color: gray; font-size: 0.8em
+                ">\Zend_Pdf_Resource_Font_Simple</a>
+            &lt;
+            <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font" style="color: gray; font-size: 0.8em
+                ">\Zend_Pdf_Resource_Font</a>
+            &lt;
+            <a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource" style="color: gray; font-size: 0.8em
+                ">\Zend_Pdf_Resource</a>
+</dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_ascent" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_ascent</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Typographical ascent. See {@link getAscent()}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_ascent">\Zend_Pdf_Resource_Font::$$_ascent</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_ascent">\Zend_Pdf_Resource_Font_Simple::$$_ascent</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_ascent">\Zend_Pdf_Resource_Font_Simple_Standard::$$_ascent</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_ascent">\Zend_Pdf_Resource_Font::$$_ascent</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_ascent">\Zend_Pdf_Resource_Font_Simple::$$_ascent</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_ascent">\Zend_Pdf_Resource_Font_Simple_Standard::$$_ascent</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_cmap" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Pdf_Cmap
+                 <span class="highlight">$_cmap</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Object representing the font's cmap (character to glyph map).</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_cmap">\Zend_Pdf_Resource_Font_Simple::$$_cmap</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_cmap">\Zend_Pdf_Resource_Font_Simple_Standard::$$_cmap</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_Cmap.html#%5CZend_Pdf_Cmap">\Zend_Pdf_Cmap</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_cmap">\Zend_Pdf_Resource_Font_Simple::$$_cmap</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_cmap">\Zend_Pdf_Resource_Font_Simple_Standard::$$_cmap</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_descent" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_descent</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Typographical descent. See {@link getDescent()}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_descent">\Zend_Pdf_Resource_Font::$$_descent</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_descent">\Zend_Pdf_Resource_Font_Simple::$$_descent</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_descent">\Zend_Pdf_Resource_Font_Simple_Standard::$$_descent</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_descent">\Zend_Pdf_Resource_Font::$$_descent</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_descent">\Zend_Pdf_Resource_Font_Simple::$$_descent</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_descent">\Zend_Pdf_Resource_Font_Simple_Standard::$$_descent</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_fontNames" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_fontNames</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Array containing descriptive names for the font. See {@link fontName()}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_fontNames">\Zend_Pdf_Resource_Font::$$_fontNames</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_fontNames">\Zend_Pdf_Resource_Font_Simple::$$_fontNames</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_fontNames">\Zend_Pdf_Resource_Font_Simple_Standard::$$_fontNames</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_fontNames">\Zend_Pdf_Resource_Font::$$_fontNames</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_fontNames">\Zend_Pdf_Resource_Font_Simple::$$_fontNames</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_fontNames">\Zend_Pdf_Resource_Font_Simple_Standard::$$_fontNames</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_fontType" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_fontType</span>= 'Zend_Pdf_Font::TYPE_UNKNOWN'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The type of font. Use TYPE_ constants defined in {@link Zend_Pdf_Font}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_fontType">\Zend_Pdf_Resource_Font::$$_fontType</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_fontType">\Zend_Pdf_Resource_Font_Simple::$$_fontType</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_fontType">\Zend_Pdf_Resource_Font_Simple_Standard::$$_fontType</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>Zend_Pdf_Font::TYPE_UNKNOWN</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_fontType">\Zend_Pdf_Resource_Font::$$_fontType</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_fontType">\Zend_Pdf_Resource_Font_Simple::$$_fontType</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_fontType">\Zend_Pdf_Resource_Font_Simple_Standard::$$_fontType</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_fromFontEncoding" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_fromFontEncoding</span>= 'array(
+            0x20 =&gt; "\x00\x20",   0x21 =&gt; "\x27\x01",   0x22 =&gt; "\x27\x02",
+            0x23 =&gt; "\x27\x03",   0x24 =&gt; "\x27\x04",   0x25 =&gt; "\x26\x0e",
+            0x26 =&gt; "\x27\x06",   0x27 =&gt; "\x27\x07",   0x28 =&gt; "\x27\x08",
+            0x29 =&gt; "\x27\x09",   0x2a =&gt; "\x26\x1b",   0x2b =&gt; "\x26\x1e",
+            0x2c =&gt; "\x27\x0c",   0x2d =&gt; "\x27\x0d",   0x2e =&gt; "\x27\x0e",
+            0x2f =&gt; "\x27\x0f",   0x30 =&gt; "\x27\x10",   0x31 =&gt; "\x27\x11",
+            0x32 =&gt; "\x27\x12",   0x33 =&gt; "\x27\x13",   0x34 =&gt; "\x27\x14",
+            0x35 =&gt; "\x27\x15",   0x36 =&gt; "\x27\x16",   0x37 =&gt; "\x27\x17",
+            0x38 =&gt; "\x27\x18",   0x39 =&gt; "\x27\x19",   0x3a =&gt; "\x27\x1a",
+            0x3b =&gt; "\x27\x1b",   0x3c =&gt; "\x27\x1c",   0x3d =&gt; "\x27\x1d",
+            0x3e =&gt; "\x27\x1e",   0x3f =&gt; "\x27\x1f",   0x40 =&gt; "\x27\x20",
+            0x41 =&gt; "\x27\x21",   0x42 =&gt; "\x27\x22",   0x43 =&gt; "\x27\x23",
+            0x44 =&gt; "\x27\x24",   0x45 =&gt; "\x27\x25",   0x46 =&gt; "\x27\x26",
+            0x47 =&gt; "\x27\x27",   0x48 =&gt; "\x26\x05",   0x49 =&gt; "\x27\x29",
+            0x4a =&gt; "\x27\x2a",   0x4b =&gt; "\x27\x2b",   0x4c =&gt; "\x27\x2c",
+            0x4d =&gt; "\x27\x2d",   0x4e =&gt; "\x27\x2e",   0x4f =&gt; "\x27\x2f",
+            0x50 =&gt; "\x27\x30",   0x51 =&gt; "\x27\x31",   0x52 =&gt; "\x27\x32",
+            0x53 =&gt; "\x27\x33",   0x54 =&gt; "\x27\x34",   0x55 =&gt; "\x27\x35",
+            0x56 =&gt; "\x27\x36",   0x57 =&gt; "\x27\x37",   0x58 =&gt; "\x27\x38",
+            0x59 =&gt; "\x27\x39",   0x5a =&gt; "\x27\x3a",   0x5b =&gt; "\x27\x3b",
+            0x5c =&gt; "\x27\x3c",   0x5d =&gt; "\x27\x3d",   0x5e =&gt; "\x27\x3e",
+            0x5f =&gt; "\x27\x3f",   0x60 =&gt; "\x27\x40",   0x61 =&gt; "\x27\x41",
+            0x62 =&gt; "\x27\x42",   0x63 =&gt; "\x27\x43",   0x64 =&gt; "\x27\x44",
+            0x65 =&gt; "\x27\x45",   0x66 =&gt; "\x27\x46",   0x67 =&gt; "\x27\x47",
+            0x68 =&gt; "\x27\x48",   0x69 =&gt; "\x27\x49",   0x6a =&gt; "\x27\x4a",
+            0x6b =&gt; "\x27\x4b",   0x6c =&gt; "\x25\xcf",   0x6d =&gt; "\x27\x4d",
+            0x6e =&gt; "\x25\xa0",   0x6f =&gt; "\x27\x4f",   0x70 =&gt; "\x27\x50",
+            0x71 =&gt; "\x27\x51",   0x72 =&gt; "\x27\x52",   0x73 =&gt; "\x25\xb2",
+            0x74 =&gt; "\x25\xbc",   0x75 =&gt; "\x25\xc6",   0x76 =&gt; "\x27\x56",
+            0x77 =&gt; "\x25\xd7",   0x78 =&gt; "\x27\x58",   0x79 =&gt; "\x27\x59",
+            0x7a =&gt; "\x27\x5a",   0x7b =&gt; "\x27\x5b",   0x7c =&gt; "\x27\x5c",
+            0x7d =&gt; "\x27\x5d",   0x7e =&gt; "\x27\x5e",   0x80 =&gt; "\x27\x68",
+            0x81 =&gt; "\x27\x69",   0x82 =&gt; "\x27\x6a",   0x83 =&gt; "\x27\x6b",
+            0x84 =&gt; "\x27\x6c",   0x85 =&gt; "\x27\x6d",   0x86 =&gt; "\x27\x6e",
+            0x87 =&gt; "\x27\x6f",   0x88 =&gt; "\x27\x70",   0x89 =&gt; "\x27\x71",
+            0x8a =&gt; "\x27\x72",   0x8b =&gt; "\x27\x73",   0x8c =&gt; "\x27\x74",
+            0x8d =&gt; "\x27\x75",   0xa1 =&gt; "\x27\x61",   0xa2 =&gt; "\x27\x62",
+            0xa3 =&gt; "\x27\x63",   0xa4 =&gt; "\x27\x64",   0xa5 =&gt; "\x27\x65",
+            0xa6 =&gt; "\x27\x66",   0xa7 =&gt; "\x27\x67",   0xa8 =&gt; "\x26\x63",
+            0xa9 =&gt; "\x26\x66",   0xaa =&gt; "\x26\x65",   0xab =&gt; "\x26\x60",
+            0xac =&gt; "\x24\x60",   0xad =&gt; "\x24\x61",   0xae =&gt; "\x24\x62",
+            0xaf =&gt; "\x24\x63",   0xb0 =&gt; "\x24\x64",   0xb1 =&gt; "\x24\x65",
+            0xb2 =&gt; "\x24\x66",   0xb3 =&gt; "\x24\x67",   0xb4 =&gt; "\x24\x68",
+            0xb5 =&gt; "\x24\x69",   0xb6 =&gt; "\x27\x76",   0xb7 =&gt; "\x27\x77",
+            0xb8 =&gt; "\x27\x78",   0xb9 =&gt; "\x27\x79",   0xba =&gt; "\x27\x7a",
+            0xbb =&gt; "\x27\x7b",   0xbc =&gt; "\x27\x7c",   0xbd =&gt; "\x27\x7d",
+            0xbe =&gt; "\x27\x7e",   0xbf =&gt; "\x27\x7f",   0xc0 =&gt; "\x27\x80",
+            0xc1 =&gt; "\x27\x81",   0xc2 =&gt; "\x27\x82",   0xc3 =&gt; "\x27\x83",
+            0xc4 =&gt; "\x27\x84",   0xc5 =&gt; "\x27\x85",   0xc6 =&gt; "\x27\x86",
+            0xc7 =&gt; "\x27\x87",   0xc8 =&gt; "\x27\x88",   0xc9 =&gt; "\x27\x89",
+            0xca =&gt; "\x27\x8a",   0xcb =&gt; "\x27\x8b",   0xcc =&gt; "\x27\x8c",
+            0xcd =&gt; "\x27\x8d",   0xce =&gt; "\x27\x8e",   0xcf =&gt; "\x27\x8f",
+            0xd0 =&gt; "\x27\x90",   0xd1 =&gt; "\x27\x91",   0xd2 =&gt; "\x27\x92",
+            0xd3 =&gt; "\x27\x93",   0xd4 =&gt; "\x27\x94",   0xd5 =&gt; "\x21\x92",
+            0xd6 =&gt; "\x21\x94",   0xd7 =&gt; "\x21\x95",   0xd8 =&gt; "\x27\x98",
+            0xd9 =&gt; "\x27\x99",   0xda =&gt; "\x27\x9a",   0xdb =&gt; "\x27\x9b",
+            0xdc =&gt; "\x27\x9c",   0xdd =&gt; "\x27\x9d",   0xde =&gt; "\x27\x9e",
+            0xdf =&gt; "\x27\x9f",   0xe0 =&gt; "\x27\xa0",   0xe1 =&gt; "\x27\xa1",
+            0xe2 =&gt; "\x27\xa2",   0xe3 =&gt; "\x27\xa3",   0xe4 =&gt; "\x27\xa4",
+            0xe5 =&gt; "\x27\xa5",   0xe6 =&gt; "\x27\xa6",   0xe7 =&gt; "\x27\xa7",
+            0xe8 =&gt; "\x27\xa8",   0xe9 =&gt; "\x27\xa9",   0xea =&gt; "\x27\xaa",
+            0xeb =&gt; "\x27\xab",   0xec =&gt; "\x27\xac",   0xed =&gt; "\x27\xad",
+            0xee =&gt; "\x27\xae",   0xef =&gt; "\x27\xaf",   0xf1 =&gt; "\x27\xb1",
+            0xf2 =&gt; "\x27\xb2",   0xf3 =&gt; "\x27\xb3",   0xf4 =&gt; "\x27\xb4",
+            0xf5 =&gt; "\x27\xb5",   0xf6 =&gt; "\x27\xb6",   0xf7 =&gt; "\x27\xb7",
+            0xf8 =&gt; "\x27\xb8",   0xf9 =&gt; "\x27\xb9",   0xfa =&gt; "\x27\xba",
+            0xfb =&gt; "\x27\xbb",   0xfc =&gt; "\x27\xbc",   0xfd =&gt; "\x27\xbd",
+            0xfe =&gt; "\x27\xbe")'
+                </code><div class="description">
+<p class="short-description">Array for conversion from special font encoding to local encoding.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>See {@link decodeString()}.</p></div>
+<strong>Default value</strong><code>array(
+            0x20 =&gt; "\x00\x20",   0x21 =&gt; "\x27\x01",   0x22 =&gt; "\x27\x02",
+            0x23 =&gt; "\x27\x03",   0x24 =&gt; "\x27\x04",   0x25 =&gt; "\x26\x0e",
+            0x26 =&gt; "\x27\x06",   0x27 =&gt; "\x27\x07",   0x28 =&gt; "\x27\x08",
+            0x29 =&gt; "\x27\x09",   0x2a =&gt; "\x26\x1b",   0x2b =&gt; "\x26\x1e",
+            0x2c =&gt; "\x27\x0c",   0x2d =&gt; "\x27\x0d",   0x2e =&gt; "\x27\x0e",
+            0x2f =&gt; "\x27\x0f",   0x30 =&gt; "\x27\x10",   0x31 =&gt; "\x27\x11",
+            0x32 =&gt; "\x27\x12",   0x33 =&gt; "\x27\x13",   0x34 =&gt; "\x27\x14",
+            0x35 =&gt; "\x27\x15",   0x36 =&gt; "\x27\x16",   0x37 =&gt; "\x27\x17",
+            0x38 =&gt; "\x27\x18",   0x39 =&gt; "\x27\x19",   0x3a =&gt; "\x27\x1a",
+            0x3b =&gt; "\x27\x1b",   0x3c =&gt; "\x27\x1c",   0x3d =&gt; "\x27\x1d",
+            0x3e =&gt; "\x27\x1e",   0x3f =&gt; "\x27\x1f",   0x40 =&gt; "\x27\x20",
+            0x41 =&gt; "\x27\x21",   0x42 =&gt; "\x27\x22",   0x43 =&gt; "\x27\x23",
+            0x44 =&gt; "\x27\x24",   0x45 =&gt; "\x27\x25",   0x46 =&gt; "\x27\x26",
+            0x47 =&gt; "\x27\x27",   0x48 =&gt; "\x26\x05",   0x49 =&gt; "\x27\x29",
+            0x4a =&gt; "\x27\x2a",   0x4b =&gt; "\x27\x2b",   0x4c =&gt; "\x27\x2c",
+            0x4d =&gt; "\x27\x2d",   0x4e =&gt; "\x27\x2e",   0x4f =&gt; "\x27\x2f",
+            0x50 =&gt; "\x27\x30",   0x51 =&gt; "\x27\x31",   0x52 =&gt; "\x27\x32",
+            0x53 =&gt; "\x27\x33",   0x54 =&gt; "\x27\x34",   0x55 =&gt; "\x27\x35",
+            0x56 =&gt; "\x27\x36",   0x57 =&gt; "\x27\x37",   0x58 =&gt; "\x27\x38",
+            0x59 =&gt; "\x27\x39",   0x5a =&gt; "\x27\x3a",   0x5b =&gt; "\x27\x3b",
+            0x5c =&gt; "\x27\x3c",   0x5d =&gt; "\x27\x3d",   0x5e =&gt; "\x27\x3e",
+            0x5f =&gt; "\x27\x3f",   0x60 =&gt; "\x27\x40",   0x61 =&gt; "\x27\x41",
+            0x62 =&gt; "\x27\x42",   0x63 =&gt; "\x27\x43",   0x64 =&gt; "\x27\x44",
+            0x65 =&gt; "\x27\x45",   0x66 =&gt; "\x27\x46",   0x67 =&gt; "\x27\x47",
+            0x68 =&gt; "\x27\x48",   0x69 =&gt; "\x27\x49",   0x6a =&gt; "\x27\x4a",
+            0x6b =&gt; "\x27\x4b",   0x6c =&gt; "\x25\xcf",   0x6d =&gt; "\x27\x4d",
+            0x6e =&gt; "\x25\xa0",   0x6f =&gt; "\x27\x4f",   0x70 =&gt; "\x27\x50",
+            0x71 =&gt; "\x27\x51",   0x72 =&gt; "\x27\x52",   0x73 =&gt; "\x25\xb2",
+            0x74 =&gt; "\x25\xbc",   0x75 =&gt; "\x25\xc6",   0x76 =&gt; "\x27\x56",
+            0x77 =&gt; "\x25\xd7",   0x78 =&gt; "\x27\x58",   0x79 =&gt; "\x27\x59",
+            0x7a =&gt; "\x27\x5a",   0x7b =&gt; "\x27\x5b",   0x7c =&gt; "\x27\x5c",
+            0x7d =&gt; "\x27\x5d",   0x7e =&gt; "\x27\x5e",   0x80 =&gt; "\x27\x68",
+            0x81 =&gt; "\x27\x69",   0x82 =&gt; "\x27\x6a",   0x83 =&gt; "\x27\x6b",
+            0x84 =&gt; "\x27\x6c",   0x85 =&gt; "\x27\x6d",   0x86 =&gt; "\x27\x6e",
+            0x87 =&gt; "\x27\x6f",   0x88 =&gt; "\x27\x70",   0x89 =&gt; "\x27\x71",
+            0x8a =&gt; "\x27\x72",   0x8b =&gt; "\x27\x73",   0x8c =&gt; "\x27\x74",
+            0x8d =&gt; "\x27\x75",   0xa1 =&gt; "\x27\x61",   0xa2 =&gt; "\x27\x62",
+            0xa3 =&gt; "\x27\x63",   0xa4 =&gt; "\x27\x64",   0xa5 =&gt; "\x27\x65",
+            0xa6 =&gt; "\x27\x66",   0xa7 =&gt; "\x27\x67",   0xa8 =&gt; "\x26\x63",
+            0xa9 =&gt; "\x26\x66",   0xaa =&gt; "\x26\x65",   0xab =&gt; "\x26\x60",
+            0xac =&gt; "\x24\x60",   0xad =&gt; "\x24\x61",   0xae =&gt; "\x24\x62",
+            0xaf =&gt; "\x24\x63",   0xb0 =&gt; "\x24\x64",   0xb1 =&gt; "\x24\x65",
+            0xb2 =&gt; "\x24\x66",   0xb3 =&gt; "\x24\x67",   0xb4 =&gt; "\x24\x68",
+            0xb5 =&gt; "\x24\x69",   0xb6 =&gt; "\x27\x76",   0xb7 =&gt; "\x27\x77",
+            0xb8 =&gt; "\x27\x78",   0xb9 =&gt; "\x27\x79",   0xba =&gt; "\x27\x7a",
+            0xbb =&gt; "\x27\x7b",   0xbc =&gt; "\x27\x7c",   0xbd =&gt; "\x27\x7d",
+            0xbe =&gt; "\x27\x7e",   0xbf =&gt; "\x27\x7f",   0xc0 =&gt; "\x27\x80",
+            0xc1 =&gt; "\x27\x81",   0xc2 =&gt; "\x27\x82",   0xc3 =&gt; "\x27\x83",
+            0xc4 =&gt; "\x27\x84",   0xc5 =&gt; "\x27\x85",   0xc6 =&gt; "\x27\x86",
+            0xc7 =&gt; "\x27\x87",   0xc8 =&gt; "\x27\x88",   0xc9 =&gt; "\x27\x89",
+            0xca =&gt; "\x27\x8a",   0xcb =&gt; "\x27\x8b",   0xcc =&gt; "\x27\x8c",
+            0xcd =&gt; "\x27\x8d",   0xce =&gt; "\x27\x8e",   0xcf =&gt; "\x27\x8f",
+            0xd0 =&gt; "\x27\x90",   0xd1 =&gt; "\x27\x91",   0xd2 =&gt; "\x27\x92",
+            0xd3 =&gt; "\x27\x93",   0xd4 =&gt; "\x27\x94",   0xd5 =&gt; "\x21\x92",
+            0xd6 =&gt; "\x21\x94",   0xd7 =&gt; "\x21\x95",   0xd8 =&gt; "\x27\x98",
+            0xd9 =&gt; "\x27\x99",   0xda =&gt; "\x27\x9a",   0xdb =&gt; "\x27\x9b",
+            0xdc =&gt; "\x27\x9c",   0xdd =&gt; "\x27\x9d",   0xde =&gt; "\x27\x9e",
+            0xdf =&gt; "\x27\x9f",   0xe0 =&gt; "\x27\xa0",   0xe1 =&gt; "\x27\xa1",
+            0xe2 =&gt; "\x27\xa2",   0xe3 =&gt; "\x27\xa3",   0xe4 =&gt; "\x27\xa4",
+            0xe5 =&gt; "\x27\xa5",   0xe6 =&gt; "\x27\xa6",   0xe7 =&gt; "\x27\xa7",
+            0xe8 =&gt; "\x27\xa8",   0xe9 =&gt; "\x27\xa9",   0xea =&gt; "\x27\xaa",
+            0xeb =&gt; "\x27\xab",   0xec =&gt; "\x27\xac",   0xed =&gt; "\x27\xad",
+            0xee =&gt; "\x27\xae",   0xef =&gt; "\x27\xaf",   0xf1 =&gt; "\x27\xb1",
+            0xf2 =&gt; "\x27\xb2",   0xf3 =&gt; "\x27\xb3",   0xf4 =&gt; "\x27\xb4",
+            0xf5 =&gt; "\x27\xb5",   0xf6 =&gt; "\x27\xb6",   0xf7 =&gt; "\x27\xb7",
+            0xf8 =&gt; "\x27\xb8",   0xf9 =&gt; "\x27\xb9",   0xfa =&gt; "\x27\xba",
+            0xfb =&gt; "\x27\xbb",   0xfc =&gt; "\x27\xbc",   0xfd =&gt; "\x27\xbd",
+            0xfe =&gt; "\x27\xbe")</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_glyphWidths" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_glyphWidths</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Array containing the widths of each of the glyphs contained in the font.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_glyphWidths">\Zend_Pdf_Resource_Font_Simple::$$_glyphWidths</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_glyphWidths">\Zend_Pdf_Resource_Font_Simple_Standard::$$_glyphWidths</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Keys are integers starting from 0, which coresponds to Zend_Pdf_Cmap::MISSING_CHARACTER_GLYPH.</p>
+
+<p>Font character map may contain gaps for actually used glyphs, nevertheless glyphWidths array
+contains widths for all glyphs even they are unused.</p></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_glyphWidths">\Zend_Pdf_Resource_Font_Simple::$$_glyphWidths</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_glyphWidths">\Zend_Pdf_Resource_Font_Simple_Standard::$$_glyphWidths</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_isBold" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_isBold</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Flag indicating whether or not this font is bold.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isBold">\Zend_Pdf_Resource_Font::$$_isBold</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isBold">\Zend_Pdf_Resource_Font_Simple::$$_isBold</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isBold">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isBold</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isBold">\Zend_Pdf_Resource_Font::$$_isBold</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isBold">\Zend_Pdf_Resource_Font_Simple::$$_isBold</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isBold">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isBold</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_isItalic" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_isItalic</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Flag indicating whether or not this font is italic.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isItalic">\Zend_Pdf_Resource_Font::$$_isItalic</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isItalic">\Zend_Pdf_Resource_Font_Simple::$$_isItalic</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isItalic">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isItalic</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isItalic">\Zend_Pdf_Resource_Font::$$_isItalic</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isItalic">\Zend_Pdf_Resource_Font_Simple::$$_isItalic</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isItalic">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isItalic</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_isMonospace" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">boolean
+                 <span class="highlight">$_isMonospace</span>= 'false'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Flag indicating whether or not this font is monospaced.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isMonospace">\Zend_Pdf_Resource_Font::$$_isMonospace</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isMonospace">\Zend_Pdf_Resource_Font_Simple::$$_isMonospace</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isMonospace">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isMonospace</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>false</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_isMonospace">\Zend_Pdf_Resource_Font::$$_isMonospace</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_isMonospace">\Zend_Pdf_Resource_Font_Simple::$$_isMonospace</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_isMonospace">\Zend_Pdf_Resource_Font_Simple_Standard::$$_isMonospace</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_lineGap" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_lineGap</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Typographical line gap. See {@link getLineGap()}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_lineGap">\Zend_Pdf_Resource_Font::$$_lineGap</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_lineGap">\Zend_Pdf_Resource_Font_Simple::$$_lineGap</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_lineGap">\Zend_Pdf_Resource_Font_Simple_Standard::$$_lineGap</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_lineGap">\Zend_Pdf_Resource_Font::$$_lineGap</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_lineGap">\Zend_Pdf_Resource_Font_Simple::$$_lineGap</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_lineGap">\Zend_Pdf_Resource_Font_Simple_Standard::$$_lineGap</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_missingGlyphWidth" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_missingGlyphWidth</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Width for glyphs missed in the font</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_missingGlyphWidth">\Zend_Pdf_Resource_Font_Simple::$$_missingGlyphWidth</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_missingGlyphWidth">\Zend_Pdf_Resource_Font_Simple_Standard::$$_missingGlyphWidth</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Note: Adobe PDF specfication (V1.4 - V1.6) doesn't define behavior for rendering
+characters missed in the standard PDF fonts (such us 0x7F (DEL) Windows ANSI code)
+Adobe Font Metrics files doesn't also define metrics for "missed glyph".
+We provide character width as "0" for this case, but actually it depends on PDF viewer
+implementation.</p></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_missingGlyphWidth">\Zend_Pdf_Resource_Font_Simple::$$_missingGlyphWidth</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_missingGlyphWidth">\Zend_Pdf_Resource_Font_Simple_Standard::$$_missingGlyphWidth</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_objectFactory" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Pdf_ElementFactory_Interface
+                 <span class="highlight">$_objectFactory</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Each Pdf resource (fonts, images, ...) interacts with a PDF itself.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource::%24%24_objectFactory">\Zend_Pdf_Resource::$$_objectFactory</a><a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_objectFactory">\Zend_Pdf_Resource_Font::$$_objectFactory</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_objectFactory">\Zend_Pdf_Resource_Font_Simple::$$_objectFactory</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_objectFactory">\Zend_Pdf_Resource_Font_Simple_Standard::$$_objectFactory</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>It creates appropriate PDF objects, structures and sometime embedded files.
+Resources are referenced in content streams by names, which are stored in
+a page resource dictionaries.</p>
+
+<p>Thus, resources must be attached to the PDF.</p>
+
+<p>Resource abstraction uses own PDF object factory to store all necessary information.
+At the render time internal object factory is appended to the global PDF file
+factory.</p>
+
+<p>Resource abstraction also cashes information about rendered PDF files and
+doesn't duplicate resource description each time then Resource is rendered
+(referenced).</p></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_ElementFactory_Interface.html#%5CZend_Pdf_ElementFactory_Interface">\Zend_Pdf_ElementFactory_Interface</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource::%24%24_objectFactory">\Zend_Pdf_Resource::$$_objectFactory</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_objectFactory">\Zend_Pdf_Resource_Font::$$_objectFactory</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_objectFactory">\Zend_Pdf_Resource_Font_Simple::$$_objectFactory</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_objectFactory">\Zend_Pdf_Resource_Font_Simple_Standard::$$_objectFactory</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_resource" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Pdf_Element_Object
+                 <span class="highlight">$_resource</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Main resource object</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource::%24%24_resource">\Zend_Pdf_Resource::$$_resource</a><a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_resource">\Zend_Pdf_Resource_Font::$$_resource</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_resource">\Zend_Pdf_Resource_Font_Simple::$$_resource</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_resource">\Zend_Pdf_Resource_Font_Simple_Standard::$$_resource</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource::%24%24_resource">\Zend_Pdf_Resource::$$_resource</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_resource">\Zend_Pdf_Resource_Font::$$_resource</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_resource">\Zend_Pdf_Resource_Font_Simple::$$_resource</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_resource">\Zend_Pdf_Resource_Font_Simple_Standard::$$_resource</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_strikePosition" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_strikePosition</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The position above the text baseline of the strikethrough (in glyph units).</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_strikePosition">\Zend_Pdf_Resource_Font::$$_strikePosition</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_strikePosition">\Zend_Pdf_Resource_Font_Simple::$$_strikePosition</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_strikePosition">\Zend_Pdf_Resource_Font_Simple_Standard::$$_strikePosition</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_strikePosition">\Zend_Pdf_Resource_Font::$$_strikePosition</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_strikePosition">\Zend_Pdf_Resource_Font_Simple::$$_strikePosition</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_strikePosition">\Zend_Pdf_Resource_Font_Simple_Standard::$$_strikePosition</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_strikeThickness" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_strikeThickness</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The thickness of the strikethrough (in glyph units).</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_strikeThickness">\Zend_Pdf_Resource_Font::$$_strikeThickness</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_strikeThickness">\Zend_Pdf_Resource_Font_Simple::$$_strikeThickness</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_strikeThickness">\Zend_Pdf_Resource_Font_Simple_Standard::$$_strikeThickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_strikeThickness">\Zend_Pdf_Resource_Font::$$_strikeThickness</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_strikeThickness">\Zend_Pdf_Resource_Font_Simple::$$_strikeThickness</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_strikeThickness">\Zend_Pdf_Resource_Font_Simple_Standard::$$_strikeThickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_toFontEncoding" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_toFontEncoding</span>= 'array(
+            0x20 =&gt; "\x20", 0x2701 =&gt; "\x21", 0x2702 =&gt; "\x22", 0x2703 =&gt; "\x23",
+          0x2704 =&gt; "\x24", 0x260e =&gt; "\x25", 0x2706 =&gt; "\x26", 0x2707 =&gt; "\x27",
+          0x2708 =&gt; "\x28", 0x2709 =&gt; "\x29", 0x261b =&gt; "\x2a", 0x261e =&gt; "\x2b",
+          0x270c =&gt; "\x2c", 0x270d =&gt; "\x2d", 0x270e =&gt; "\x2e", 0x270f =&gt; "\x2f",
+          0x2710 =&gt; "\x30", 0x2711 =&gt; "\x31", 0x2712 =&gt; "\x32", 0x2713 =&gt; "\x33",
+          0x2714 =&gt; "\x34", 0x2715 =&gt; "\x35", 0x2716 =&gt; "\x36", 0x2717 =&gt; "\x37",
+          0x2718 =&gt; "\x38", 0x2719 =&gt; "\x39", 0x271a =&gt; "\x3a", 0x271b =&gt; "\x3b",
+          0x271c =&gt; "\x3c", 0x271d =&gt; "\x3d", 0x271e =&gt; "\x3e", 0x271f =&gt; "\x3f",
+          0x2720 =&gt; "\x40", 0x2721 =&gt; "\x41", 0x2722 =&gt; "\x42", 0x2723 =&gt; "\x43",
+          0x2724 =&gt; "\x44", 0x2725 =&gt; "\x45", 0x2726 =&gt; "\x46", 0x2727 =&gt; "\x47",
+          0x2605 =&gt; "\x48", 0x2729 =&gt; "\x49", 0x272a =&gt; "\x4a", 0x272b =&gt; "\x4b",
+          0x272c =&gt; "\x4c", 0x272d =&gt; "\x4d", 0x272e =&gt; "\x4e", 0x272f =&gt; "\x4f",
+          0x2730 =&gt; "\x50", 0x2731 =&gt; "\x51", 0x2732 =&gt; "\x52", 0x2733 =&gt; "\x53",
+          0x2734 =&gt; "\x54", 0x2735 =&gt; "\x55", 0x2736 =&gt; "\x56", 0x2737 =&gt; "\x57",
+          0x2738 =&gt; "\x58", 0x2739 =&gt; "\x59", 0x273a =&gt; "\x5a", 0x273b =&gt; "\x5b",
+          0x273c =&gt; "\x5c", 0x273d =&gt; "\x5d", 0x273e =&gt; "\x5e", 0x273f =&gt; "\x5f",
+          0x2740 =&gt; "\x60", 0x2741 =&gt; "\x61", 0x2742 =&gt; "\x62", 0x2743 =&gt; "\x63",
+          0x2744 =&gt; "\x64", 0x2745 =&gt; "\x65", 0x2746 =&gt; "\x66", 0x2747 =&gt; "\x67",
+          0x2748 =&gt; "\x68", 0x2749 =&gt; "\x69", 0x274a =&gt; "\x6a", 0x274b =&gt; "\x6b",
+          0x25cf =&gt; "\x6c", 0x274d =&gt; "\x6d", 0x25a0 =&gt; "\x6e", 0x274f =&gt; "\x6f",
+          0x2750 =&gt; "\x70", 0x2751 =&gt; "\x71", 0x2752 =&gt; "\x72", 0x25b2 =&gt; "\x73",
+          0x25bc =&gt; "\x74", 0x25c6 =&gt; "\x75", 0x2756 =&gt; "\x76", 0x25d7 =&gt; "\x77",
+          0x2758 =&gt; "\x78", 0x2759 =&gt; "\x79", 0x275a =&gt; "\x7a", 0x275b =&gt; "\x7b",
+          0x275c =&gt; "\x7c", 0x275d =&gt; "\x7d", 0x275e =&gt; "\x7e", 0x2768 =&gt; "\x80",
+          0x2769 =&gt; "\x81", 0x276a =&gt; "\x82", 0x276b =&gt; "\x83", 0x276c =&gt; "\x84",
+          0x276d =&gt; "\x85", 0x276e =&gt; "\x86", 0x276f =&gt; "\x87", 0x2770 =&gt; "\x88",
+          0x2771 =&gt; "\x89", 0x2772 =&gt; "\x8a", 0x2773 =&gt; "\x8b", 0x2774 =&gt; "\x8c",
+          0x2775 =&gt; "\x8d", 0x2761 =&gt; "\xa1", 0x2762 =&gt; "\xa2", 0x2763 =&gt; "\xa3",
+          0x2764 =&gt; "\xa4", 0x2765 =&gt; "\xa5", 0x2766 =&gt; "\xa6", 0x2767 =&gt; "\xa7",
+          0x2663 =&gt; "\xa8", 0x2666 =&gt; "\xa9", 0x2665 =&gt; "\xaa", 0x2660 =&gt; "\xab",
+          0x2460 =&gt; "\xac", 0x2461 =&gt; "\xad", 0x2462 =&gt; "\xae", 0x2463 =&gt; "\xaf",
+          0x2464 =&gt; "\xb0", 0x2465 =&gt; "\xb1", 0x2466 =&gt; "\xb2", 0x2467 =&gt; "\xb3",
+          0x2468 =&gt; "\xb4", 0x2469 =&gt; "\xb5", 0x2776 =&gt; "\xb6", 0x2777 =&gt; "\xb7",
+          0x2778 =&gt; "\xb8", 0x2779 =&gt; "\xb9", 0x277a =&gt; "\xba", 0x277b =&gt; "\xbb",
+          0x277c =&gt; "\xbc", 0x277d =&gt; "\xbd", 0x277e =&gt; "\xbe", 0x277f =&gt; "\xbf",
+          0x2780 =&gt; "\xc0", 0x2781 =&gt; "\xc1", 0x2782 =&gt; "\xc2", 0x2783 =&gt; "\xc3",
+          0x2784 =&gt; "\xc4", 0x2785 =&gt; "\xc5", 0x2786 =&gt; "\xc6", 0x2787 =&gt; "\xc7",
+          0x2788 =&gt; "\xc8", 0x2789 =&gt; "\xc9", 0x278a =&gt; "\xca", 0x278b =&gt; "\xcb",
+          0x278c =&gt; "\xcc", 0x278d =&gt; "\xcd", 0x278e =&gt; "\xce", 0x278f =&gt; "\xcf",
+          0x2790 =&gt; "\xd0", 0x2791 =&gt; "\xd1", 0x2792 =&gt; "\xd2", 0x2793 =&gt; "\xd3",
+          0x2794 =&gt; "\xd4", 0x2192 =&gt; "\xd5", 0x2194 =&gt; "\xd6", 0x2195 =&gt; "\xd7",
+          0x2798 =&gt; "\xd8", 0x2799 =&gt; "\xd9", 0x279a =&gt; "\xda", 0x279b =&gt; "\xdb",
+          0x279c =&gt; "\xdc", 0x279d =&gt; "\xdd", 0x279e =&gt; "\xde", 0x279f =&gt; "\xdf",
+          0x27a0 =&gt; "\xe0", 0x27a1 =&gt; "\xe1", 0x27a2 =&gt; "\xe2", 0x27a3 =&gt; "\xe3",
+          0x27a4 =&gt; "\xe4", 0x27a5 =&gt; "\xe5", 0x27a6 =&gt; "\xe6", 0x27a7 =&gt; "\xe7",
+          0x27a8 =&gt; "\xe8", 0x27a9 =&gt; "\xe9", 0x27aa =&gt; "\xea", 0x27ab =&gt; "\xeb",
+          0x27ac =&gt; "\xec", 0x27ad =&gt; "\xed", 0x27ae =&gt; "\xee", 0x27af =&gt; "\xef",
+          0x27b1 =&gt; "\xf1", 0x27b2 =&gt; "\xf2", 0x27b3 =&gt; "\xf3", 0x27b4 =&gt; "\xf4",
+          0x27b5 =&gt; "\xf5", 0x27b6 =&gt; "\xf6", 0x27b7 =&gt; "\xf7", 0x27b8 =&gt; "\xf8",
+          0x27b9 =&gt; "\xf9", 0x27ba =&gt; "\xfa", 0x27bb =&gt; "\xfb", 0x27bc =&gt; "\xfc",
+          0x27bd =&gt; "\xfd", 0x27be =&gt; "\xfe")'
+                </code><div class="description">
+<p class="short-description">Array for conversion from local encoding to special font encoding.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>See {@link encodeString()}.</p></div>
+<strong>Default value</strong><code>array(
+            0x20 =&gt; "\x20", 0x2701 =&gt; "\x21", 0x2702 =&gt; "\x22", 0x2703 =&gt; "\x23",
+          0x2704 =&gt; "\x24", 0x260e =&gt; "\x25", 0x2706 =&gt; "\x26", 0x2707 =&gt; "\x27",
+          0x2708 =&gt; "\x28", 0x2709 =&gt; "\x29", 0x261b =&gt; "\x2a", 0x261e =&gt; "\x2b",
+          0x270c =&gt; "\x2c", 0x270d =&gt; "\x2d", 0x270e =&gt; "\x2e", 0x270f =&gt; "\x2f",
+          0x2710 =&gt; "\x30", 0x2711 =&gt; "\x31", 0x2712 =&gt; "\x32", 0x2713 =&gt; "\x33",
+          0x2714 =&gt; "\x34", 0x2715 =&gt; "\x35", 0x2716 =&gt; "\x36", 0x2717 =&gt; "\x37",
+          0x2718 =&gt; "\x38", 0x2719 =&gt; "\x39", 0x271a =&gt; "\x3a", 0x271b =&gt; "\x3b",
+          0x271c =&gt; "\x3c", 0x271d =&gt; "\x3d", 0x271e =&gt; "\x3e", 0x271f =&gt; "\x3f",
+          0x2720 =&gt; "\x40", 0x2721 =&gt; "\x41", 0x2722 =&gt; "\x42", 0x2723 =&gt; "\x43",
+          0x2724 =&gt; "\x44", 0x2725 =&gt; "\x45", 0x2726 =&gt; "\x46", 0x2727 =&gt; "\x47",
+          0x2605 =&gt; "\x48", 0x2729 =&gt; "\x49", 0x272a =&gt; "\x4a", 0x272b =&gt; "\x4b",
+          0x272c =&gt; "\x4c", 0x272d =&gt; "\x4d", 0x272e =&gt; "\x4e", 0x272f =&gt; "\x4f",
+          0x2730 =&gt; "\x50", 0x2731 =&gt; "\x51", 0x2732 =&gt; "\x52", 0x2733 =&gt; "\x53",
+          0x2734 =&gt; "\x54", 0x2735 =&gt; "\x55", 0x2736 =&gt; "\x56", 0x2737 =&gt; "\x57",
+          0x2738 =&gt; "\x58", 0x2739 =&gt; "\x59", 0x273a =&gt; "\x5a", 0x273b =&gt; "\x5b",
+          0x273c =&gt; "\x5c", 0x273d =&gt; "\x5d", 0x273e =&gt; "\x5e", 0x273f =&gt; "\x5f",
+          0x2740 =&gt; "\x60", 0x2741 =&gt; "\x61", 0x2742 =&gt; "\x62", 0x2743 =&gt; "\x63",
+          0x2744 =&gt; "\x64", 0x2745 =&gt; "\x65", 0x2746 =&gt; "\x66", 0x2747 =&gt; "\x67",
+          0x2748 =&gt; "\x68", 0x2749 =&gt; "\x69", 0x274a =&gt; "\x6a", 0x274b =&gt; "\x6b",
+          0x25cf =&gt; "\x6c", 0x274d =&gt; "\x6d", 0x25a0 =&gt; "\x6e", 0x274f =&gt; "\x6f",
+          0x2750 =&gt; "\x70", 0x2751 =&gt; "\x71", 0x2752 =&gt; "\x72", 0x25b2 =&gt; "\x73",
+          0x25bc =&gt; "\x74", 0x25c6 =&gt; "\x75", 0x2756 =&gt; "\x76", 0x25d7 =&gt; "\x77",
+          0x2758 =&gt; "\x78", 0x2759 =&gt; "\x79", 0x275a =&gt; "\x7a", 0x275b =&gt; "\x7b",
+          0x275c =&gt; "\x7c", 0x275d =&gt; "\x7d", 0x275e =&gt; "\x7e", 0x2768 =&gt; "\x80",
+          0x2769 =&gt; "\x81", 0x276a =&gt; "\x82", 0x276b =&gt; "\x83", 0x276c =&gt; "\x84",
+          0x276d =&gt; "\x85", 0x276e =&gt; "\x86", 0x276f =&gt; "\x87", 0x2770 =&gt; "\x88",
+          0x2771 =&gt; "\x89", 0x2772 =&gt; "\x8a", 0x2773 =&gt; "\x8b", 0x2774 =&gt; "\x8c",
+          0x2775 =&gt; "\x8d", 0x2761 =&gt; "\xa1", 0x2762 =&gt; "\xa2", 0x2763 =&gt; "\xa3",
+          0x2764 =&gt; "\xa4", 0x2765 =&gt; "\xa5", 0x2766 =&gt; "\xa6", 0x2767 =&gt; "\xa7",
+          0x2663 =&gt; "\xa8", 0x2666 =&gt; "\xa9", 0x2665 =&gt; "\xaa", 0x2660 =&gt; "\xab",
+          0x2460 =&gt; "\xac", 0x2461 =&gt; "\xad", 0x2462 =&gt; "\xae", 0x2463 =&gt; "\xaf",
+          0x2464 =&gt; "\xb0", 0x2465 =&gt; "\xb1", 0x2466 =&gt; "\xb2", 0x2467 =&gt; "\xb3",
+          0x2468 =&gt; "\xb4", 0x2469 =&gt; "\xb5", 0x2776 =&gt; "\xb6", 0x2777 =&gt; "\xb7",
+          0x2778 =&gt; "\xb8", 0x2779 =&gt; "\xb9", 0x277a =&gt; "\xba", 0x277b =&gt; "\xbb",
+          0x277c =&gt; "\xbc", 0x277d =&gt; "\xbd", 0x277e =&gt; "\xbe", 0x277f =&gt; "\xbf",
+          0x2780 =&gt; "\xc0", 0x2781 =&gt; "\xc1", 0x2782 =&gt; "\xc2", 0x2783 =&gt; "\xc3",
+          0x2784 =&gt; "\xc4", 0x2785 =&gt; "\xc5", 0x2786 =&gt; "\xc6", 0x2787 =&gt; "\xc7",
+          0x2788 =&gt; "\xc8", 0x2789 =&gt; "\xc9", 0x278a =&gt; "\xca", 0x278b =&gt; "\xcb",
+          0x278c =&gt; "\xcc", 0x278d =&gt; "\xcd", 0x278e =&gt; "\xce", 0x278f =&gt; "\xcf",
+          0x2790 =&gt; "\xd0", 0x2791 =&gt; "\xd1", 0x2792 =&gt; "\xd2", 0x2793 =&gt; "\xd3",
+          0x2794 =&gt; "\xd4", 0x2192 =&gt; "\xd5", 0x2194 =&gt; "\xd6", 0x2195 =&gt; "\xd7",
+          0x2798 =&gt; "\xd8", 0x2799 =&gt; "\xd9", 0x279a =&gt; "\xda", 0x279b =&gt; "\xdb",
+          0x279c =&gt; "\xdc", 0x279d =&gt; "\xdd", 0x279e =&gt; "\xde", 0x279f =&gt; "\xdf",
+          0x27a0 =&gt; "\xe0", 0x27a1 =&gt; "\xe1", 0x27a2 =&gt; "\xe2", 0x27a3 =&gt; "\xe3",
+          0x27a4 =&gt; "\xe4", 0x27a5 =&gt; "\xe5", 0x27a6 =&gt; "\xe6", 0x27a7 =&gt; "\xe7",
+          0x27a8 =&gt; "\xe8", 0x27a9 =&gt; "\xe9", 0x27aa =&gt; "\xea", 0x27ab =&gt; "\xeb",
+          0x27ac =&gt; "\xec", 0x27ad =&gt; "\xed", 0x27ae =&gt; "\xee", 0x27af =&gt; "\xef",
+          0x27b1 =&gt; "\xf1", 0x27b2 =&gt; "\xf2", 0x27b3 =&gt; "\xf3", 0x27b4 =&gt; "\xf4",
+          0x27b5 =&gt; "\xf5", 0x27b6 =&gt; "\xf6", 0x27b7 =&gt; "\xf7", 0x27b8 =&gt; "\xf8",
+          0x27b9 =&gt; "\xf9", 0x27ba =&gt; "\xfa", 0x27bb =&gt; "\xfb", 0x27bc =&gt; "\xfc",
+          0x27bd =&gt; "\xfd", 0x27be =&gt; "\xfe")</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_underlinePosition" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_underlinePosition</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The position below the text baseline of the underline (in glyph units).</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_underlinePosition">\Zend_Pdf_Resource_Font::$$_underlinePosition</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_underlinePosition">\Zend_Pdf_Resource_Font_Simple::$$_underlinePosition</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_underlinePosition">\Zend_Pdf_Resource_Font_Simple_Standard::$$_underlinePosition</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_underlinePosition">\Zend_Pdf_Resource_Font::$$_underlinePosition</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_underlinePosition">\Zend_Pdf_Resource_Font_Simple::$$_underlinePosition</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_underlinePosition">\Zend_Pdf_Resource_Font_Simple_Standard::$$_underlinePosition</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_underlineThickness" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_underlineThickness</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The thickness of the underline (in glyph units).</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_underlineThickness">\Zend_Pdf_Resource_Font::$$_underlineThickness</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_underlineThickness">\Zend_Pdf_Resource_Font_Simple::$$_underlineThickness</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_underlineThickness">\Zend_Pdf_Resource_Font_Simple_Standard::$$_underlineThickness</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_underlineThickness">\Zend_Pdf_Resource_Font::$$_underlineThickness</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_underlineThickness">\Zend_Pdf_Resource_Font_Simple::$$_underlineThickness</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_underlineThickness">\Zend_Pdf_Resource_Font_Simple_Standard::$$_underlineThickness</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::$_unitsPerEm" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_unitsPerEm</span>= '0'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Number of glyph units per em. See {@link getUnitsPerEm()}.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font::$$_unitsPerEm</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font_Simple::$$_unitsPerEm</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font_Simple_Standard::$$_unitsPerEm</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>0</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font::$$_unitsPerEm</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font_Simple::$$_unitsPerEm</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::%24%24_unitsPerEm">\Zend_Pdf_Resource_Font_Simple_Standard::$$_unitsPerEm</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::__clone()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__clone</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Clone page, extract it and dependent objects from the current document,
+so it can be used within other docs.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource.html#%5CZend_Pdf_Resource::__clone()">\Zend_Pdf_Resource::__clone()</a><a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::__clone()">\Zend_Pdf_Resource_Font::__clone()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::__clone()">\Zend_Pdf_Resource_Font_Simple::__clone()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::__clone()">\Zend_Pdf_Resource_Font_Simple_Standard::__clone()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Object constructor</p></div>
+<div class="code-tabs"><div class="long-description"><p>If resource is not a Zend_Pdf_Element object, then stream object with specified value is
+generated.</p></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::__toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__toString</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the full name of the font in the encoding method of the current
+locale. Transliterates any characters that cannot be naturally
+represented in that character set.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::__toString()">\Zend_Pdf_Resource_Font::__toString()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::__toString()">\Zend_Pdf_Resource_Font_Simple::__toString()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::__toString()">\Zend_Pdf_Resource_Font_Simple_Standard::__toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::decodeString()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">decodeString</span><span class="nb-faded-text">(
+          string $string, string $charEncoding
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Convert string encoding from font encoding to local encoding. Overridden
+to defeat the conversion behavior for this ornamental font.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>The method is used to convert strings retrieved from existing content streams</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$charEncoding</th>
+<td>string</td>
+<td><em><p>Character encoding of resulting text.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::encodeString()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encodeString</span><span class="nb-faded-text">(
+          string $string, string $charEncoding
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Convert string encoding from local encoding to font encoding. Overridden
+to defeat the conversion behavior for this ornamental font.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>The method is used to prepare string for text drawing operators</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$charEncoding</th>
+<td>string</td>
+<td><em><p>Character encoding of source text.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getAscent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAscent</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the typographic ascent in font glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getAscent()">\Zend_Pdf_Resource_Font::getAscent()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getAscent()">\Zend_Pdf_Resource_Font_Simple::getAscent()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getAscent()">\Zend_Pdf_Resource_Font_Simple_Standard::getAscent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The typographic ascent is the distance from the font's baseline to the
+top of the text frame. It is frequently used to locate the initial
+baseline for a paragraph of text inside a given rectangle.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getCoveredPercentage()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getCoveredPercentage</span><span class="nb-faded-text">(
+          string $string, string $charEncoding
+              =
+              ''
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns a number between 0 and 1 inclusive that indicates the percentage
+of characters in the string which are covered by glyphs in this font.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getCoveredPercentage()">\Zend_Pdf_Resource_Font_Simple::getCoveredPercentage()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getCoveredPercentage()">\Zend_Pdf_Resource_Font_Simple_Standard::getCoveredPercentage()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Since no one font will contain glyphs for the entire Unicode character
+range, this method can be used to help locate a suitable font when the
+actual contents of the string are not known.</p>
+
+<p>Note that some fonts lie about the characters they support. Additionally,
+fonts don't usually contain glyphs for control characters such as tabs
+and line breaks, so it is rare that you will get back a full 1.0 score.
+The resulting value should be considered informational only.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$charEncoding</th>
+<td>string</td>
+<td><em><p>(optional) Character encoding of source text. If omitted, uses 'current locale'.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getDescent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDescent</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the typographic descent in font glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getDescent()">\Zend_Pdf_Resource_Font::getDescent()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getDescent()">\Zend_Pdf_Resource_Font_Simple::getDescent()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getDescent()">\Zend_Pdf_Resource_Font_Simple_Standard::getDescent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The typographic descent is the distance below the font's baseline to the
+bottom of the text frame. It is always negative.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getFontName()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFontName</span><span class="nb-faded-text">(
+          integer $nameType, mixed $language, string $characterSet
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the specified descriptive name for the font.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getFontName()">\Zend_Pdf_Resource_Font::getFontName()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getFontName()">\Zend_Pdf_Resource_Font_Simple::getFontName()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getFontName()">\Zend_Pdf_Resource_Font_Simple_Standard::getFontName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The font name type is usually one of the following:</p>
+
+<ul>
+ <li>{@link Zend_Pdf_Font::NAME_FULL}
+ <li>{@link Zend_Pdf_Font::NAME_FAMILY}
+ <li>{@link Zend_Pdf_Font::NAME_PREFERRED_FAMILY}
+ <li>{@link Zend_Pdf_Font::NAME_STYLE}
+ <li>{@link Zend_Pdf_Font::NAME_PREFERRED_STYLE}
+ <li>{@link Zend_Pdf_Font::NAME_DESCRIPTION}
+ <li>{@link Zend_Pdf_Font::NAME_SAMPLE_TEXT}
+ <li>{@link Zend_Pdf_Font::NAME_ID}
+ <li>{@link Zend_Pdf_Font::NAME_VERSION}
+ <li>{@link Zend_Pdf_Font::NAME_POSTSCRIPT}
+ <li>{@link Zend_Pdf_Font::NAME_CID_NAME}
+ <li>{@link Zend_Pdf_Font::NAME_DESIGNER}
+ <li>{@link Zend_Pdf_Font::NAME_DESIGNER_URL}
+ <li>{@link Zend_Pdf_Font::NAME_MANUFACTURER}
+ <li>{@link Zend_Pdf_Font::NAME_VENDOR_URL}
+ <li>{@link Zend_Pdf_Font::NAME_COPYRIGHT}
+ <li>{@link Zend_Pdf_Font::NAME_TRADEMARK}
+ <li>{@link Zend_Pdf_Font::NAME_LICENSE}
+ <li>{@link Zend_Pdf_Font::NAME_LICENSE_URL}
+</ul>
+
+<p>Note that not all names are available for all fonts. In addition, some
+fonts may contain additional names, whose indicies are in the range
+256 to 32767 inclusive, which are used for certain font layout features.</p>
+
+<p>If the preferred language translation is not available, uses the first
+available translation for the name, which is usually English.</p>
+
+<p>If the requested name does not exist, returns null.</p>
+
+<p>All names are stored internally as Unicode strings, using UTF-16BE
+encoding. You may optionally supply a different resulting character set.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$nameType</th>
+<td>integer</td>
+<td><em><p>Type of name requested.</p></em></td>
+</tr>
+<tr>
+<th>$language</th>
+<td>mixed</td>
+<td><em><p>Preferred language (string) or array of languages in preferred order. Use the ISO 639 standard 2-letter language codes.</p>
+</em></td>
+</tr>
+<tr>
+<th>$characterSet</th>
+<td>string</td>
+<td><em><p>(optional) Desired resulting character set. You may use any character set supported by {@link iconv()};</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getFontNames()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFontNames</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns whole set of font names.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getFontNames()">\Zend_Pdf_Resource_Font::getFontNames()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getFontNames()">\Zend_Pdf_Resource_Font_Simple::getFontNames()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getFontNames()">\Zend_Pdf_Resource_Font_Simple_Standard::getFontNames()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getFontType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFontType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the type of font.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getFontType()">\Zend_Pdf_Resource_Font::getFontType()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getFontType()">\Zend_Pdf_Resource_Font_Simple::getFontType()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getFontType()">\Zend_Pdf_Resource_Font_Simple_Standard::getFontType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>One of the TYPE_ constants defined in {@link Zend_Pdf_Font}.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getLineGap()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLineGap</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the typographic line gap in font glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getLineGap()">\Zend_Pdf_Resource_Font::getLineGap()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getLineGap()">\Zend_Pdf_Resource_Font_Simple::getLineGap()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getLineGap()">\Zend_Pdf_Resource_Font_Simple_Standard::getLineGap()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The typographic line gap is the distance between the bottom of the text
+frame of one line to the top of the text frame of the next. It is
+typically combined with the typographical ascent and descent to determine
+the font's total line height (or leading).</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getLineHeight()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getLineHeight</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the suggested line height (or leading) in font glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getLineHeight()">\Zend_Pdf_Resource_Font::getLineHeight()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getLineHeight()">\Zend_Pdf_Resource_Font_Simple::getLineHeight()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getLineHeight()">\Zend_Pdf_Resource_Font_Simple_Standard::getLineHeight()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This value is determined by adding together the values of the typographic
+ascent, descent, and line gap. This value yields the suggested line
+spacing as determined by the font developer.</p>
+
+<p>It should be noted that this is only a guideline; layout engines will
+frequently modify this value to achieve special effects such as double-
+spacing.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getStrikePosition()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStrikePosition</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the suggested position above the text baseline of the
+strikethrough in glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getStrikePosition()">\Zend_Pdf_Resource_Font::getStrikePosition()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getStrikePosition()">\Zend_Pdf_Resource_Font_Simple::getStrikePosition()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getStrikePosition()">\Zend_Pdf_Resource_Font_Simple_Standard::getStrikePosition()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getStrikeThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getStrikeThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the suggested line thickness of the strikethrough in glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getStrikeThickness()">\Zend_Pdf_Resource_Font::getStrikeThickness()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getStrikeThickness()">\Zend_Pdf_Resource_Font_Simple::getStrikeThickness()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getStrikeThickness()">\Zend_Pdf_Resource_Font_Simple_Standard::getStrikeThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getUnderlinePosition()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getUnderlinePosition</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the suggested position below the text baseline of the underline
+in glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getUnderlinePosition()">\Zend_Pdf_Resource_Font::getUnderlinePosition()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getUnderlinePosition()">\Zend_Pdf_Resource_Font_Simple::getUnderlinePosition()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getUnderlinePosition()">\Zend_Pdf_Resource_Font_Simple_Standard::getUnderlinePosition()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This value is usually negative.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getUnderlineThickness()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getUnderlineThickness</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the suggested line thickness of the underline in glyph units.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getUnderlineThickness()">\Zend_Pdf_Resource_Font::getUnderlineThickness()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getUnderlineThickness()">\Zend_Pdf_Resource_Font_Simple::getUnderlineThickness()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getUnderlineThickness()">\Zend_Pdf_Resource_Font_Simple_Standard::getUnderlineThickness()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::getUnitsPerEm()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getUnitsPerEm</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the number of glyph units per em.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::getUnitsPerEm()">\Zend_Pdf_Resource_Font::getUnitsPerEm()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::getUnitsPerEm()">\Zend_Pdf_Resource_Font_Simple::getUnitsPerEm()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::getUnitsPerEm()">\Zend_Pdf_Resource_Font_Simple_Standard::getUnitsPerEm()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Used to convert glyph space to user space. Frequently used in conjunction
+with {@link widthsForGlyphs()} to calculate the with of a run of text.</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::glyphNumberForCharacter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">glyphNumberForCharacter</span><span class="nb-faded-text">(
+          integer $characterCode
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the glyph number corresponding to the Unicode character.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::glyphNumberForCharacter()">\Zend_Pdf_Resource_Font_Simple::glyphNumberForCharacter()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::glyphNumberForCharacter()">\Zend_Pdf_Resource_Font_Simple_Standard::glyphNumberForCharacter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If a particular character doesn't exist in this font, the special 'missing
+character glyph' will be substituted.</p>
+
+<p>See also {@link glyphNumbersForCharacters()} which is optimized for bulk
+operations.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$characterCode</th>
+<td>integer</td>
+<td><em><p>Unicode character code (code point).</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td>Glyph number.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::glyphNumbersForCharacters()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">glyphNumbersForCharacters</span><span class="nb-faded-text">(
+          array $characterCodes
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns an array of glyph numbers corresponding to the Unicode characters.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::glyphNumbersForCharacters()">\Zend_Pdf_Resource_Font_Simple::glyphNumbersForCharacters()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::glyphNumbersForCharacters()">\Zend_Pdf_Resource_Font_Simple_Standard::glyphNumbersForCharacters()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If a particular character doesn't exist in this font, the special 'missing
+character glyph' will be substituted.</p>
+
+<p>See also {@link glyphNumberForCharacter()}.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$characterCodes</th>
+<td>array</td>
+<td><em><p>Array of Unicode character codes (code points).</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Array of glyph numbers.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::isBold()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isBold</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns true if font is bold.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::isBold()">\Zend_Pdf_Resource_Font::isBold()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::isBold()">\Zend_Pdf_Resource_Font_Simple::isBold()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::isBold()">\Zend_Pdf_Resource_Font_Simple_Standard::isBold()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::isItalic()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isItalic</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns true if font is italic.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::isItalic()">\Zend_Pdf_Resource_Font::isItalic()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::isItalic()">\Zend_Pdf_Resource_Font_Simple::isItalic()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::isItalic()">\Zend_Pdf_Resource_Font_Simple_Standard::isItalic()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::isMonospace()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isMonospace</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          boolean</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns true if font is monospace.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font.html#%5CZend_Pdf_Resource_Font::isMonospace()">\Zend_Pdf_Resource_Font::isMonospace()</a><a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::isMonospace()">\Zend_Pdf_Resource_Font_Simple::isMonospace()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::isMonospace()">\Zend_Pdf_Resource_Font_Simple_Standard::isMonospace()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::toUnicode()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toUnicode</span><span class="nb-faded-text">(
+          string $string, string $charEncoding
+              =
+              ''
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Converts a Latin-encoded string that fakes the font's internal encoding
+to the proper Unicode characters, in UTF-16BE encoding.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Used to maintain backwards compatibility with the 20 year-old legacy
+method of using this font, which is still employed by recent versions of
+some popular word processors.</p>
+
+<p>Note that using this method adds overhead due to the additional
+character conversion. Don't use this for new code; it is more efficient
+to use the appropriate Unicode characters directly.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$string</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$charEncoding</th>
+<td>string</td>
+<td><em><p>(optional) Character encoding of source string. Defaults to current locale.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::widthForGlyph()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">widthForGlyph</span><span class="nb-faded-text">(
+          integer $glyphNumber
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the width of the glyph.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::widthForGlyph()">\Zend_Pdf_Resource_Font_Simple::widthForGlyph()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::widthForGlyph()">\Zend_Pdf_Resource_Font_Simple_Standard::widthForGlyph()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Like {@link widthsForGlyphs()} but used for one glyph at a time.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$glyphNumber</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Resource_Font_Simple_Standard_ZapfDingbats::widthsForGlyphs()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">widthsForGlyphs</span><span class="nb-faded-text">(
+          array $glyphNumbers
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Returns the widths of the glyphs.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Resource_Font_Simple.html#%5CZend_Pdf_Resource_Font_Simple::widthsForGlyphs()">\Zend_Pdf_Resource_Font_Simple::widthsForGlyphs()</a><a href="db_Zend_Pdf_Resource_Font_Simple_Standard.html#%5CZend_Pdf_Resource_Font_Simple_Standard::widthsForGlyphs()">\Zend_Pdf_Resource_Font_Simple_Standard::widthsForGlyphs()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The widths are expressed in the font's glyph space. You are responsible
+for converting to user space as necessary. See {@link unitsPerEm()}.</p>
+
+<p>See also {@link widthForGlyph()}.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$glyphNumbers</th>
+<td>array</td>
+<td><em><p>&$glyphNumbers Array of glyph numbers.</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>Array of glyph widths (integers).</td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

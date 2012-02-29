@@ -1,0 +1,1178 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Pdf/Element/Object/Stream.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Pdf_Element_Object_Stream">\Zend_Pdf_Element_Object_Stream</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Pdf
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Stream.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Pdf_Element_Object_Stream" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Pdf_Element_Object_Stream<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Pdf</small><p class="short-description">PDF file 'stream object' element implementation</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a>
+            &lt;
+            <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element" style="color: gray; font-size: 0.8em
+                ">\Zend_Pdf_Element</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_BOOL" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_BOOL</span>
+                = 1</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_BOOL">\Zend_Pdf_Element::TYPE_BOOL</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_BOOL">\Zend_Pdf_Element_Object::TYPE_BOOL</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_BOOL">\Zend_Pdf_Element::TYPE_BOOL</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_BOOL">\Zend_Pdf_Element_Object::TYPE_BOOL</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_NUMERIC" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_NUMERIC</span>
+                = 2</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NUMERIC">\Zend_Pdf_Element::TYPE_NUMERIC</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NUMERIC">\Zend_Pdf_Element_Object::TYPE_NUMERIC</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NUMERIC">\Zend_Pdf_Element::TYPE_NUMERIC</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NUMERIC">\Zend_Pdf_Element_Object::TYPE_NUMERIC</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_STRING" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_STRING</span>
+                = 3</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_STRING">\Zend_Pdf_Element::TYPE_STRING</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_STRING">\Zend_Pdf_Element_Object::TYPE_STRING</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_STRING">\Zend_Pdf_Element::TYPE_STRING</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_STRING">\Zend_Pdf_Element_Object::TYPE_STRING</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_NAME" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_NAME</span>
+                = 4</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NAME">\Zend_Pdf_Element::TYPE_NAME</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NAME">\Zend_Pdf_Element_Object::TYPE_NAME</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NAME">\Zend_Pdf_Element::TYPE_NAME</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NAME">\Zend_Pdf_Element_Object::TYPE_NAME</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_ARRAY" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_ARRAY</span>
+                = 5</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_ARRAY">\Zend_Pdf_Element::TYPE_ARRAY</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_ARRAY">\Zend_Pdf_Element_Object::TYPE_ARRAY</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_ARRAY">\Zend_Pdf_Element::TYPE_ARRAY</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_ARRAY">\Zend_Pdf_Element_Object::TYPE_ARRAY</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_DICTIONARY" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_DICTIONARY</span>
+                = 6</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_DICTIONARY">\Zend_Pdf_Element::TYPE_DICTIONARY</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_DICTIONARY">\Zend_Pdf_Element_Object::TYPE_DICTIONARY</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_DICTIONARY">\Zend_Pdf_Element::TYPE_DICTIONARY</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_DICTIONARY">\Zend_Pdf_Element_Object::TYPE_DICTIONARY</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_STREAM" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_STREAM</span>
+                = 7</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_STREAM">\Zend_Pdf_Element::TYPE_STREAM</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_STREAM">\Zend_Pdf_Element_Object::TYPE_STREAM</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_STREAM">\Zend_Pdf_Element::TYPE_STREAM</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_STREAM">\Zend_Pdf_Element_Object::TYPE_STREAM</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::TYPE_NULL" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_NULL</span>
+                = 11</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NULL">\Zend_Pdf_Element::TYPE_NULL</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NULL">\Zend_Pdf_Element_Object::TYPE_NULL</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::TYPE_NULL">\Zend_Pdf_Element::TYPE_NULL</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::TYPE_NULL">\Zend_Pdf_Element_Object::TYPE_NULL</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::CLONE_MODE_SKIP_PAGES" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLONE_MODE_SKIP_PAGES</span>
+                = 1</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::CLONE_MODE_SKIP_PAGES">\Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::CLONE_MODE_SKIP_PAGES">\Zend_Pdf_Element_Object::CLONE_MODE_SKIP_PAGES</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::CLONE_MODE_SKIP_PAGES">\Zend_Pdf_Element::CLONE_MODE_SKIP_PAGES</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::CLONE_MODE_SKIP_PAGES">\Zend_Pdf_Element_Object::CLONE_MODE_SKIP_PAGES</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::CLONE_MODE_FORCE_CLONING" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">CLONE_MODE_FORCE_CLONING</span>
+                = 2</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::CLONE_MODE_FORCE_CLONING">\Zend_Pdf_Element::CLONE_MODE_FORCE_CLONING</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::CLONE_MODE_FORCE_CLONING">\Zend_Pdf_Element_Object::CLONE_MODE_FORCE_CLONING</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::CLONE_MODE_FORCE_CLONING">\Zend_Pdf_Element::CLONE_MODE_FORCE_CLONING</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::CLONE_MODE_FORCE_CLONING">\Zend_Pdf_Element_Object::CLONE_MODE_FORCE_CLONING</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_dictionary" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Pdf_Element_Dictionary
+                 <span class="highlight">$_dictionary</span>= ''
+                </code><div class="description">
+<p class="short-description">StreamObject dictionary
+Required enries:
+Length</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_Element_Dictionary.html#%5CZend_Pdf_Element_Dictionary">\Zend_Pdf_Element_Dictionary</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_factory" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Pdf_ElementFactory
+                 <span class="highlight">$_factory</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Reference to the factory.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_factory">\Zend_Pdf_Element_Object::$$_factory</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_factory">\Zend_Pdf_Element_Object::$$_factory</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_genNum" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_genNum</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Generation number</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_genNum">\Zend_Pdf_Element_Object::$$_genNum</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_genNum">\Zend_Pdf_Element_Object::$$_genNum</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_initialDictionaryData" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array|null
+                 <span class="highlight">$_initialDictionaryData</span>= 'null'
+                </code><div class="description">
+<p class="short-description">Stored original stream object dictionary.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Used to decode stream at access time.</p>
+
+<p>The only properties affecting decoding are sored here.</p></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array | null</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_objNum" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">integer
+                 <span class="highlight">$_objNum</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Object number within PDF file</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_objNum">\Zend_Pdf_Element_Object::$$_objNum</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_objNum">\Zend_Pdf_Element_Object::$$_objNum</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_parentObject" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Pdf_Element_Object
+                 <span class="highlight">$_parentObject</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Reference to the top level indirect object, which contains this element.</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::%24%24_parentObject">\Zend_Pdf_Element::$$_parentObject</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_parentObject">\Zend_Pdf_Element_Object::$$_parentObject</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::%24%24_parentObject">\Zend_Pdf_Element::$$_parentObject</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_parentObject">\Zend_Pdf_Element_Object::$$_parentObject</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_streamDecoded" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">boolean
+                 <span class="highlight">$_streamDecoded</span>= ''
+                </code><div class="description">
+<p class="short-description">Flag which signals, that stream is decoded</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>boolean</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Pdf_Element
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Object value</p><small>Inherited from:
+                        <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_value">\Zend_Pdf_Element_Object::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element">\Zend_Pdf_Element</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::%24%24_value">\Zend_Pdf_Element_Object::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Pdf_Element_Object_Stream::__call()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $method, array $args
+          )
+        </span>
+        :
+          mixed</code><div class="description"><p class="short_description">Call handler</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$method</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$args</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          mixed $val, integer $objNum, integer $genNum, <a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a> $factory, <a href="db_Zend_Pdf_Element_Dictionary.html#%5CZend_Pdf_Element_Dictionary">\Zend_Pdf_Element_Dictionary</a> | null $dictionary
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Object constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$val</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$objNum</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$genNum</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$factory</th>
+<td><a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$dictionary</th>
+<td>
+<a href="db_Zend_Pdf_Element_Dictionary.html#%5CZend_Pdf_Element_Dictionary">\Zend_Pdf_Element_Dictionary</a> | null</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::__get()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__get</span><span class="nb-faded-text">(
+          string $property
+          )
+        </span>
+        :
+          mixed</code><div class="description"><p class="short_description">Get handler</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$property</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::__set()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__set</span><span class="nb-faded-text">(
+          string $property, mixed $value
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set handler</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$property</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::_decodeStream()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_decodeStream</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Decode stream</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::_encodeStream()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_encodeStream</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Encode stream</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Exception.html#%5CZend_Pdf_Exception">\Zend_Pdf_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::_extractDictionaryData()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_extractDictionaryData</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Extract dictionary data which are used to store information and to normalize filters
+information before defiltering.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::cleanUp()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">cleanUp</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Clean up resources, used by object</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::dump()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">dump</span><span class="nb-faded-text">(
+          <a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a> $factory
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Dump object to a string to save within PDF file</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>$factory parameter defines operation context.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$factory</th>
+<td><a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getFactory()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFactory</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Check, that object is generated by specified factory</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getFactory()">\Zend_Pdf_Element_Object::getFactory()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getGenNum()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getGenNum</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get generation number</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getGenNum()">\Zend_Pdf_Element_Object::getGenNum()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getObjNum()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getObjNum</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get object number</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getObjNum()">\Zend_Pdf_Element_Object::getObjNum()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getObject()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getObject</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return object, which can be used to identify object and its references identity</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getObject()">\Zend_Pdf_Element_Object::getObject()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getParentObject()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getParentObject</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get top level parent indirect object.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::getParentObject()">\Zend_Pdf_Element::getParentObject()</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getParentObject()">\Zend_Pdf_Element_Object::getParentObject()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return type of the element.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::getType()">\Zend_Pdf_Element_Object::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>See ZPdfPDFConst for possible values</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::makeClone()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">makeClone</span><span class="nb-faded-text">(
+          <a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a> $factory, array $processed, integer $mode
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Detach PDF object from the factory (if applicable), clone it and attach to new factory.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$factory</th>
+<td><a href="db_Zend_Pdf_ElementFactory.html#%5CZend_Pdf_ElementFactory">\Zend_Pdf_ElementFactory</a></td>
+<td><em><p>The factory to attach</p></em></td>
+</tr>
+<tr>
+<th>$processed</th>
+<td>array</td>
+<td><em><p>&$processed List of already processed indirect objects, used to avoid objects duplication</p>
+</em></td>
+</tr>
+<tr>
+<th>$mode</th>
+<td>integer</td>
+<td><em><p>Cloning mode (defines filter for objects cloning)</p>
+</em></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Returns</dt>
+<dd>Zend_Pdf_Element
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::phpToPdf()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">phpToPdf</span><span class="nb-faded-text">(
+          mixed $input
+          )
+        </span>
+        :
+          <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element">\Zend_Pdf_Element</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Convert PHP value into PDF element.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::phpToPdf()">\Zend_Pdf_Element::phpToPdf()</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::phpToPdf()">\Zend_Pdf_Element_Object::phpToPdf()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element">\Zend_Pdf_Element</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::setParentObject()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setParentObject</span><span class="nb-faded-text">(
+          <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a> $parent
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set top level parent indirect object.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element.html#%5CZend_Pdf_Element::setParentObject()">\Zend_Pdf_Element::setParentObject()</a><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::setParentObject()">\Zend_Pdf_Element_Object::setParentObject()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$parent</th>
+<td><a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object">\Zend_Pdf_Element_Object</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::skipFilters()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">skipFilters</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Treat stream data as already encoded</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::toPhp()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toPhp</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          mixed</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Convert PDF element to PHP type.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::toPhp()">\Zend_Pdf_Element_Object::toPhp()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>mixed</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::toString()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">toString</span><span class="nb-faded-text">(
+          \Zend_Pdf_Factory $factory
+              =
+              null
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return reference to the object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::toString()">\Zend_Pdf_Element_Object::toString()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>$factory parameter defines operation context.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$factory</th>
+<td>\Zend_Pdf_Factory</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Pdf_Element_Object_Stream::touch()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">touch</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Mark object as modified, to include it into new PDF file segment</p>
+<small>Inherited from:
+                    <a href="db_Zend_Pdf_Element_Object.html#%5CZend_Pdf_Element_Object::touch()">\Zend_Pdf_Element_Object::touch()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"><p>We don't automate this action to keep control on PDF update process.
+All new objects are treated as "modified" automatically.</p></div></div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

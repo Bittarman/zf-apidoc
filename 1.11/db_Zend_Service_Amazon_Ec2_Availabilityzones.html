@@ -1,0 +1,949 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Service/Amazon/Ec2/Availabilityzones.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Service_Amazon_Ec2_Availabilityzones">\Zend_Service_Amazon_Ec2_Availabilityzones</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Service_Amazon
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Ec2
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Availabilityzones.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Service_Amazon_Ec2_Availabilityzones" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Service_Amazon_Ec2_Availabilityzones<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Service\Amazon\Ec2</small><p class="short-description">An Amazon EC2 interface to query which Availibity Zones your account has access to.</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract">\Zend_Service_Amazon_Ec2_Abstract</a>
+            &lt;
+            <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract" style="color: gray; font-size: 0.8em
+                ">\Zend_Service_Amazon_Abstract</a>
+            &lt;
+            <a href="db_Zend_Service_Abstract.html#%5CZend_Service_Abstract" style="color: gray; font-size: 0.8em
+                ">\Zend_Service_Abstract</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_accessKey" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_accessKey</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p>Amazon Access Key<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_accessKey">\Zend_Service_Amazon_Abstract::$$_accessKey</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_accessKey">\Zend_Service_Amazon_Ec2_Abstract::$$_accessKey</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_accessKey">\Zend_Service_Amazon_Abstract::$$_accessKey</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_accessKey">\Zend_Service_Amazon_Ec2_Abstract::$$_accessKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_defaultAccessKey" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_defaultAccessKey</span>= 'null'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description"></p>Amazon Access Key<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_defaultAccessKey">\Zend_Service_Amazon_Abstract::$$_defaultAccessKey</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultAccessKey">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultAccessKey</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_defaultAccessKey">\Zend_Service_Amazon_Abstract::$$_defaultAccessKey</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultAccessKey">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultAccessKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_defaultRegion" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_defaultRegion</span>= 'null'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description"></p>Amazon Region<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultRegion">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultRegion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultRegion">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultRegion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_defaultSecretKey" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_defaultSecretKey</span>= 'null'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description"></p>Amazon Secret Key<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_defaultSecretKey">\Zend_Service_Amazon_Abstract::$$_defaultSecretKey</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultSecretKey">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultSecretKey</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_defaultSecretKey">\Zend_Service_Amazon_Abstract::$$_defaultSecretKey</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_defaultSecretKey">\Zend_Service_Amazon_Ec2_Abstract::$$_defaultSecretKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_ec2ApiVersion" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_ec2ApiVersion</span>= ''2009-04-04''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The API version to use</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2ApiVersion">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2ApiVersion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'2009-04-04'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2ApiVersion">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2ApiVersion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_ec2Endpoint" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_ec2Endpoint</span>= ''ec2.amazonaws.com''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The HTTP query server</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2Endpoint">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2Endpoint</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'ec2.amazonaws.com'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2Endpoint">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2Endpoint</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_ec2SignatureMethod" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_ec2SignatureMethod</span>= ''HmacSHA256''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Signature Encoding Method</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2SignatureMethod">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2SignatureMethod</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'HmacSHA256'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2SignatureMethod">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2SignatureMethod</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_ec2SignatureVersion" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_ec2SignatureVersion</span>= ''2''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Signature Version</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2SignatureVersion">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2SignatureVersion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'2'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_ec2SignatureVersion">\Zend_Service_Amazon_Ec2_Abstract::$$_ec2SignatureVersion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_httpClient" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Http_Client
+                 <span class="highlight">$_httpClient</span>= 'null'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">HTTP Client used to query all web services</p><small>Inherited from:
+                        <a href="db_Zend_Service_Abstract.html#%5CZend_Service_Abstract::%24%24_httpClient">\Zend_Service_Abstract::$$_httpClient</a><a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_httpClient">\Zend_Service_Amazon_Abstract::$$_httpClient</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_httpClient">\Zend_Service_Amazon_Ec2_Abstract::$$_httpClient</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Abstract.html#%5CZend_Service_Abstract::%24%24_httpClient">\Zend_Service_Abstract::$$_httpClient</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_httpClient">\Zend_Service_Amazon_Abstract::$$_httpClient</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_httpClient">\Zend_Service_Amazon_Ec2_Abstract::$$_httpClient</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_httpTimeout" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_httpTimeout</span>= '10'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Period after which HTTP request will timeout in seconds</p>
+<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_httpTimeout">\Zend_Service_Amazon_Ec2_Abstract::$$_httpTimeout</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>10</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_httpTimeout">\Zend_Service_Amazon_Ec2_Abstract::$$_httpTimeout</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_region" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_region</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p>Amazon Region<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_region">\Zend_Service_Amazon_Ec2_Abstract::$$_region</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_region">\Zend_Service_Amazon_Ec2_Abstract::$$_region</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_secretKey" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_secretKey</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description"></p>Amazon Secret Key<small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_secretKey">\Zend_Service_Amazon_Abstract::$$_secretKey</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_secretKey">\Zend_Service_Amazon_Ec2_Abstract::$$_secretKey</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::%24%24_secretKey">\Zend_Service_Amazon_Abstract::$$_secretKey</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_secretKey">\Zend_Service_Amazon_Ec2_Abstract::$$_secretKey</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::$_validEc2Regions" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_validEc2Regions</span>= 'array('eu-west-1', 'us-east-1')'
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">An array that contains all the valid Amazon Ec2 Regions.</p><small>Inherited from:
+                        <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_validEc2Regions">\Zend_Service_Amazon_Ec2_Abstract::$$_validEc2Regions</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array('eu-west-1', 'us-east-1')</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::%24%24_validEc2Regions">\Zend_Service_Amazon_Ec2_Abstract::$$_validEc2Regions</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+           $accessKey
+              =
+              null,  $secretKey
+              =
+              null, string $region
+              =
+              null
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Create Amazon client.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::__construct()">\Zend_Service_Amazon_Ec2_Abstract::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$accessKey</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$secretKey</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$region</th>
+<td>string</td>
+<td><em><p>Sets the AWS Region</p></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::_getAccessKey()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getAccessKey</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Method to fetch the Access Key</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::_getAccessKey()">\Zend_Service_Amazon_Abstract::_getAccessKey()</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::_getAccessKey()">\Zend_Service_Amazon_Ec2_Abstract::_getAccessKey()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::_getRegion()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getRegion</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Method to fetch the AWS Region</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::_getRegion()">\Zend_Service_Amazon_Ec2_Abstract::_getRegion()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::_getSecretKey()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getSecretKey</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Method to fetch the Secret AWS Key</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::_getSecretKey()">\Zend_Service_Amazon_Abstract::_getSecretKey()</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::_getSecretKey()">\Zend_Service_Amazon_Ec2_Abstract::_getSecretKey()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::addRequiredParameters()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">addRequiredParameters</span><span class="nb-faded-text">(
+          array $parameters
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Adds required authentication and version parameters to an array of
+parameters</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::addRequiredParameters()">\Zend_Service_Amazon_Ec2_Abstract::addRequiredParameters()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The required parameters are:
+- AWSAccessKey
+- SignatureVersion
+- Timestamp
+- Version and
+- Signature</p>
+
+<p>If a required parameter is already set in the <tt>$parameters</tt> array,
+it is overwritten.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$parameters</th>
+<td>array</td>
+<td><em><p>the array to which to add the required parameters.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::checkForErrors()" class="anchor"></a><div class="method private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">checkForErrors</span><span class="nb-faded-text">(
+          <a href="db_Zend_Service_Amazon_Ec2_Response.html#%5CZend_Service_Amazon_Ec2_Response">\Zend_Service_Amazon_Ec2_Response</a> $response
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Checks for errors responses from Amazon</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::checkForErrors()">\Zend_Service_Amazon_Ec2_Abstract::checkForErrors()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$response</th>
+<td><a href="db_Zend_Service_Amazon_Ec2_Response.html#%5CZend_Service_Amazon_Ec2_Response">\Zend_Service_Amazon_Ec2_Response</a></td>
+<td><em><p>the response object to check.</p></em></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_Amazon_Ec2_Exception.html#%5CZend_Service_Amazon_Ec2_Exception">\Zend_Service_Amazon_Ec2_Exception</a></td>
+<td><em>if one or more errors are returned from Amazon.</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::describe()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">describe</span><span class="nb-faded-text">(
+          string | array $zoneName
+              =
+              null
+          )
+        </span>
+        :
+          array</code><div class="description"><p class="short_description">Describes availability zones that are currently available to the account
+and their states.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$zoneName</th>
+<td>string | array</td>
+<td><em><p>Name of an availability zone.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>An array that contains all the return items. Keys: zoneName and zoneState.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::getHttpClient()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getHttpClient</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Gets the HTTP client object.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Abstract.html#%5CZend_Service_Abstract::getHttpClient()">\Zend_Service_Abstract::getHttpClient()</a><a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::getHttpClient()">\Zend_Service_Amazon_Abstract::getHttpClient()</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::getHttpClient()">\Zend_Service_Amazon_Ec2_Abstract::getHttpClient()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::sendRequest()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">sendRequest</span><span class="nb-faded-text">(
+          array $params
+              =
+              array()
+          )
+        </span>
+        :
+          <a href="db_Zend_Service_Amazon_Ec2_Response.html#%5CZend_Service_Amazon_Ec2_Response">\Zend_Service_Amazon_Ec2_Response</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sends a HTTP request to the queue service using Zend_Http_Client</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::sendRequest()">\Zend_Service_Amazon_Ec2_Abstract::sendRequest()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$params</th>
+<td>array</td>
+<td><em><p>List of parameters to send with the request</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_Amazon_Ec2_Response.html#%5CZend_Service_Amazon_Ec2_Response">\Zend_Service_Amazon_Ec2_Response</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Service_Amazon_Ec2_Exception.html#%5CZend_Service_Amazon_Ec2_Exception">\Zend_Service_Amazon_Ec2_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::setHttpClient()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setHttpClient</span><span class="nb-faded-text">(
+          <a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a> $httpClient
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Sets the HTTP client object to use for retrieving the feeds.  If none
+is set, the default Zend_Http_Client will be used.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Abstract.html#%5CZend_Service_Abstract::setHttpClient()">\Zend_Service_Abstract::setHttpClient()</a><a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::setHttpClient()">\Zend_Service_Amazon_Abstract::setHttpClient()</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::setHttpClient()">\Zend_Service_Amazon_Ec2_Abstract::setHttpClient()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$httpClient</th>
+<td><a href="db_Zend_Http_Client.html#%5CZend_Http_Client">\Zend_Http_Client</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::setKeys()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setKeys</span><span class="nb-faded-text">(
+           $accessKey,  $secretKey
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Set the keys to use when accessing SQS.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Abstract.html#%5CZend_Service_Amazon_Abstract::setKeys()">\Zend_Service_Amazon_Abstract::setKeys()</a><a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::setKeys()">\Zend_Service_Amazon_Ec2_Abstract::setKeys()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$accessKey</th>
+<td></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$secretKey</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::setRegion()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setRegion</span><span class="nb-faded-text">(
+          string $region
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Set which region you are working in.  It will append the
+end point automaticly</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::setRegion()">\Zend_Service_Amazon_Ec2_Abstract::setRegion()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$region</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Service_Amazon_Ec2_Availabilityzones::signParameters()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">signParameters</span><span class="nb-faded-text">(
+           $paramaters
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Computes the RFC 2104-compliant HMAC signature for request parameters</p>
+<small>Inherited from:
+                    <a href="db_Zend_Service_Amazon_Ec2_Abstract.html#%5CZend_Service_Amazon_Ec2_Abstract::signParameters()">\Zend_Service_Amazon_Ec2_Abstract::signParameters()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This implements the Amazon Web Services signature, as per the following
+specification:</p>
+
+<ol>
+<li><p>Sort all request parameters (including <tt>SignatureVersion</tt> and
+excluding <tt>Signature</tt>, the value of which is being created),
+ignoring case.</p></li>
+<li><p>Iterate over the sorted list and append the parameter name (in its
+original case) and then its value. Do not URL-encode the parameter
+values before constructing this string. Do not use any separator
+characters when appending strings.</p></li>
+</ol></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$paramaters</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td>the signed data.</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

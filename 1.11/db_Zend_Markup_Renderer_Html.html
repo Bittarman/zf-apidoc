@@ -1,0 +1,1493 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Markup/Renderer/Html.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Markup_Renderer_Html">\Zend_Markup_Renderer_Html</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Markup
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Renderer
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Html.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Markup_Renderer_Html" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Markup_Renderer_Html<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Markup\Renderer</small><p class="short-description">HTML renderer</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_Markup_Renderer_Html::TYPE_CALLBACK" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_CALLBACK</span>
+                = 4</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_CALLBACK">\Zend_Markup_Renderer_RendererAbstract::TYPE_CALLBACK</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_CALLBACK">\Zend_Markup_Renderer_RendererAbstract::TYPE_CALLBACK</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::TYPE_REPLACE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_REPLACE</span>
+                = 8</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_REPLACE">\Zend_Markup_Renderer_RendererAbstract::TYPE_REPLACE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_REPLACE">\Zend_Markup_Renderer_RendererAbstract::TYPE_REPLACE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::TYPE_ALIAS" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">TYPE_ALIAS</span>
+                = 16</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_ALIAS">\Zend_Markup_Renderer_RendererAbstract::TYPE_ALIAS</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::TYPE_ALIAS">\Zend_Markup_Renderer_RendererAbstract::TYPE_ALIAS</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Markup_Renderer_Html::$_defaultAttributes" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_defaultAttributes</span>= 'array(
+        'id'    =&gt; '',
+        'class' =&gt; '',
+        'style' =&gt; '',
+        'lang'  =&gt; '',
+        'title' =&gt; ''
+    )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Default attributes</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'id'    =&gt; '',
+        'class' =&gt; '',
+        'style' =&gt; '',
+        'lang'  =&gt; '',
+        'title' =&gt; ''
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_defaultFilter" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Filter
+                 <span class="highlight">$_defaultFilter</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Filter chain</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_defaultFilter">\Zend_Markup_Renderer_RendererAbstract::$$_defaultFilter</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Filter.html#%5CZend_Filter">\Zend_Filter</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_defaultFilter">\Zend_Markup_Renderer_RendererAbstract::$$_defaultFilter</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_encoding" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_encoding</span>= ''UTF-8''
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">Encoding</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_encoding">\Zend_Markup_Renderer_RendererAbstract::$$_encoding</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'UTF-8'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_encoding">\Zend_Markup_Renderer_RendererAbstract::$$_encoding</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_filter" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">bool
+                 <span class="highlight">$_filter</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">What filter to use</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_filter">\Zend_Markup_Renderer_RendererAbstract::$$_filter</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>bool</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_filter">\Zend_Markup_Renderer_RendererAbstract::$$_filter</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_group" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_group</span>= ''block''
+                </code><div class="description">
+<p class="short-description">The current group</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>'block'</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_groups" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_groups</span>= 'array(
+        'block'        =&gt; array('block', 'inline', 'block-empty', 'inline-empty', 'list'),
+        'inline'       =&gt; array('inline', 'inline-empty'),
+        'list'         =&gt; array('list-item'),
+        'list-item'    =&gt; array('inline', 'inline-empty', 'list'),
+        'block-empty'  =&gt; array(),
+        'inline-empty' =&gt; array(),
+    )'
+                </code><div class="description">
+<p class="short-description">Element groups</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'block'        =&gt; array('block', 'inline', 'block-empty', 'inline-empty', 'list'),
+        'inline'       =&gt; array('inline', 'inline-empty'),
+        'list'         =&gt; array('list-item'),
+        'list-item'    =&gt; array('inline', 'inline-empty', 'list'),
+        'block-empty'  =&gt; array(),
+        'inline-empty' =&gt; array(),
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_markups" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_markups</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Tag info</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_markups">\Zend_Markup_Renderer_RendererAbstract::$$_markups</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_markups">\Zend_Markup_Renderer_RendererAbstract::$$_markups</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_parser" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Markup_Parser_ParserInterface
+                 <span class="highlight">$_parser</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Parser</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_parser">\Zend_Markup_Renderer_RendererAbstract::$$_parser</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Markup_Parser_ParserInterface.html#%5CZend_Markup_Parser_ParserInterface">\Zend_Markup_Parser_ParserInterface</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_parser">\Zend_Markup_Renderer_RendererAbstract::$$_parser</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_pluginLoader" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Loader_PluginLoader
+                 <span class="highlight">$_pluginLoader</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Plugin loader for tags</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_pluginLoader">\Zend_Markup_Renderer_RendererAbstract::$$_pluginLoader</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Loader_PluginLoader.html#%5CZend_Loader_PluginLoader">\Zend_Loader_PluginLoader</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_pluginLoader">\Zend_Markup_Renderer_RendererAbstract::$$_pluginLoader</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::$_token" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_Markup_Token
+                 <span class="highlight">$_token</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The current token</p><small>Inherited from:
+                        <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_token">\Zend_Markup_Renderer_RendererAbstract::$$_token</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::%24%24_token">\Zend_Markup_Renderer_RendererAbstract::$$_token</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Markup_Renderer_Html::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          array | <a href="db_Zend_Config.html#%5CZend_Config">\Zend_Config</a> $options
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$options</th>
+<td>array | <a href="db_Zend_Config.html#%5CZend_Config">\Zend_Config</a>
+</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_defineDefaultMarkups()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_defineDefaultMarkups</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Define the default markups</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_execute()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_execute</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Execute the token</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_execute()">\Zend_Markup_Renderer_RendererAbstract::_execute()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_executeReplace()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_executeReplace</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token, array $markup
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Execute a replace token</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$markup</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_executeSingleReplace()" class="anchor"></a><div class="method protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_executeSingleReplace</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token, array $markup
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Execute a single replace token</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$markup</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_filter()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_filter</span><span class="nb-faded-text">(
+          string $value
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Filter method</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_filter()">\Zend_Markup_Renderer_RendererAbstract::_filter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_getGroup()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getGroup</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token
+          )
+        </span>
+        :
+          string | bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the group of a token</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_getGroup()">\Zend_Markup_Renderer_RendererAbstract::_getGroup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_getMarkupName()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getMarkupName</span><span class="nb-faded-text">(
+           $token
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the markup name</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_getMarkupName()">\Zend_Markup_Renderer_RendererAbstract::_getMarkupName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td></td>
+<td><em><p>Zend_Markup_Token</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_getMarkupType()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getMarkupType</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          false | int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve markup type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_getMarkupType()">\Zend_Markup_Renderer_RendererAbstract::_getMarkupType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>false | int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_render()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_render</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Render a single token</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_render()">\Zend_Markup_Renderer_RendererAbstract::_render()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::_resolveMarkupName()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_resolveMarkupName</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Resolve aliases for a markup name</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::_resolveMarkupName()">\Zend_Markup_Renderer_RendererAbstract::_resolveMarkupName()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::addDefaultFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addDefaultFilter</span><span class="nb-faded-text">(
+          string $filter,  $placement
+              =
+              Zend_Filter::CHAIN_APPEND
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add a default filter</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::addDefaultFilter()">\Zend_Markup_Renderer_RendererAbstract::addDefaultFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$placement</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::addDefaultFilters()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addDefaultFilters</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Add the default filters</p></div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::addFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addFilter</span><span class="nb-faded-text">(
+          <a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a> $filter, string $markup, string $placement
+              =
+              Zend_Filter::CHAIN_APPEND
+          )
+        </span>
+        :
+          <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add a filter for an existing markup</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::addFilter()">\Zend_Markup_Renderer_RendererAbstract::addFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td><a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$markup</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$placement</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::addGroup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addGroup</span><span class="nb-faded-text">(
+          string $name, array $allowedInside
+              =
+              array(), array $allowsInside
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add a render group</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::addGroup()">\Zend_Markup_Renderer_RendererAbstract::addGroup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$allowedInside</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$allowsInside</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::addMarkup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addMarkup</span><span class="nb-faded-text">(
+          string $name, string $type, array $options
+          )
+        </span>
+        :
+          <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add a new markup</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::addMarkup()">\Zend_Markup_Renderer_RendererAbstract::addMarkup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$options</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::checkColor()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">checkColor</span><span class="nb-faded-text">(
+          string $color
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Check if a color is a valid HTML color</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$color</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::clearMarkups()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">clearMarkups</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove the default tags</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::clearMarkups()">\Zend_Markup_Renderer_RendererAbstract::clearMarkups()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getDefaultFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDefaultFilter</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the default filter</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getDefaultFilter()">\Zend_Markup_Renderer_RendererAbstract::getDefaultFilter()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getEncoding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getEncoding</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Get the renderer's encoding</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getEncoding()">\Zend_Markup_Renderer_RendererAbstract::getEncoding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFilter</span><span class="nb-faded-text">(
+          string $markup
+          )
+        </span>
+        :
+          <a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the filter for an existing markup</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getFilter()">\Zend_Markup_Renderer_RendererAbstract::getFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$markup</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getGroups()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getGroups</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get group definitions</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getGroups()">\Zend_Markup_Renderer_RendererAbstract::getGroups()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getParser()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getParser</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Markup_Parser_ParserInterface.html#%5CZend_Markup_Parser_ParserInterface">\Zend_Markup_Parser_ParserInterface</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the parser</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getParser()">\Zend_Markup_Renderer_RendererAbstract::getParser()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Markup_Parser_ParserInterface.html#%5CZend_Markup_Parser_ParserInterface">\Zend_Markup_Parser_ParserInterface</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::getPluginLoader()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPluginLoader</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Loader_PluginLoader.html#%5CZend_Loader_PluginLoader">\Zend_Loader_PluginLoader</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the plugin loader</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::getPluginLoader()">\Zend_Markup_Renderer_RendererAbstract::getPluginLoader()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Loader_PluginLoader.html#%5CZend_Loader_PluginLoader">\Zend_Loader_PluginLoader</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::isValidUri()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">isValidUri</span><span class="nb-faded-text">(
+          string $uri
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Check if the URI is valid</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$uri</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::removeMarkup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">removeMarkup</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Remove a markup</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::removeMarkup()">\Zend_Markup_Renderer_RendererAbstract::removeMarkup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$name</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::render()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">render</span><span class="nb-faded-text">(
+           $value
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Render function</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::render()">\Zend_Markup_Renderer_RendererAbstract::render()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::renderAttributes()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">renderAttributes</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a> $token, array $attributes
+              =
+              array()
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Render some attributes</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Markup_Token.html#%5CZend_Markup_Token">\Zend_Markup_Token</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$attributes</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::setDefaultFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDefaultFilter</span><span class="nb-faded-text">(
+          <a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a> $filter
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the default filter</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::setDefaultFilter()">\Zend_Markup_Renderer_RendererAbstract::setDefaultFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td><a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::setEncoding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setEncoding</span><span class="nb-faded-text">(
+          string $encoding
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Set the renderer's encoding</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::setEncoding()">\Zend_Markup_Renderer_RendererAbstract::setEncoding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$encoding</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::setFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setFilter</span><span class="nb-faded-text">(
+          <a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a> $filter, string $markup
+          )
+        </span>
+        :
+          <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the filter for an existing</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::setFilter()">\Zend_Markup_Renderer_RendererAbstract::setFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td><a href="db_Zend_Filter_Interface.html#%5CZend_Filter_Interface">\Zend_Filter_Interface</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$markup</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Markup_Renderer_Html::setParser()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setParser</span><span class="nb-faded-text">(
+          <a href="db_Zend_Markup_Parser_ParserInterface.html#%5CZend_Markup_Parser_ParserInterface">\Zend_Markup_Parser_ParserInterface</a> $parser
+          )
+        </span>
+        :
+          <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set the parser</p>
+<small>Inherited from:
+                    <a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract::setParser()">\Zend_Markup_Renderer_RendererAbstract::setParser()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$parser</th>
+<td><a href="db_Zend_Markup_Parser_ParserInterface.html#%5CZend_Markup_Parser_ParserInterface">\Zend_Markup_Parser_ParserInterface</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Markup_Renderer_RendererAbstract.html#%5CZend_Markup_Renderer_RendererAbstract">\Zend_Markup_Renderer_RendererAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

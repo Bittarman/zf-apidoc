@@ -1,0 +1,1115 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/XmlRpc/Value/Boolean.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_XmlRpc_Value_Boolean">\Zend_XmlRpc_Value_Boolean</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_XmlRpc
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Value
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Boolean.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_XmlRpc_Value_Boolean" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_XmlRpc_Value_Boolean<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\XmlRpc\Value</small><p class="short-description">Represent a native XML-RPC value entity, used as parameters for the methods
+called by the Zend_XmlRpc_Client object and as the return value for those calls.</p>
+<div class="long-description"><p>This object as a very important static function Zend_XmlRpc_Value::getXmlRpcValue, this
+function acts likes a factory for the Zend_XmlRpc_Value objects</p>
+
+<p>Using this function, users/Zend_XmlRpc_Client object can create the Zend_XmlRpc_Value objects
+from PHP variables, XML string or by specifing the exact XML-RPC natvie type</p></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar">\Zend_XmlRpc_Value_Scalar</a>
+            &lt;
+            <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value" style="color: gray; font-size: 0.8em
+                ">\Zend_XmlRpc_Value</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Constants</h3>
+<div>
+<a id="\Zend_XmlRpc_Value_Boolean::AUTO_DETECT_TYPE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">AUTO_DETECT_TYPE</span>
+                = 'auto_detect'</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Specify that the XML-RPC native type will be auto detected from a PHP variable type</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::AUTO_DETECT_TYPE">\Zend_XmlRpc_Value::AUTO_DETECT_TYPE</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::AUTO_DETECT_TYPE">\Zend_XmlRpc_Value_Scalar::AUTO_DETECT_TYPE</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::AUTO_DETECT_TYPE">\Zend_XmlRpc_Value::AUTO_DETECT_TYPE</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::AUTO_DETECT_TYPE">\Zend_XmlRpc_Value_Scalar::AUTO_DETECT_TYPE</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XML_STRING" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XML_STRING</span>
+                = 'xml'</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Specify that the XML-RPC value will be parsed out from a given XML code</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XML_STRING">\Zend_XmlRpc_Value::XML_STRING</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XML_STRING">\Zend_XmlRpc_Value_Scalar::XML_STRING</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XML_STRING">\Zend_XmlRpc_Value::XML_STRING</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XML_STRING">\Zend_XmlRpc_Value_Scalar::XML_STRING</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_I4" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_I4</span>
+                = 'i4'</code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">All the XML-RPC native types</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_I4">\Zend_XmlRpc_Value::XMLRPC_TYPE_I4</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I4">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I4</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_I4">\Zend_XmlRpc_Value::XMLRPC_TYPE_I4</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I4">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I4</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_INTEGER" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_INTEGER</span>
+                = 'int'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_INTEGER">\Zend_XmlRpc_Value::XMLRPC_TYPE_INTEGER</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_INTEGER">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_INTEGER</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_INTEGER">\Zend_XmlRpc_Value::XMLRPC_TYPE_INTEGER</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_INTEGER">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_INTEGER</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_I8" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_I8</span>
+                = 'i8'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_I8">\Zend_XmlRpc_Value::XMLRPC_TYPE_I8</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I8">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I8</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_I8">\Zend_XmlRpc_Value::XMLRPC_TYPE_I8</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I8">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_I8</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_APACHEI8" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_APACHEI8</span>
+                = 'ex:i8'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_APACHEI8">\Zend_XmlRpc_Value::XMLRPC_TYPE_APACHEI8</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHEI8">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHEI8</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_APACHEI8">\Zend_XmlRpc_Value::XMLRPC_TYPE_APACHEI8</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHEI8">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHEI8</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_DOUBLE" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_DOUBLE</span>
+                = 'double'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_DOUBLE">\Zend_XmlRpc_Value::XMLRPC_TYPE_DOUBLE</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DOUBLE">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DOUBLE</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_DOUBLE">\Zend_XmlRpc_Value::XMLRPC_TYPE_DOUBLE</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DOUBLE">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DOUBLE</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_BOOLEAN" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_BOOLEAN</span>
+                = 'boolean'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_BOOLEAN">\Zend_XmlRpc_Value::XMLRPC_TYPE_BOOLEAN</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BOOLEAN">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BOOLEAN</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_BOOLEAN">\Zend_XmlRpc_Value::XMLRPC_TYPE_BOOLEAN</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BOOLEAN">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BOOLEAN</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_STRING" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_STRING</span>
+                = 'string'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_STRING">\Zend_XmlRpc_Value::XMLRPC_TYPE_STRING</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRING">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRING</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_STRING">\Zend_XmlRpc_Value::XMLRPC_TYPE_STRING</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRING">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRING</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_DATETIME" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_DATETIME</span>
+                = 'dateTime.iso8601'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_DATETIME">\Zend_XmlRpc_Value::XMLRPC_TYPE_DATETIME</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DATETIME">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DATETIME</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_DATETIME">\Zend_XmlRpc_Value::XMLRPC_TYPE_DATETIME</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DATETIME">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_DATETIME</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_BASE64" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_BASE64</span>
+                = 'base64'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_BASE64">\Zend_XmlRpc_Value::XMLRPC_TYPE_BASE64</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BASE64">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BASE64</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_BASE64">\Zend_XmlRpc_Value::XMLRPC_TYPE_BASE64</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BASE64">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_BASE64</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_ARRAY" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_ARRAY</span>
+                = 'array'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_ARRAY">\Zend_XmlRpc_Value::XMLRPC_TYPE_ARRAY</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_ARRAY">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_ARRAY</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_ARRAY">\Zend_XmlRpc_Value::XMLRPC_TYPE_ARRAY</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_ARRAY">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_ARRAY</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_STRUCT" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_STRUCT</span>
+                = 'struct'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_STRUCT">\Zend_XmlRpc_Value::XMLRPC_TYPE_STRUCT</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRUCT">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRUCT</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_STRUCT">\Zend_XmlRpc_Value::XMLRPC_TYPE_STRUCT</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRUCT">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_STRUCT</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_NIL" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_NIL</span>
+                = 'nil'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_NIL">\Zend_XmlRpc_Value::XMLRPC_TYPE_NIL</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_NIL">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_NIL</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_NIL">\Zend_XmlRpc_Value::XMLRPC_TYPE_NIL</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_NIL">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_NIL</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::XMLRPC_TYPE_APACHENIL" class="anchor"></a><div class="constant publicC inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/constant.png" alt="Constant"> 
+                <span class="highlight">XMLRPC_TYPE_APACHENIL</span>
+                = 'ex:nil'</code><div class="description">
+<span class="attribute">inherited</span><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_APACHENIL">\Zend_XmlRpc_Value::XMLRPC_TYPE_APACHENIL</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHENIL">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHENIL</a></small>
+</div>
+<div class="code-tabs"><dl class="constant-info">
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::XMLRPC_TYPE_APACHENIL">\Zend_XmlRpc_Value::XMLRPC_TYPE_APACHENIL</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHENIL">\Zend_XmlRpc_Value_Scalar::XMLRPC_TYPE_APACHENIL</a>
+         
+    </dd>
+</dl></div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_XmlRpc_Value_Boolean::$_generator" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">\Zend_XmlRpc_Generator_GeneratorAbstract
+                 <span class="highlight">$_generator</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description"></p><small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_generator">\Zend_XmlRpc_Value::$$_generator</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_generator">\Zend_XmlRpc_Value_Scalar::$$_generator</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_XmlRpc_Generator_GeneratorAbstract.html#%5CZend_XmlRpc_Generator_GeneratorAbstract">\Zend_XmlRpc_Generator_GeneratorAbstract</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_generator">\Zend_XmlRpc_Value::$$_generator</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_generator">\Zend_XmlRpc_Value_Scalar::$$_generator</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::$_type" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_type</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The native XML-RPC type of this object
+One of the XMLRPC_TYPE_* constants</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_type">\Zend_XmlRpc_Value::$$_type</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_type">\Zend_XmlRpc_Value_Scalar::$$_type</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_type">\Zend_XmlRpc_Value::$$_type</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_type">\Zend_XmlRpc_Value_Scalar::$$_type</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::$_value" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_value</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The native XML-RPC representation of this object's value</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_value">\Zend_XmlRpc_Value::$$_value</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_value">\Zend_XmlRpc_Value_Scalar::$$_value</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>If the native type of this object is array or struct, this will be an array
+of Zend_XmlRpc_Value objects</p></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_value">\Zend_XmlRpc_Value::$$_value</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_value">\Zend_XmlRpc_Value_Scalar::$$_value</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::$_xml" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">
+                 <span class="highlight">$_xml</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">XML code representation of this object (will be calculated only once)</p>
+<small>Inherited from:
+                        <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_xml">\Zend_XmlRpc_Value::$$_xml</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_xml">\Zend_XmlRpc_Value_Scalar::$$_xml</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>n/a</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::%24%24_xml">\Zend_XmlRpc_Value::$$_xml</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::%24%24_xml">\Zend_XmlRpc_Value_Scalar::$$_xml</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_XmlRpc_Value_Boolean::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          bool $value
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Set the value of a boolean native type
+We hold the boolean type as an integer (0 or 1)</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>bool</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_createSimpleXMLElement()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_createSimpleXMLElement</span><span class="nb-faded-text">(
+           $xml
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::_createSimpleXMLElement()">\Zend_XmlRpc_Value::_createSimpleXMLElement()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_createSimpleXMLElement()">\Zend_XmlRpc_Value_Scalar::_createSimpleXMLElement()</a></small>
+</div>
+<div class="code-tabs">
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_extractTypeAndValue()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_extractTypeAndValue</span><span class="nb-faded-text">(
+          <a href="http://php.net/manual/en/class.simplexmlelement.php">\SimpleXMLElement</a> $xml, string $type, string $value
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Extract XML/RPC type and value from SimpleXMLElement object</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::_extractTypeAndValue()">\Zend_XmlRpc_Value::_extractTypeAndValue()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_extractTypeAndValue()">\Zend_XmlRpc_Value_Scalar::_extractTypeAndValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml</th>
+<td><a href="http://php.net/manual/en/class.simplexmlelement.php">\SimpleXMLElement</a></td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>&$type Type bind variable</p>
+</em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>&$value Value bind variable</p>
+</em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_generateXml()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_generateXml</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Generate the XML code that represent a scalar native MXL-RPC value</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_generateXml()">\Zend_XmlRpc_Value_Scalar::_generateXml()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_phpVarToNativeXmlRpc()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_phpVarToNativeXmlRpc</span><span class="nb-faded-text">(
+          mixed $value
+          )
+        </span>
+        :
+          <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Transform a PHP native variable into a XML-RPC native value</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::_phpVarToNativeXmlRpc()">\Zend_XmlRpc_Value::_phpVarToNativeXmlRpc()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_phpVarToNativeXmlRpc()">\Zend_XmlRpc_Value_Scalar::_phpVarToNativeXmlRpc()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em><p>The PHP variable for convertion</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Static</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_setXML()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_setXML</span><span class="nb-faded-text">(
+          string $xml
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::_setXML()">\Zend_XmlRpc_Value::_setXML()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_setXML()">\Zend_XmlRpc_Value_Scalar::_setXML()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::_xmlStringToNativeXmlRpc()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_xmlStringToNativeXmlRpc</span><span class="nb-faded-text">(
+          string | <a href="http://php.net/manual/en/class.simplexmlelement.php">\SimpleXMLElement</a> $xml
+          )
+        </span>
+        :
+          <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Transform an XML string into a XML-RPC native value</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::_xmlStringToNativeXmlRpc()">\Zend_XmlRpc_Value::_xmlStringToNativeXmlRpc()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::_xmlStringToNativeXmlRpc()">\Zend_XmlRpc_Value_Scalar::_xmlStringToNativeXmlRpc()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$xml</th>
+<td>string | <a href="http://php.net/manual/en/class.simplexmlelement.php">\SimpleXMLElement</a>
+</td>
+<td><em><p>A SimpleXMLElement object represent the XML string It can be also a valid XML string for convertion</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Static</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::generateXml()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generateXml</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Generate XML code that represent a native XML/RPC value</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::generateXml()">\Zend_XmlRpc_Value::generateXml()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::generateXml()">\Zend_XmlRpc_Value_Scalar::generateXml()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::getGenerator()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getGenerator</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_XmlRpc_Generator_GeneratorAbstract.html#%5CZend_XmlRpc_Generator_GeneratorAbstract">\Zend_XmlRpc_Generator_GeneratorAbstract</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Get XML generator instance</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::getGenerator()">\Zend_XmlRpc_Value::getGenerator()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::getGenerator()">\Zend_XmlRpc_Value_Scalar::getGenerator()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_XmlRpc_Generator_GeneratorAbstract.html#%5CZend_XmlRpc_Generator_GeneratorAbstract">\Zend_XmlRpc_Generator_GeneratorAbstract</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::getType()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the native XML-RPC type (the type is one of the Zend_XmlRpc_Value::XMLRPC_TYPE_* constants)</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::getType()">\Zend_XmlRpc_Value::getType()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::getType()">\Zend_XmlRpc_Value_Scalar::getType()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::getValue()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getValue</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description"><p class="short_description">Return the value of this object, convert the XML-RPC native boolean value into a PHP boolean</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::getXmlRpcTypeByValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getXmlRpcTypeByValue</span><span class="nb-faded-text">(
+          mixed $value
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Get XML-RPC type for a PHP native variable</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::getXmlRpcTypeByValue()">\Zend_XmlRpc_Value::getXmlRpcTypeByValue()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::getXmlRpcTypeByValue()">\Zend_XmlRpc_Value_Scalar::getXmlRpcTypeByValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Static</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::getXmlRpcValue()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getXmlRpcValue</span><span class="nb-faded-text">(
+          mixed $value, \Zend_XmlRpc_Value::constant $type
+              =
+              self::AUTO_DETECT_TYPE
+          )
+        </span>
+        :
+          <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Creates a Zend_XmlRpc_Value* object, representing a native XML-RPC value
+A XmlRpcValue object can be created in 3 ways:
+1. Autodetecting the native type out of a PHP variable
+   (if $type is not set or equal to Zend_XmlRpc_Value::AUTO_DETECT_TYPE)
+2. By specifing the native type ($type is one of the Zend_XmlRpc_Value::XMLRPC_TYPE_* constants)
+3. From a XML string ($type is set to Zend_XmlRpc_Value::XML_STRING)</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::getXmlRpcValue()">\Zend_XmlRpc_Value::getXmlRpcValue()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::getXmlRpcValue()">\Zend_XmlRpc_Value_Scalar::getXmlRpcValue()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>By default the value type is autodetected according to it's PHP type</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$value</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$type</th>
+<td>\Zend_XmlRpc_Value::constant</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value">\Zend_XmlRpc_Value</a></td>
+<td></td>
+</tr>
+</table>
+<strong>Details</strong><dl class="function-info">
+<dt>Static</dt>
+<dd>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::saveXml()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">saveXml</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Return the XML code that represent a native MXL-RPC value</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::saveXml()">\Zend_XmlRpc_Value::saveXml()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::saveXml()">\Zend_XmlRpc_Value_Scalar::saveXml()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::setEncoding()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setEncoding</span><span class="nb-faded-text">(
+          string $encoding
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Changes the encoding of the generator</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::setEncoding()">\Zend_XmlRpc_Value::setEncoding()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::setEncoding()">\Zend_XmlRpc_Value_Scalar::setEncoding()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$encoding</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_XmlRpc_Value_Boolean::setGenerator()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setGenerator</span><span class="nb-faded-text">(
+          <a href="db_Zend_XmlRpc_Generator_GeneratorAbstract.html#%5CZend_XmlRpc_Generator_GeneratorAbstract">\Zend_XmlRpc_Generator_GeneratorAbstract</a> $generator
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Sets XML generator instance</p>
+<small>Inherited from:
+                    <a href="db_Zend_XmlRpc_Value.html#%5CZend_XmlRpc_Value::setGenerator()">\Zend_XmlRpc_Value::setGenerator()</a><a href="db_Zend_XmlRpc_Value_Scalar.html#%5CZend_XmlRpc_Value_Scalar::setGenerator()">\Zend_XmlRpc_Value_Scalar::setGenerator()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$generator</th>
+<td><a href="db_Zend_XmlRpc_Generator_GeneratorAbstract.html#%5CZend_XmlRpc_Generator_GeneratorAbstract">\Zend_XmlRpc_Generator_GeneratorAbstract</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

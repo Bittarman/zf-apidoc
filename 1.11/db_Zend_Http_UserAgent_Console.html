@@ -1,0 +1,1526 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Http/UserAgent/Console.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Http_UserAgent_Console">\Zend_Http_UserAgent_Console</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Http
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">UserAgent
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Http_UserAgent_Console" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Http_UserAgent_Console<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Http\UserAgent</small><p class="short-description">Console browser type matcher</p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop">\Zend_Http_UserAgent_Desktop</a>
+            &lt;
+            <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice" style="color: gray; font-size: 0.8em
+                ">\Zend_Http_UserAgent_AbstractDevice</a>
+            &lt;
+            <a href="db_Zend_Http_UserAgent_Device.html#%5CZend_Http_UserAgent_Device" style="color: gray; font-size: 0.8em
+                ">\Zend_Http_UserAgent_Device</a>
+            &lt;
+            \Serializable</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Http_UserAgent_Console::$_aFeatures" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_aFeatures</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Browser/Device features</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_aFeatures">\Zend_Http_UserAgent_AbstractDevice::$$_aFeatures</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_aFeatures">\Zend_Http_UserAgent_Desktop::$$_aFeatures</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_aFeatures">\Zend_Http_UserAgent_AbstractDevice::$$_aFeatures</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_aFeatures">\Zend_Http_UserAgent_Desktop::$$_aFeatures</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_aGroup" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_aGroup</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Browser/Device features groups</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_aGroup">\Zend_Http_UserAgent_AbstractDevice::$$_aGroup</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_aGroup">\Zend_Http_UserAgent_Desktop::$$_aGroup</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_aGroup">\Zend_Http_UserAgent_AbstractDevice::$$_aGroup</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_aGroup">\Zend_Http_UserAgent_Desktop::$$_aGroup</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_browser" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_browser</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Browser signature</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_browser">\Zend_Http_UserAgent_AbstractDevice::$$_browser</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_browser">\Zend_Http_UserAgent_Desktop::$$_browser</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_browser">\Zend_Http_UserAgent_AbstractDevice::$$_browser</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_browser">\Zend_Http_UserAgent_Desktop::$$_browser</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_browserVersion" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_browserVersion</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Browser version</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_browserVersion">\Zend_Http_UserAgent_AbstractDevice::$$_browserVersion</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_browserVersion">\Zend_Http_UserAgent_Desktop::$$_browserVersion</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_browserVersion">\Zend_Http_UserAgent_AbstractDevice::$$_browserVersion</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_browserVersion">\Zend_Http_UserAgent_Desktop::$$_browserVersion</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_config" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_config</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Configuration</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_config">\Zend_Http_UserAgent_AbstractDevice::$$_config</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_config">\Zend_Http_UserAgent_Desktop::$$_config</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_config">\Zend_Http_UserAgent_AbstractDevice::$$_config</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_config">\Zend_Http_UserAgent_Desktop::$$_config</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_images" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_images</span>= 'array(
+        'jpeg',
+        'gif',
+        'png',
+        'pjpeg',
+        'x-png',
+        'bmp',
+    )'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Image types</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_images">\Zend_Http_UserAgent_AbstractDevice::$$_images</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_images">\Zend_Http_UserAgent_Desktop::$$_images</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'jpeg',
+        'gif',
+        'png',
+        'pjpeg',
+        'x-png',
+        'bmp',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_images">\Zend_Http_UserAgent_AbstractDevice::$$_images</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_images">\Zend_Http_UserAgent_Desktop::$$_images</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_server" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_server</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Server variable</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_server">\Zend_Http_UserAgent_AbstractDevice::$$_server</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_server">\Zend_Http_UserAgent_Desktop::$$_server</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_server">\Zend_Http_UserAgent_AbstractDevice::$$_server</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_server">\Zend_Http_UserAgent_Desktop::$$_server</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_uaSignatures" class="anchor"></a><div class="property protected">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">array
+                 <span class="highlight">$_uaSignatures</span>= 'array(
+        'playstation',
+        'wii',
+        'libnup',
+    )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">User Agent Signatures</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>array(
+        'playstation',
+        'wii',
+        'libnup',
+    )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::$_userAgent" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_userAgent</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">User Agent chain</p><small>Inherited from:
+                        <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_userAgent">\Zend_Http_UserAgent_AbstractDevice::$$_userAgent</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_userAgent">\Zend_Http_UserAgent_Desktop::$$_userAgent</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::%24%24_userAgent">\Zend_Http_UserAgent_AbstractDevice::$$_userAgent</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::%24%24_userAgent">\Zend_Http_UserAgent_Desktop::$$_userAgent</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Http_UserAgent_Console::__construct()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          null | string | array $userAgent
+              =
+              null, array $server
+              =
+              array(), array $config
+              =
+              array()
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Constructor</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::__construct()">\Zend_Http_UserAgent_AbstractDevice::__construct()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::__construct()">\Zend_Http_UserAgent_Desktop::__construct()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$userAgent</th>
+<td>null | string | array</td>
+<td><em><p>If array, restores from serialized version</p></em></td>
+</tr>
+<tr>
+<th>$server</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$config</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::_defineFeatures()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_defineFeatures</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Look for features</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::_defineFeatures()">\Zend_Http_UserAgent_AbstractDevice::_defineFeatures()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::_defineFeatures()">\Zend_Http_UserAgent_Desktop::_defineFeatures()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::_getDefaultFeatures()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_getDefaultFeatures</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Sets all the standard features extracted from the User Agent chain and $this->_server
+vars</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::_getDefaultFeatures()">\Zend_Http_UserAgent_AbstractDevice::_getDefaultFeatures()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::_getDefaultFeatures()">\Zend_Http_UserAgent_Desktop::_getDefaultFeatures()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::_loadFeaturesAdapter()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_loadFeaturesAdapter</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Loads the Features Adapter if it's defined in the $config array
+Otherwise, nothing is done</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::_loadFeaturesAdapter()">\Zend_Http_UserAgent_AbstractDevice::_loadFeaturesAdapter()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::_loadFeaturesAdapter()">\Zend_Http_UserAgent_Desktop::_loadFeaturesAdapter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::_matchAgentAgainstSignatures()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_matchAgentAgainstSignatures</span><span class="nb-faded-text">(
+          string $userAgent, array $signatures
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Match a user agent string against a list of signatures</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::_matchAgentAgainstSignatures()">\Zend_Http_UserAgent_AbstractDevice::_matchAgentAgainstSignatures()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::_matchAgentAgainstSignatures()">\Zend_Http_UserAgent_Desktop::_matchAgentAgainstSignatures()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$userAgent</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$signatures</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::_restoreFromArray()" class="anchor"></a><div class="method protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">_restoreFromArray</span><span class="nb-faded-text">(
+          array $spec
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Restore object state from array</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::_restoreFromArray()">\Zend_Http_UserAgent_AbstractDevice::_restoreFromArray()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::_restoreFromArray()">\Zend_Http_UserAgent_Desktop::_restoreFromArray()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$spec</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::extractFromUserAgent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">extractFromUserAgent</span><span class="nb-faded-text">(
+          string $userAgent
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Extract and sets informations from the User Agent chain</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::extractFromUserAgent()">\Zend_Http_UserAgent_AbstractDevice::extractFromUserAgent()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::extractFromUserAgent()">\Zend_Http_UserAgent_Desktop::extractFromUserAgent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$userAgent</th>
+<td>string</td>
+<td><em><p>User Agent chain</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getAllFeatures()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAllFeatures</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Gets all the browser/device features</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getAllFeatures()">\Zend_Http_UserAgent_AbstractDevice::getAllFeatures()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getAllFeatures()">\Zend_Http_UserAgent_Desktop::getAllFeatures()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getAllGroups()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getAllGroups</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Gets all the browser/device features' groups</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getAllGroups()">\Zend_Http_UserAgent_AbstractDevice::getAllGroups()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getAllGroups()">\Zend_Http_UserAgent_Desktop::getAllGroups()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getBrowser()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBrowser</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the browser type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getBrowser()">\Zend_Http_UserAgent_AbstractDevice::getBrowser()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getBrowser()">\Zend_Http_UserAgent_Desktop::getBrowser()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getBrowserVersion()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getBrowserVersion</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the browser version</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getBrowserVersion()">\Zend_Http_UserAgent_AbstractDevice::getBrowserVersion()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getBrowserVersion()">\Zend_Http_UserAgent_Desktop::getBrowserVersion()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getFeature()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getFeature</span><span class="nb-faded-text">(
+          string $feature
+          )
+        </span>
+        :
+          string | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Gets the value of the current browser/device feature</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getFeature()">\Zend_Http_UserAgent_AbstractDevice::getFeature()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getFeature()">\Zend_Http_UserAgent_Desktop::getFeature()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$feature</th>
+<td>string</td>
+<td><em><p>Feature to search</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getGroup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getGroup</span><span class="nb-faded-text">(
+          string $group
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Gets an array of features associated to a group</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getGroup()">\Zend_Http_UserAgent_AbstractDevice::getGroup()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getGroup()">\Zend_Http_UserAgent_Desktop::getGroup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$group</th>
+<td>string</td>
+<td><em><p>Group param</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getImageFormatSupport()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getImageFormatSupport</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Retrieve image format support</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getImageFormatSupport()">\Zend_Http_UserAgent_AbstractDevice::getImageFormatSupport()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getImageFormatSupport()">\Zend_Http_UserAgent_Desktop::getImageFormatSupport()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getImages()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getImages</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          \the</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getImages()">\Zend_Http_UserAgent_AbstractDevice::getImages()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getImages()">\Zend_Http_UserAgent_Desktop::getImages()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\the</td>
+<td>$_images</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getMaxImageHeight()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMaxImageHeight</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get maximum image height supported by this device</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getMaxImageHeight()">\Zend_Http_UserAgent_AbstractDevice::getMaxImageHeight()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getMaxImageHeight()">\Zend_Http_UserAgent_Desktop::getMaxImageHeight()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getMaxImageWidth()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getMaxImageWidth</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get maximum image width supported by this device</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getMaxImageWidth()">\Zend_Http_UserAgent_AbstractDevice::getMaxImageWidth()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getMaxImageWidth()">\Zend_Http_UserAgent_Desktop::getMaxImageWidth()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getPhysicalScreenHeight()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPhysicalScreenHeight</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get physical screen height of this device</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getPhysicalScreenHeight()">\Zend_Http_UserAgent_AbstractDevice::getPhysicalScreenHeight()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getPhysicalScreenHeight()">\Zend_Http_UserAgent_Desktop::getPhysicalScreenHeight()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getPhysicalScreenWidth()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPhysicalScreenWidth</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get physical screen width of this device</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getPhysicalScreenWidth()">\Zend_Http_UserAgent_AbstractDevice::getPhysicalScreenWidth()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getPhysicalScreenWidth()">\Zend_Http_UserAgent_Desktop::getPhysicalScreenWidth()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getPreferredMarkup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getPreferredMarkup</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get preferred markup type</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getPreferredMarkup()">\Zend_Http_UserAgent_AbstractDevice::getPreferredMarkup()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getPreferredMarkup()">\Zend_Http_UserAgent_Desktop::getPreferredMarkup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getType()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getType</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description"><p class="short_description">Gives the current browser type</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getUserAgent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getUserAgent</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get the user agent string</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getUserAgent()">\Zend_Http_UserAgent_AbstractDevice::getUserAgent()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getUserAgent()">\Zend_Http_UserAgent_Desktop::getUserAgent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::getXhtmlSupportLevel()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getXhtmlSupportLevel</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          int</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Get supported X/HTML version</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::getXhtmlSupportLevel()">\Zend_Http_UserAgent_AbstractDevice::getXhtmlSupportLevel()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::getXhtmlSupportLevel()">\Zend_Http_UserAgent_Desktop::getXhtmlSupportLevel()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>int</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::hasFeature()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasFeature</span><span class="nb-faded-text">(
+          string $feature
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Check a feature for the current browser/device.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::hasFeature()">\Zend_Http_UserAgent_AbstractDevice::hasFeature()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::hasFeature()">\Zend_Http_UserAgent_Desktop::hasFeature()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$feature</th>
+<td>string</td>
+<td><em><p>The feature to check.</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::hasFlashSupport()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasFlashSupport</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does the device support Flash?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::hasFlashSupport()">\Zend_Http_UserAgent_AbstractDevice::hasFlashSupport()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::hasFlashSupport()">\Zend_Http_UserAgent_Desktop::hasFlashSupport()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::hasPdfSupport()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasPdfSupport</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does the device support PDF?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::hasPdfSupport()">\Zend_Http_UserAgent_AbstractDevice::hasPdfSupport()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::hasPdfSupport()">\Zend_Http_UserAgent_Desktop::hasPdfSupport()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::hasPhoneNumber()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">hasPhoneNumber</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does the device have a phone number associated with it?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::hasPhoneNumber()">\Zend_Http_UserAgent_AbstractDevice::hasPhoneNumber()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::hasPhoneNumber()">\Zend_Http_UserAgent_Desktop::hasPhoneNumber()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::httpsSupport()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">httpsSupport</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Does the device support HTTPS?</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::httpsSupport()">\Zend_Http_UserAgent_AbstractDevice::httpsSupport()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::httpsSupport()">\Zend_Http_UserAgent_Desktop::httpsSupport()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::match()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">match</span><span class="nb-faded-text">(
+          string $userAgent, array $server
+          )
+        </span>
+        :
+          bool</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Comparison of the UserAgent chain and User Agent signatures</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$userAgent</th>
+<td>string</td>
+<td><em><p>User Agent chain</p></em></td>
+</tr>
+<tr>
+<th>$server</th>
+<td>array</td>
+<td><em><p>$_SERVER like param</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>bool</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::serialize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">serialize</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          string</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Serialize object</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::serialize()">\Zend_Http_UserAgent_AbstractDevice::serialize()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::serialize()">\Zend_Http_UserAgent_Desktop::serialize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>string</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setBrowser()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBrowser</span><span class="nb-faded-text">(
+          string $browser
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setBrowser()">\Zend_Http_UserAgent_AbstractDevice::setBrowser()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setBrowser()">\Zend_Http_UserAgent_Desktop::setBrowser()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$browser</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setBrowserVersion()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setBrowserVersion</span><span class="nb-faded-text">(
+          string $browserVersion
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setBrowserVersion()">\Zend_Http_UserAgent_AbstractDevice::setBrowserVersion()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setBrowserVersion()">\Zend_Http_UserAgent_Desktop::setBrowserVersion()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$browserVersion</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setFeature()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setFeature</span><span class="nb-faded-text">(
+          string $feature, string $value
+              =
+              false, string $group
+              =
+              ''
+          )
+        </span>
+        :
+          <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice">\Zend_Http_UserAgent_AbstractDevice</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Set a feature for the current browser/device.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setFeature()">\Zend_Http_UserAgent_AbstractDevice::setFeature()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setFeature()">\Zend_Http_UserAgent_Desktop::setFeature()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$feature</th>
+<td>string</td>
+<td><em><p>The feature to set.</p></em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em><p>(option) feature value.</p>
+</em></td>
+</tr>
+<tr>
+<th>$group</th>
+<td>string</td>
+<td><em><p>(option) Group to associate with the feature</p>
+</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice">\Zend_Http_UserAgent_AbstractDevice</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setGroup()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setGroup</span><span class="nb-faded-text">(
+          string $group, string $feature
+          )
+        </span>
+        :
+          <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice">\Zend_Http_UserAgent_AbstractDevice</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Affects a feature to a group</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setGroup()">\Zend_Http_UserAgent_AbstractDevice::setGroup()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setGroup()">\Zend_Http_UserAgent_Desktop::setGroup()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$group</th>
+<td>string</td>
+<td><em><p>Group name</p></em></td>
+</tr>
+<tr>
+<th>$feature</th>
+<td>string</td>
+<td><em><p>Feature name</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice">\Zend_Http_UserAgent_AbstractDevice</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setImages()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setImages</span><span class="nb-faded-text">(
+          array $_images
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setImages()">\Zend_Http_UserAgent_AbstractDevice::setImages()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setImages()">\Zend_Http_UserAgent_Desktop::setImages()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$_images</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::setUserAgent()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setUserAgent</span><span class="nb-faded-text">(
+          string $userAgent
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description"></p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::setUserAgent()">\Zend_Http_UserAgent_AbstractDevice::setUserAgent()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::setUserAgent()">\Zend_Http_UserAgent_Desktop::setUserAgent()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$userAgent</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Http_UserAgent_Console::unserialize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">unserialize</span><span class="nb-faded-text">(
+          string $serialized
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Unserialize</p>
+<small>Inherited from:
+                    <a href="db_Zend_Http_UserAgent_AbstractDevice.html#%5CZend_Http_UserAgent_AbstractDevice::unserialize()">\Zend_Http_UserAgent_AbstractDevice::unserialize()</a><a href="db_Zend_Http_UserAgent_Desktop.html#%5CZend_Http_UserAgent_Desktop::unserialize()">\Zend_Http_UserAgent_Desktop::unserialize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$serialized</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

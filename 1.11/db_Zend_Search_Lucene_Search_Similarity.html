@@ -1,0 +1,1208 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Search/Lucene/Search/Similarity.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Search_Lucene
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Search
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: Similarity.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Search_Lucene_Search_Similarity" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Search_Lucene_Search_Similarity<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Search\Lucene\Search</small><p class="short-description"></p>
+<div class="long-description"></div>
+<dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_Zend_Search_Lucene_Search_Similarity_Default.html#%5CZend_Search_Lucene_Search_Similarity_Default">\Zend_Search_Lucene_Search_Similarity_Default</a></dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Search_Lucene_Search_Similarity::$_defaultImpl" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Search_Similarity
+                 <span class="highlight">$_defaultImpl</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">The Similarity implementation used by default.</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Search_Similarity.html#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a></dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::$_normTable" class="anchor"></a><div class="property private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_normTable</span>= 'array( 0   =&gt; 0.0,
+                                        1   =&gt; 5.820766E-10,
+                                        2   =&gt; 6.9849193E-10,
+                                        3   =&gt; 8.1490725E-10,
+                                        4   =&gt; 9.313226E-10,
+                                        5   =&gt; 1.1641532E-9,
+                                        6   =&gt; 1.3969839E-9,
+                                        7   =&gt; 1.6298145E-9,
+                                        8   =&gt; 1.8626451E-9,
+                                        9   =&gt; 2.3283064E-9,
+                                        10  =&gt; 2.7939677E-9,
+                                        11  =&gt; 3.259629E-9,
+                                        12  =&gt; 3.7252903E-9,
+                                        13  =&gt; 4.656613E-9,
+                                        14  =&gt; 5.5879354E-9,
+                                        15  =&gt; 6.519258E-9,
+                                        16  =&gt; 7.4505806E-9,
+                                        17  =&gt; 9.313226E-9,
+                                        18  =&gt; 1.1175871E-8,
+                                        19  =&gt; 1.3038516E-8,
+                                        20  =&gt; 1.4901161E-8,
+                                        21  =&gt; 1.8626451E-8,
+                                        22  =&gt; 2.2351742E-8,
+                                        23  =&gt; 2.6077032E-8,
+                                        24  =&gt; 2.9802322E-8,
+                                        25  =&gt; 3.7252903E-8,
+                                        26  =&gt; 4.4703484E-8,
+                                        27  =&gt; 5.2154064E-8,
+                                        28  =&gt; 5.9604645E-8,
+                                        29  =&gt; 7.4505806E-8,
+                                        30  =&gt; 8.940697E-8,
+                                        31  =&gt; 1.0430813E-7,
+                                        32  =&gt; 1.1920929E-7,
+                                        33  =&gt; 1.4901161E-7,
+                                        34  =&gt; 1.7881393E-7,
+                                        35  =&gt; 2.0861626E-7,
+                                        36  =&gt; 2.3841858E-7,
+                                        37  =&gt; 2.9802322E-7,
+                                        38  =&gt; 3.5762787E-7,
+                                        39  =&gt; 4.172325E-7,
+                                        40  =&gt; 4.7683716E-7,
+                                        41  =&gt; 5.9604645E-7,
+                                        42  =&gt; 7.1525574E-7,
+                                        43  =&gt; 8.34465E-7,
+                                        44  =&gt; 9.536743E-7,
+                                        45  =&gt; 1.1920929E-6,
+                                        46  =&gt; 1.4305115E-6,
+                                        47  =&gt; 1.66893E-6,
+                                        48  =&gt; 1.9073486E-6,
+                                        49  =&gt; 2.3841858E-6,
+                                        50  =&gt; 2.861023E-6,
+                                        51  =&gt; 3.33786E-6,
+                                        52  =&gt; 3.8146973E-6,
+                                        53  =&gt; 4.7683716E-6,
+                                        54  =&gt; 5.722046E-6,
+                                        55  =&gt; 6.67572E-6,
+                                        56  =&gt; 7.6293945E-6,
+                                        57  =&gt; 9.536743E-6,
+                                        58  =&gt; 1.1444092E-5,
+                                        59  =&gt; 1.335144E-5,
+                                        60  =&gt; 1.5258789E-5,
+                                        61  =&gt; 1.9073486E-5,
+                                        62  =&gt; 2.2888184E-5,
+                                        63  =&gt; 2.670288E-5,
+                                        64  =&gt; 3.0517578E-5,
+                                        65  =&gt; 3.8146973E-5,
+                                        66  =&gt; 4.5776367E-5,
+                                        67  =&gt; 5.340576E-5,
+                                        68  =&gt; 6.1035156E-5,
+                                        69  =&gt; 7.6293945E-5,
+                                        70  =&gt; 9.1552734E-5,
+                                        71  =&gt; 1.0681152E-4,
+                                        72  =&gt; 1.2207031E-4,
+                                        73  =&gt; 1.5258789E-4,
+                                        74  =&gt; 1.8310547E-4,
+                                        75  =&gt; 2.1362305E-4,
+                                        76  =&gt; 2.4414062E-4,
+                                        77  =&gt; 3.0517578E-4,
+                                        78  =&gt; 3.6621094E-4,
+                                        79  =&gt; 4.272461E-4,
+                                        80  =&gt; 4.8828125E-4,
+                                        81  =&gt; 6.1035156E-4,
+                                        82  =&gt; 7.324219E-4,
+                                        83  =&gt; 8.544922E-4,
+                                        84  =&gt; 9.765625E-4,
+                                        85  =&gt; 0.0012207031,
+                                        86  =&gt; 0.0014648438,
+                                        87  =&gt; 0.0017089844,
+                                        88  =&gt; 0.001953125,
+                                        89  =&gt; 0.0024414062,
+                                        90  =&gt; 0.0029296875,
+                                        91  =&gt; 0.0034179688,
+                                        92  =&gt; 0.00390625,
+                                        93  =&gt; 0.0048828125,
+                                        94  =&gt; 0.005859375,
+                                        95  =&gt; 0.0068359375,
+                                        96  =&gt; 0.0078125,
+                                        97  =&gt; 0.009765625,
+                                        98  =&gt; 0.01171875,
+                                        99  =&gt; 0.013671875,
+                                        100 =&gt; 0.015625,
+                                        101 =&gt; 0.01953125,
+                                        102 =&gt; 0.0234375,
+                                        103 =&gt; 0.02734375,
+                                        104 =&gt; 0.03125,
+                                        105 =&gt; 0.0390625,
+                                        106 =&gt; 0.046875,
+                                        107 =&gt; 0.0546875,
+                                        108 =&gt; 0.0625,
+                                        109 =&gt; 0.078125,
+                                        110 =&gt; 0.09375,
+                                        111 =&gt; 0.109375,
+                                        112 =&gt; 0.125,
+                                        113 =&gt; 0.15625,
+                                        114 =&gt; 0.1875,
+                                        115 =&gt; 0.21875,
+                                        116 =&gt; 0.25,
+                                        117 =&gt; 0.3125,
+                                        118 =&gt; 0.375,
+                                        119 =&gt; 0.4375,
+                                        120 =&gt; 0.5,
+                                        121 =&gt; 0.625,
+                                        122 =&gt; 0.75,
+                                        123 =&gt; 0.875,
+                                        124 =&gt; 1.0,
+                                        125 =&gt; 1.25,
+                                        126 =&gt; 1.5,
+                                        127 =&gt; 1.75,
+                                        128 =&gt; 2.0,
+                                        129 =&gt; 2.5,
+                                        130 =&gt; 3.0,
+                                        131 =&gt; 3.5,
+                                        132 =&gt; 4.0,
+                                        133 =&gt; 5.0,
+                                        134 =&gt; 6.0,
+                                        135 =&gt; 7.0,
+                                        136 =&gt; 8.0,
+                                        137 =&gt; 10.0,
+                                        138 =&gt; 12.0,
+                                        139 =&gt; 14.0,
+                                        140 =&gt; 16.0,
+                                        141 =&gt; 20.0,
+                                        142 =&gt; 24.0,
+                                        143 =&gt; 28.0,
+                                        144 =&gt; 32.0,
+                                        145 =&gt; 40.0,
+                                        146 =&gt; 48.0,
+                                        147 =&gt; 56.0,
+                                        148 =&gt; 64.0,
+                                        149 =&gt; 80.0,
+                                        150 =&gt; 96.0,
+                                        151 =&gt; 112.0,
+                                        152 =&gt; 128.0,
+                                        153 =&gt; 160.0,
+                                        154 =&gt; 192.0,
+                                        155 =&gt; 224.0,
+                                        156 =&gt; 256.0,
+                                        157 =&gt; 320.0,
+                                        158 =&gt; 384.0,
+                                        159 =&gt; 448.0,
+                                        160 =&gt; 512.0,
+                                        161 =&gt; 640.0,
+                                        162 =&gt; 768.0,
+                                        163 =&gt; 896.0,
+                                        164 =&gt; 1024.0,
+                                        165 =&gt; 1280.0,
+                                        166 =&gt; 1536.0,
+                                        167 =&gt; 1792.0,
+                                        168 =&gt; 2048.0,
+                                        169 =&gt; 2560.0,
+                                        170 =&gt; 3072.0,
+                                        171 =&gt; 3584.0,
+                                        172 =&gt; 4096.0,
+                                        173 =&gt; 5120.0,
+                                        174 =&gt; 6144.0,
+                                        175 =&gt; 7168.0,
+                                        176 =&gt; 8192.0,
+                                        177 =&gt; 10240.0,
+                                        178 =&gt; 12288.0,
+                                        179 =&gt; 14336.0,
+                                        180 =&gt; 16384.0,
+                                        181 =&gt; 20480.0,
+                                        182 =&gt; 24576.0,
+                                        183 =&gt; 28672.0,
+                                        184 =&gt; 32768.0,
+                                        185 =&gt; 40960.0,
+                                        186 =&gt; 49152.0,
+                                        187 =&gt; 57344.0,
+                                        188 =&gt; 65536.0,
+                                        189 =&gt; 81920.0,
+                                        190 =&gt; 98304.0,
+                                        191 =&gt; 114688.0,
+                                        192 =&gt; 131072.0,
+                                        193 =&gt; 163840.0,
+                                        194 =&gt; 196608.0,
+                                        195 =&gt; 229376.0,
+                                        196 =&gt; 262144.0,
+                                        197 =&gt; 327680.0,
+                                        198 =&gt; 393216.0,
+                                        199 =&gt; 458752.0,
+                                        200 =&gt; 524288.0,
+                                        201 =&gt; 655360.0,
+                                        202 =&gt; 786432.0,
+                                        203 =&gt; 917504.0,
+                                        204 =&gt; 1048576.0,
+                                        205 =&gt; 1310720.0,
+                                        206 =&gt; 1572864.0,
+                                        207 =&gt; 1835008.0,
+                                        208 =&gt; 2097152.0,
+                                        209 =&gt; 2621440.0,
+                                        210 =&gt; 3145728.0,
+                                        211 =&gt; 3670016.0,
+                                        212 =&gt; 4194304.0,
+                                        213 =&gt; 5242880.0,
+                                        214 =&gt; 6291456.0,
+                                        215 =&gt; 7340032.0,
+                                        216 =&gt; 8388608.0,
+                                        217 =&gt; 1.048576E7,
+                                        218 =&gt; 1.2582912E7,
+                                        219 =&gt; 1.4680064E7,
+                                        220 =&gt; 1.6777216E7,
+                                        221 =&gt; 2.097152E7,
+                                        222 =&gt; 2.5165824E7,
+                                        223 =&gt; 2.9360128E7,
+                                        224 =&gt; 3.3554432E7,
+                                        225 =&gt; 4.194304E7,
+                                        226 =&gt; 5.0331648E7,
+                                        227 =&gt; 5.8720256E7,
+                                        228 =&gt; 6.7108864E7,
+                                        229 =&gt; 8.388608E7,
+                                        230 =&gt; 1.00663296E8,
+                                        231 =&gt; 1.17440512E8,
+                                        232 =&gt; 1.34217728E8,
+                                        233 =&gt; 1.6777216E8,
+                                        234 =&gt; 2.01326592E8,
+                                        235 =&gt; 2.34881024E8,
+                                        236 =&gt; 2.68435456E8,
+                                        237 =&gt; 3.3554432E8,
+                                        238 =&gt; 4.02653184E8,
+                                        239 =&gt; 4.69762048E8,
+                                        240 =&gt; 5.3687091E8,
+                                        241 =&gt; 6.7108864E8,
+                                        242 =&gt; 8.0530637E8,
+                                        243 =&gt; 9.395241E8,
+                                        244 =&gt; 1.07374182E9,
+                                        245 =&gt; 1.34217728E9,
+                                        246 =&gt; 1.61061274E9,
+                                        247 =&gt; 1.87904819E9,
+                                        248 =&gt; 2.14748365E9,
+                                        249 =&gt; 2.68435456E9,
+                                        250 =&gt; 3.22122547E9,
+                                        251 =&gt; 3.75809638E9,
+                                        252 =&gt; 4.2949673E9,
+                                        253 =&gt; 5.3687091E9,
+                                        254 =&gt; 6.4424509E9,
+                                        255 =&gt; 7.5161928E9 )'
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">Cache of decoded bytes.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>Array of floats</p></div>
+<strong>Default value</strong><code>array( 0   =&gt; 0.0,
+                                        1   =&gt; 5.820766E-10,
+                                        2   =&gt; 6.9849193E-10,
+                                        3   =&gt; 8.1490725E-10,
+                                        4   =&gt; 9.313226E-10,
+                                        5   =&gt; 1.1641532E-9,
+                                        6   =&gt; 1.3969839E-9,
+                                        7   =&gt; 1.6298145E-9,
+                                        8   =&gt; 1.8626451E-9,
+                                        9   =&gt; 2.3283064E-9,
+                                        10  =&gt; 2.7939677E-9,
+                                        11  =&gt; 3.259629E-9,
+                                        12  =&gt; 3.7252903E-9,
+                                        13  =&gt; 4.656613E-9,
+                                        14  =&gt; 5.5879354E-9,
+                                        15  =&gt; 6.519258E-9,
+                                        16  =&gt; 7.4505806E-9,
+                                        17  =&gt; 9.313226E-9,
+                                        18  =&gt; 1.1175871E-8,
+                                        19  =&gt; 1.3038516E-8,
+                                        20  =&gt; 1.4901161E-8,
+                                        21  =&gt; 1.8626451E-8,
+                                        22  =&gt; 2.2351742E-8,
+                                        23  =&gt; 2.6077032E-8,
+                                        24  =&gt; 2.9802322E-8,
+                                        25  =&gt; 3.7252903E-8,
+                                        26  =&gt; 4.4703484E-8,
+                                        27  =&gt; 5.2154064E-8,
+                                        28  =&gt; 5.9604645E-8,
+                                        29  =&gt; 7.4505806E-8,
+                                        30  =&gt; 8.940697E-8,
+                                        31  =&gt; 1.0430813E-7,
+                                        32  =&gt; 1.1920929E-7,
+                                        33  =&gt; 1.4901161E-7,
+                                        34  =&gt; 1.7881393E-7,
+                                        35  =&gt; 2.0861626E-7,
+                                        36  =&gt; 2.3841858E-7,
+                                        37  =&gt; 2.9802322E-7,
+                                        38  =&gt; 3.5762787E-7,
+                                        39  =&gt; 4.172325E-7,
+                                        40  =&gt; 4.7683716E-7,
+                                        41  =&gt; 5.9604645E-7,
+                                        42  =&gt; 7.1525574E-7,
+                                        43  =&gt; 8.34465E-7,
+                                        44  =&gt; 9.536743E-7,
+                                        45  =&gt; 1.1920929E-6,
+                                        46  =&gt; 1.4305115E-6,
+                                        47  =&gt; 1.66893E-6,
+                                        48  =&gt; 1.9073486E-6,
+                                        49  =&gt; 2.3841858E-6,
+                                        50  =&gt; 2.861023E-6,
+                                        51  =&gt; 3.33786E-6,
+                                        52  =&gt; 3.8146973E-6,
+                                        53  =&gt; 4.7683716E-6,
+                                        54  =&gt; 5.722046E-6,
+                                        55  =&gt; 6.67572E-6,
+                                        56  =&gt; 7.6293945E-6,
+                                        57  =&gt; 9.536743E-6,
+                                        58  =&gt; 1.1444092E-5,
+                                        59  =&gt; 1.335144E-5,
+                                        60  =&gt; 1.5258789E-5,
+                                        61  =&gt; 1.9073486E-5,
+                                        62  =&gt; 2.2888184E-5,
+                                        63  =&gt; 2.670288E-5,
+                                        64  =&gt; 3.0517578E-5,
+                                        65  =&gt; 3.8146973E-5,
+                                        66  =&gt; 4.5776367E-5,
+                                        67  =&gt; 5.340576E-5,
+                                        68  =&gt; 6.1035156E-5,
+                                        69  =&gt; 7.6293945E-5,
+                                        70  =&gt; 9.1552734E-5,
+                                        71  =&gt; 1.0681152E-4,
+                                        72  =&gt; 1.2207031E-4,
+                                        73  =&gt; 1.5258789E-4,
+                                        74  =&gt; 1.8310547E-4,
+                                        75  =&gt; 2.1362305E-4,
+                                        76  =&gt; 2.4414062E-4,
+                                        77  =&gt; 3.0517578E-4,
+                                        78  =&gt; 3.6621094E-4,
+                                        79  =&gt; 4.272461E-4,
+                                        80  =&gt; 4.8828125E-4,
+                                        81  =&gt; 6.1035156E-4,
+                                        82  =&gt; 7.324219E-4,
+                                        83  =&gt; 8.544922E-4,
+                                        84  =&gt; 9.765625E-4,
+                                        85  =&gt; 0.0012207031,
+                                        86  =&gt; 0.0014648438,
+                                        87  =&gt; 0.0017089844,
+                                        88  =&gt; 0.001953125,
+                                        89  =&gt; 0.0024414062,
+                                        90  =&gt; 0.0029296875,
+                                        91  =&gt; 0.0034179688,
+                                        92  =&gt; 0.00390625,
+                                        93  =&gt; 0.0048828125,
+                                        94  =&gt; 0.005859375,
+                                        95  =&gt; 0.0068359375,
+                                        96  =&gt; 0.0078125,
+                                        97  =&gt; 0.009765625,
+                                        98  =&gt; 0.01171875,
+                                        99  =&gt; 0.013671875,
+                                        100 =&gt; 0.015625,
+                                        101 =&gt; 0.01953125,
+                                        102 =&gt; 0.0234375,
+                                        103 =&gt; 0.02734375,
+                                        104 =&gt; 0.03125,
+                                        105 =&gt; 0.0390625,
+                                        106 =&gt; 0.046875,
+                                        107 =&gt; 0.0546875,
+                                        108 =&gt; 0.0625,
+                                        109 =&gt; 0.078125,
+                                        110 =&gt; 0.09375,
+                                        111 =&gt; 0.109375,
+                                        112 =&gt; 0.125,
+                                        113 =&gt; 0.15625,
+                                        114 =&gt; 0.1875,
+                                        115 =&gt; 0.21875,
+                                        116 =&gt; 0.25,
+                                        117 =&gt; 0.3125,
+                                        118 =&gt; 0.375,
+                                        119 =&gt; 0.4375,
+                                        120 =&gt; 0.5,
+                                        121 =&gt; 0.625,
+                                        122 =&gt; 0.75,
+                                        123 =&gt; 0.875,
+                                        124 =&gt; 1.0,
+                                        125 =&gt; 1.25,
+                                        126 =&gt; 1.5,
+                                        127 =&gt; 1.75,
+                                        128 =&gt; 2.0,
+                                        129 =&gt; 2.5,
+                                        130 =&gt; 3.0,
+                                        131 =&gt; 3.5,
+                                        132 =&gt; 4.0,
+                                        133 =&gt; 5.0,
+                                        134 =&gt; 6.0,
+                                        135 =&gt; 7.0,
+                                        136 =&gt; 8.0,
+                                        137 =&gt; 10.0,
+                                        138 =&gt; 12.0,
+                                        139 =&gt; 14.0,
+                                        140 =&gt; 16.0,
+                                        141 =&gt; 20.0,
+                                        142 =&gt; 24.0,
+                                        143 =&gt; 28.0,
+                                        144 =&gt; 32.0,
+                                        145 =&gt; 40.0,
+                                        146 =&gt; 48.0,
+                                        147 =&gt; 56.0,
+                                        148 =&gt; 64.0,
+                                        149 =&gt; 80.0,
+                                        150 =&gt; 96.0,
+                                        151 =&gt; 112.0,
+                                        152 =&gt; 128.0,
+                                        153 =&gt; 160.0,
+                                        154 =&gt; 192.0,
+                                        155 =&gt; 224.0,
+                                        156 =&gt; 256.0,
+                                        157 =&gt; 320.0,
+                                        158 =&gt; 384.0,
+                                        159 =&gt; 448.0,
+                                        160 =&gt; 512.0,
+                                        161 =&gt; 640.0,
+                                        162 =&gt; 768.0,
+                                        163 =&gt; 896.0,
+                                        164 =&gt; 1024.0,
+                                        165 =&gt; 1280.0,
+                                        166 =&gt; 1536.0,
+                                        167 =&gt; 1792.0,
+                                        168 =&gt; 2048.0,
+                                        169 =&gt; 2560.0,
+                                        170 =&gt; 3072.0,
+                                        171 =&gt; 3584.0,
+                                        172 =&gt; 4096.0,
+                                        173 =&gt; 5120.0,
+                                        174 =&gt; 6144.0,
+                                        175 =&gt; 7168.0,
+                                        176 =&gt; 8192.0,
+                                        177 =&gt; 10240.0,
+                                        178 =&gt; 12288.0,
+                                        179 =&gt; 14336.0,
+                                        180 =&gt; 16384.0,
+                                        181 =&gt; 20480.0,
+                                        182 =&gt; 24576.0,
+                                        183 =&gt; 28672.0,
+                                        184 =&gt; 32768.0,
+                                        185 =&gt; 40960.0,
+                                        186 =&gt; 49152.0,
+                                        187 =&gt; 57344.0,
+                                        188 =&gt; 65536.0,
+                                        189 =&gt; 81920.0,
+                                        190 =&gt; 98304.0,
+                                        191 =&gt; 114688.0,
+                                        192 =&gt; 131072.0,
+                                        193 =&gt; 163840.0,
+                                        194 =&gt; 196608.0,
+                                        195 =&gt; 229376.0,
+                                        196 =&gt; 262144.0,
+                                        197 =&gt; 327680.0,
+                                        198 =&gt; 393216.0,
+                                        199 =&gt; 458752.0,
+                                        200 =&gt; 524288.0,
+                                        201 =&gt; 655360.0,
+                                        202 =&gt; 786432.0,
+                                        203 =&gt; 917504.0,
+                                        204 =&gt; 1048576.0,
+                                        205 =&gt; 1310720.0,
+                                        206 =&gt; 1572864.0,
+                                        207 =&gt; 1835008.0,
+                                        208 =&gt; 2097152.0,
+                                        209 =&gt; 2621440.0,
+                                        210 =&gt; 3145728.0,
+                                        211 =&gt; 3670016.0,
+                                        212 =&gt; 4194304.0,
+                                        213 =&gt; 5242880.0,
+                                        214 =&gt; 6291456.0,
+                                        215 =&gt; 7340032.0,
+                                        216 =&gt; 8388608.0,
+                                        217 =&gt; 1.048576E7,
+                                        218 =&gt; 1.2582912E7,
+                                        219 =&gt; 1.4680064E7,
+                                        220 =&gt; 1.6777216E7,
+                                        221 =&gt; 2.097152E7,
+                                        222 =&gt; 2.5165824E7,
+                                        223 =&gt; 2.9360128E7,
+                                        224 =&gt; 3.3554432E7,
+                                        225 =&gt; 4.194304E7,
+                                        226 =&gt; 5.0331648E7,
+                                        227 =&gt; 5.8720256E7,
+                                        228 =&gt; 6.7108864E7,
+                                        229 =&gt; 8.388608E7,
+                                        230 =&gt; 1.00663296E8,
+                                        231 =&gt; 1.17440512E8,
+                                        232 =&gt; 1.34217728E8,
+                                        233 =&gt; 1.6777216E8,
+                                        234 =&gt; 2.01326592E8,
+                                        235 =&gt; 2.34881024E8,
+                                        236 =&gt; 2.68435456E8,
+                                        237 =&gt; 3.3554432E8,
+                                        238 =&gt; 4.02653184E8,
+                                        239 =&gt; 4.69762048E8,
+                                        240 =&gt; 5.3687091E8,
+                                        241 =&gt; 6.7108864E8,
+                                        242 =&gt; 8.0530637E8,
+                                        243 =&gt; 9.395241E8,
+                                        244 =&gt; 1.07374182E9,
+                                        245 =&gt; 1.34217728E9,
+                                        246 =&gt; 1.61061274E9,
+                                        247 =&gt; 1.87904819E9,
+                                        248 =&gt; 2.14748365E9,
+                                        249 =&gt; 2.68435456E9,
+                                        250 =&gt; 3.22122547E9,
+                                        251 =&gt; 3.75809638E9,
+                                        252 =&gt; 4.2949673E9,
+                                        253 =&gt; 5.3687091E9,
+                                        254 =&gt; 6.4424509E9,
+                                        255 =&gt; 7.5161928E9 )</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Search_Lucene_Search_Similarity::_floatToByte()" class="anchor"></a><div class="method private">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">_floatToByte</span><span class="nb-faded-text">(
+           $f
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Float to byte conversion</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$f</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::coord()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">coord</span><span class="nb-faded-text">(
+          integer $overlap, integer $maxOverlap
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes a score factor based on the fraction of all query terms that a
+document contains.  This value is multiplied into scores.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The presence of a large portion of the query terms indicates a better
+match with the query, so implemenations of this method usually return
+larger values when the ratio between these parameters is large and smaller
+values when the ratio between them is small.</p>
+
+<p>overlap - the number of query terms matched in the document
+maxOverlap - the total number of terms in the query
+Returns a score factor based on term overlap with the query</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$overlap</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$maxOverlap</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::decodeNorm()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">decodeNorm</span><span class="nb-faded-text">(
+          integer $byte
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Decodes a normalization factor stored in an index.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$byte</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::encodeNorm()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">encodeNorm</span><span class="nb-faded-text">(
+          float $f
+          )
+        </span>
+        :
+          integer</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Encodes a normalization factor for storage in an index.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>The encoding uses a five-bit exponent and three-bit mantissa, thus
+representing values from around 7x10^9 to 2x10^-9 with about one
+significant decimal digit of accuracy.  Zero is also represented.
+Negative numbers are rounded up to zero.  Values too large to represent
+are rounded down to the largest representable value.  Positive values too
+small to represent are rounded up to the smallest positive representable
+value.</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$f</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>integer</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::getDefault()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDefault</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Search_Lucene_Search_Similarity.html#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a></code><div class="description">
+<span class="attribute">static</span><p class="short_description">Return the default Similarity implementation used by indexing and search
+code.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Search_Similarity.html#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::idf()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">idf</span><span class="nb-faded-text">(
+          mixed $input, <a href="db_Zend_Search_Lucene_Interface.html#%5CZend_Search_Lucene_Interface">\Zend_Search_Lucene_Interface</a> $reader
+          )
+        </span>
+        :
+          \a</code><div class="description"><p class="short_description">Computes a score factor for a simple term or a phrase.</p></div>
+<div class="code-tabs">
+<div class="long-description"><p>The default implementation is:
+  return idfFreq(searcher.docFreq(term), searcher.maxDoc());</p>
+
+<p>input - the term in question or array of terms
+reader - reader the document collection being searched
+Returns a score factor for the term</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$input</th>
+<td>mixed</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$reader</th>
+<td><a href="db_Zend_Search_Lucene_Interface.html#%5CZend_Search_Lucene_Interface">\Zend_Search_Lucene_Interface</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>\a</td>
+<td>score factor for the term</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::idfFreq()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">idfFreq</span><span class="nb-faded-text">(
+          integer $docFreq, integer $numDocs
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes a score factor based on a term's document frequency (the number
+of documents which contain the term).  This value is multiplied by the
+tf(int) factor for each term in the query and these products are
+then summed to form the initial score for a document.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Terms that occur in fewer documents are better indicators of topic, so
+implemenations of this method usually return larger values for rare terms,
+and smaller values for common terms.</p>
+
+<p>docFreq - the number of documents which contain the term
+numDocs - the total number of documents in the collection
+Returns a score factor based on the term's document frequency</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$docFreq</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$numDocs</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::lengthNorm()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">lengthNorm</span><span class="nb-faded-text">(
+          string $fieldName, integer $numTokens
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes the normalization value for a field given the total number of
+terms contained in a field.  These values, together with field boosts, are
+stored in an index and multipled into scores for hits on each field by the
+search code.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Matches in longer fields are less precise, so implemenations of this
+method usually return smaller values when 'numTokens' is large,
+and larger values when 'numTokens' is small.</p>
+
+<p>That these values are computed under
+IndexWriter::addDocument(Document) and stored then using
+encodeNorm(float).  Thus they have limited precision, and documents
+must be re-indexed if this method is altered.</p>
+
+<p>fieldName - name of field
+numTokens - the total number of tokens contained in fields named
+            'fieldName' of 'doc'.
+Returns a normalization factor for hits on this field of this document</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$fieldName</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$numTokens</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::queryNorm()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">queryNorm</span><span class="nb-faded-text">(
+          float $sumOfSquaredWeights
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes the normalization value for a query given the sum of the squared
+weights of each of the query terms.  This value is then multipled into the
+weight of each query term.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This does not affect ranking, but rather just attempts to make scores
+from different queries comparable.</p>
+
+<p>sumOfSquaredWeights - the sum of the squares of query term weights
+Returns a normalization factor for query weights</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$sumOfSquaredWeights</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::setDefault()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDefault</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Search_Similarity.html#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a> $similarity
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Set the default Similarity implementation used by indexing and search
+code.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$similarity</th>
+<td><a href="db_Zend_Search_Lucene_Search_Similarity.html#%5CZend_Search_Lucene_Search_Similarity">\Zend_Search_Lucene_Search_Similarity</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::sloppyFreq()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">sloppyFreq</span><span class="nb-faded-text">(
+          integer $distance
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes the amount of a sloppy phrase match, based on an edit distance.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>This value is summed for each sloppy phrase match in a document to form
+the frequency that is passed to tf(float).</p>
+
+<p>A phrase match with a small edit distance to a document passage more
+closely matches the document, so implementations of this method usually
+return larger values when the edit distance is small and smaller values
+when it is large.</p>
+
+<p>distance - the edit distance of this sloppy phrase match
+Returns the frequency increment for this match</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$distance</th>
+<td>integer</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Search_Similarity::tf()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">tf</span><span class="nb-faded-text">(
+          float $freq
+          )
+        </span>
+        :
+          float</code><div class="description">
+<span class="attribute">abstract</span><p class="short_description">Computes a score factor based on a term or phrase's frequency in a
+document.  This value is multiplied by the idf(Term, Searcher)
+factor for each term in the query and these products are then summed to
+form the initial score for a document.</p>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Terms and phrases repeated in a document indicate the topic of the
+document, so implementations of this method usually return larger values
+when 'freq' is large, and smaller values when 'freq'
+is small.</p>
+
+<p>freq - the frequency of a term within a document
+Returns a score factor based on a term's within-document frequency</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$freq</th>
+<td>float</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>float</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>

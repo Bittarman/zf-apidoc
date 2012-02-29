@@ -1,0 +1,610 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zend Framework</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" class="content">
+<div class="sub-page-main-header-api-documentation"><h2>API Documentation</h2></div>
+<div class="dotted-line"></div>
+</div>
+<div xmlns="" id="content">
+<script xmlns:dbx="http://docblox-project.org/xsl/functions">
+
+      function filterElements()
+      {
+        inherited = !$('#show-inherited').hasClass('deselected');
+        public    = !$('#show-public').hasClass('deselected');
+        protected = !$('#show-protected').hasClass('deselected');
+        private   = !$('#show-private').hasClass('deselected');
+
+        $('div.public').each(function(index, val) {
+            $(val).toggle(public && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.protected').each(function(index, val) {
+            $(val).toggle(protected && !($(val).hasClass('inherited_from') && !inherited));
+        });
+        $('div.private').each(function(index, val) {
+            $(val).toggle(private && !($(val).hasClass('inherited_from') && !inherited));
+        });
+      }
+
+      $(document).ready(function() {
+        $('a.gripper').click(function() {
+            $(this).nextAll('div.code-tabs').slideToggle();
+            $(this).children('img').toggle();
+            return false;
+        });
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').css('cursor', 'pointer');
+
+        $('div.method code span.highlight,div.function code span.highlight,div.constant code span.highlight,div.property code span.highlight').click(function() {
+            $(this).parent().nextAll('div.code-tabs').slideToggle();
+            $(this).parent().prevAll('a.gripper').children('img').toggle();
+            return false;
+        });
+
+        $('div.code-tabs').hide();
+        $('a.gripper').show();
+        $('div.code-tabs:empty').prevAll('a.gripper').html('');
+
+        $('#show-public, #show-protected, #show-private, #show-inherited')
+            .css('cursor', 'pointer')
+            .click(function(){
+                $(this).toggleClass('deselected');
+                if ($(this).hasClass('deselected')) {
+                  $(this).fadeTo('fast', '0.4');
+                } else {
+                  $(this).fadeTo('fast', '1.0');
+                }
+                filterElements();
+                return false;
+            });
+        $('#show-protected, #show-private').click();
+
+        // add the sliding behaviour to the file navigation and show it
+        // it is initially hidden for non-JS users.
+        $("#file-nav-box").show().hover(function() {
+            $("#file-nav-container").slideDown(400);
+        }, function() {
+            $("#file-nav-container").slideUp(400);
+        });
+      });
+
+      
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">Zend/Search/Lucene/Analysis/Analyzer/Common/Utf8Num/CaseInsensitive.php</h1>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
+<div id="file-nav-options">
+              Show:
+              <img src="images/icons/visibility_public.png" id="show-public"><img src="images/icons/visibility_protected.png" id="show-protected"><img src="images/icons/visibility_private.png" id="show-private"><span class="attribute" id="show-inherited">inherited</span>
+</div>
+<div id="file-nav-container">
+<ul id="file-nav"><li>
+<a href="#classes"><img src="images/icons/class.png" height="14">
+                          Classes
+                      </a><ul><li><a href="#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive</a></li></ul>
+</li></ul>
+<div style="clear: left;"></div>
+</div>
+<div id="file-nav-tab">
+              Table of Contents
+          </div>
+</div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">Zend Framework</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"><p>LICENSE</p>
+
+<p>This source file is subject to the new BSD license that is bundled
+with this package in the file LICENSE.txt.
+It is also available through the world-wide-web at this URL:
+http://framework.zend.com/license/new-bsd
+If you did not receive a copy of the license and are unable to
+obtain it through the world-wide-web, please send an email
+to license@zend.com so we can send you a copy immediately.</p></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Category</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">License</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Zend_Search_Lucene
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Subpackage</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">Analysis
+         
+    </dd>
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Version</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">$Id: CaseInsensitive.php 23775 2011-03-01 17:25:24Z ralph $
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
+<small class="package"><b>Package: </b>Zend\Search\Lucene\Analysis</small><p class="short-description">Common implementation of the Zend_Search_Lucene_Analysis_Analyzer interface.</p>
+<div class="long-description"><p>There are several standard standard subclasses provided by Zend_Search_Lucene/Analysis
+subpackage: Zend_Search_Lucene_Analysis_Analyzer_Common_Text, ZSearchHTMLAnalyzer, ZSearchXMLAnalyzer.</p></div>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num</a>
+            &lt;
+            <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common" style="color: gray; font-size: 0.8em
+                ">\Zend_Search_Lucene_Analysis_Analyzer_Common</a>
+            &lt;
+            <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer" style="color: gray; font-size: 0.8em
+                ">\Zend_Search_Lucene_Analysis_Analyzer</a>
+</dd>
+<dt>Category</dt>
+<dd>Zend
+         
+    </dd>
+<dt>Copyright</dt>
+<dd>Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+         
+    </dd>
+<dt>License</dt>
+<dd>
+<a href="http://framework.zend.com/license/new-bsd">New BSD License</a>
+         
+    </dd>
+</dl>
+<h3>Properties</h3>
+<div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_bytePosition" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">integer
+                 <span class="highlight">$_bytePosition</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current binary position in an UTF-8 stream</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_bytePosition">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_bytePosition</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_bytePosition">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_bytePosition</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_defaultImpl" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">\Zend_Search_Lucene_Analysis_Analyzer
+                 <span class="highlight">$_defaultImpl</span>= ''
+                </code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short-description">The Analyzer implementation used by default.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer::$$_defaultImpl</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_defaultImpl</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_defaultImpl</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd><a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer">\Zend_Search_Lucene_Analysis_Analyzer</a></dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer::$$_defaultImpl</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_defaultImpl</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_defaultImpl">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_defaultImpl</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_encoding" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_encoding</span>= ''''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Input string encoding</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer::$$_encoding</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_encoding</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_encoding</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>''</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer::$$_encoding</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_encoding</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_encoding">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_encoding</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_filters" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">array
+                 <span class="highlight">$_filters</span>= 'array()'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">The set of Token filters applied to the Token stream.</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_filters">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_filters</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_filters">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_filters</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Array of Zend_Search_Lucene_Analysis_TokenFilter objects.</p></div>
+<strong>Default value</strong><code>array()</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>array</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_filters">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_filters</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_filters">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_filters</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_input" class="anchor"></a><div class="property protected inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected">string
+                 <span class="highlight">$_input</span>= 'null'
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Input string</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer::$$_input</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_input</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_input</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Default value</strong><code>null</code><strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>string</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer::$$_input</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer_Common::$$_input</a>
+         
+    </dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_input">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_input</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::$_position" class="anchor"></a><div class="property private inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private">integer
+                 <span class="highlight">$_position</span>= ''
+                </code><div class="description">
+<span class="attribute">inherited</span><p class="short-description">Current char position in an UTF-8 stream</p><small>Inherited from:
+                        <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_position">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_position</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Details</strong><dl class="property-info">
+<dt>Type</dt>
+<dd>integer</dd>
+<dt>Inherited_from</dt>
+<dd>
+<a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::%24%24_position">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::$$_position</a>
+         
+    </dd>
+</dl>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description"><p class="short_description">Object constructor</p></div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Throws</strong><table class="argument-info">
+<thead><tr>
+<th>Exception</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Exception.html#%5CZend_Search_Lucene_Exception">\Zend_Search_Lucene_Exception</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::addFilter()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">addFilter</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Analysis_TokenFilter.html#%5CZend_Search_Lucene_Analysis_TokenFilter">\Zend_Search_Lucene_Analysis_TokenFilter</a> $filter
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Add Token filter to the Analyzer</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::addFilter()">\Zend_Search_Lucene_Analysis_Analyzer_Common::addFilter()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::addFilter()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::addFilter()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$filter</th>
+<td><a href="db_Zend_Search_Lucene_Analysis_TokenFilter.html#%5CZend_Search_Lucene_Analysis_TokenFilter">\Zend_Search_Lucene_Analysis_TokenFilter</a></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::getDefault()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">getDefault</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer">\Zend_Search_Lucene_Analysis_Analyzer</a></code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Return the default Analyzer implementation used by indexing code.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::getDefault()">\Zend_Search_Lucene_Analysis_Analyzer::getDefault()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::getDefault()">\Zend_Search_Lucene_Analysis_Analyzer_Common::getDefault()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::getDefault()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::getDefault()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer">\Zend_Search_Lucene_Analysis_Analyzer</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::nextToken()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">nextToken</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          <a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a> | null</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Tokenization stream API
+Get next token
+Returns null at the end of stream</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::nextToken()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::nextToken()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Tokens are returned in UTF-8 (internal Zend_Search_Lucene encoding)</p></div>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>
+<a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a> | null</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::normalize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">normalize</span><span class="nb-faded-text">(
+          <a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a> $token
+          )
+        </span>
+        :
+          <a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a></code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Apply filters to the token. Can return null when the token was removed.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::normalize()">\Zend_Search_Lucene_Analysis_Analyzer_Common::normalize()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::normalize()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::normalize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$token</th>
+<td><a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td><a href="db_Zend_Search_Lucene_Analysis_Token.html#%5CZend_Search_Lucene_Analysis_Token">\Zend_Search_Lucene_Analysis_Token</a></td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::reset()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">reset</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Reset token stream</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::reset()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::reset()</a></small>
+</div>
+<div class="code-tabs"><div class="long-description"></div></div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::setDefault()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setDefault</span><span class="nb-faded-text">(
+           $analyzer
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">static</span><span class="attribute">inherited</span><p class="short_description">Set the default Analyzer implementation used by indexing code.</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::setDefault()">\Zend_Search_Lucene_Analysis_Analyzer::setDefault()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::setDefault()">\Zend_Search_Lucene_Analysis_Analyzer_Common::setDefault()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::setDefault()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::setDefault()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$analyzer</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::setInput()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">setInput</span><span class="nb-faded-text">(
+          string $data,  $encoding
+              =
+              ''
+          )
+        </span>
+        :
+          void</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Tokenization stream API
+Set input</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::setInput()">\Zend_Search_Lucene_Analysis_Analyzer::setInput()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::setInput()">\Zend_Search_Lucene_Analysis_Analyzer_Common::setInput()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::setInput()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::setInput()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$encoding</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive::tokenize()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">tokenize</span><span class="nb-faded-text">(
+          string $data,  $encoding
+              =
+              ''
+          )
+        </span>
+        :
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Tokenize text to a terms
+Returns array of Zend_Search_Lucene_Analysis_Token objects</p>
+<small>Inherited from:
+                    <a href="db_Zend_Search_Lucene_Analysis_Analyzer.html#%5CZend_Search_Lucene_Analysis_Analyzer::tokenize()">\Zend_Search_Lucene_Analysis_Analyzer::tokenize()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common::tokenize()">\Zend_Search_Lucene_Analysis_Analyzer_Common::tokenize()</a><a href="db_Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num.html#%5CZend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::tokenize()">\Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num::tokenize()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"><p>Tokens are returned in UTF-8 (internal Zend_Search_Lucene encoding)</p></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$data</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$encoding</th>
+<td></td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.18.1</a>.
+    </small></body></html>
